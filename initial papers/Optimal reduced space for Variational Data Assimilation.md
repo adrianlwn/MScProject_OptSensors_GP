@@ -51,7 +51,6 @@ Difficulties ?
 - Choice of the regularisation parameter impacts on the efficiency of the VarDA minimisation computed by the L-BFGS (Limited – Broyden Fletcher Goldfarb Shanno).
 
 
-
 ## Limitations
 - Depends on the choice of parameters ?
 
