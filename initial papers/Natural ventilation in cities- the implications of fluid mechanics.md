@@ -1,11 +1,8 @@
 # Natural ventilation in cities: the implications of fluid mechanics
 Jiyun Song, S. Fan, W. Lin, L. Mottet, H. Woodward, M. Davies Wykes, R. Arcucci, D. Xiao, J.-E. Debay, H. ApSimon, E. Aristodemou, D. Birch, M. Carpentieri, F. Fang, M. Herzog, G. R. Hunt, R. L. Jones, C. Pain, D. Pavlidis, A. G. Robins, C. A. Short & P. F. Linden
-## Todo List :
 
-## Innovations
-
-## Questions
-
+## Innovations :
+Description of the MAGIC project. Precise explanation of the objectives, the means and the experimental setup used.
 
 ## Abstract Analysis
 
@@ -15,19 +12,26 @@ Research under the **Managing Air for Green Inner Cities** (MAGIC) project uses 
 ### Key Ideas of Abstract
 What ?
 - Project **Managing Air for Green Inner Cities** (MAGIC)
+
 What for ?
 - measurements and modelling to investigate the connections between **external** and **internal** conditions: impact of **urban airflow** on the natural ventilation of a building.
-- Test Site : chosen so that the levels of external polluants can enter from polluted road or clean courtyard => significant difference.
-- Measurements :
+
+Test Site : chosen so that the levels of external polluants can enter from polluted road or clean courtyard =\> significant difference.
+
+Measurements :
   - temperature,
   - relative humidity,
   - local wind,
   - solar radiation,
   - levels of carbon monoxide (CO),
   - carbon dioxide (CO2)
-- Measurement location :
+
+Measurement location :
   - inside and outside the building to assess the indoor–outdoor exchange flows
 
+Modeling :
+- Wind tunnel : external flow around the test site was modelled in an urban boundary layer
+- Simulation : incorporation of large- eddy-simulation model, Fluidity, and the results compared with monitoring data taken both within the building and from the surrounding area. In particular, the effects of street layout and associated street canyons, of roof geometry and the wakes of nearby tall buildings were examined.
 
 
 ## Limitations

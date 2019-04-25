@@ -32,7 +32,7 @@ What for ?
 Problem ?
 - Scale of forecasting area
 - Number of States to describe physical model
-- => Big Data Problem
+- =\> Big Data Problem
 
 Solution ?
 - Truncated Singular Value Decomposition (TSVD) :
@@ -53,6 +53,3 @@ Difficulties ?
 
 ## Limitations
 - Depends on the choice of parameters ?
-
-## References
-*Insert*
