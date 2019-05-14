@@ -12,5 +12,7 @@
 \BOOKMARK [3][-]{subsubsection.2.4.2}{DA in the MAGIC Project}{subsection.2.4}% 12
 \BOOKMARK [1][-]{section.3}{Progress Report}{}% 13
 \BOOKMARK [2][-]{subsection.3.1}{Learning the GP}{section.3}% 14
-\BOOKMARK [2][-]{subsection.3.2}{Optimisation of Sensors Locations}{section.3}% 15
-\BOOKMARK [2][-]{subsection.3.3}{Validat}{section.3}% 16
+\BOOKMARK [3][-]{subsubsection.3.1.1}{Data Points }{subsection.3.1}% 15
+\BOOKMARK [3][-]{subsubsection.3.1.2}{Covariance Matrix}{subsection.3.1}% 16
+\BOOKMARK [2][-]{subsection.3.2}{Optimisation of Sensors Locations}{section.3}% 17
+\BOOKMARK [2][-]{subsection.3.3}{Validation}{section.3}% 18
