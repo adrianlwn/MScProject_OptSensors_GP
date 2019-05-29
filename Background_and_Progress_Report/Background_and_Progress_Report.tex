@@ -31,7 +31,7 @@
 \usepackage{color}
 \usepackage{datetime}
 \usepackage{url}
-\usepackage[numbers]{natbib}
+\usepackage[]{natbib}
 \usepackage{epstopdf}
 \usepackage{subfig}
 
@@ -106,11 +106,38 @@ London South Bank University (LSBU) air pollution data (velocity, tracer)
 
 \subsection{The MAGIC Project}
 
-\subsection{Modelling Spacial Data with Gaussian Process}
+This work is done in the context of the Managing Air for Green Inner Cities (MAGIC) project. 
 
-\subsubsection{ ... }
+What is the MAGIC Project about. 
+
+The objective of the Managing Air for Green Inner Cities (MAGIC) project is to break this vicious cycle by developing an advanced computational system that can be used to predict the airflow and air quality in a city in order to optimize the use of natural ventilation in build- ings, thereby reducing energy demand and GHG emis- sion
+
+ a fully resolved air-quality model that simulates the air flow and pollutant and temperature distributions in complex city geometries, fully coupled to obser- vations, naturally ventilated buildings, and green and blue spaces;
+. fast-running models that allow rapid calculations for real-time analysis and emergency response; and
+. a cost–benefit model to assess the economic, social and environmental viability of planning options and decisions.
+\cite{song_natural_2018}
+
+
+What is the focus of my project inside its perimeter. 
+
+A further use of these methods is to optimize the placement and type of sensors in the local environment. 
+
+\cite{song_natural_2018}, 
+
+
+\subsection{Modelling Spatial Data with Gaussian Process}
+
+We are interested in the optimisation of the sensor positions in the context of DA. We are going to explore the solutions proposed by several research papers. 
+
+It's an old problem ... (find some old reference).   
+
+\subsubsection{Sensor Position Optimisation}
 
 \subsubsection{Estimating the Covariance Function}
+In the paper of \citep*{krause_near-optimal_2008} an important part is dedicated to the computation of the covariance matrix between the samples. This is due to the fact experimental setup that is presented has a very sparse network of sensors, and the covariance matrix needs to be defined for points where there are no measurements. In our case, the density of measurement at our disposition enables us to have consider only the empirical covariance in the gaussian process. 
+The empirical covariance is then very simply computed over a part of the time series available. The formulation of the empirical mean an the time series is found in ... . 
+The problem that is then encountered is the scalability of the computation of a covariance matrix for 
+
 
 \subsection{Optimising the Sensors Locations}
 
@@ -125,7 +152,7 @@ London South Bank University (LSBU) air pollution data (velocity, tracer)
 \section{Progress Report}
 
 \subsection{Learning the GP}
-\subsubsection{Data Points }
+\subsubsection{Data Points}
 In our case we have data available from the simulation and from the 
 
 \subsubsection{Covariance Matrix}
@@ -139,6 +166,11 @@ In our case we have data available from the simulation and from the
 	\item Estimate the performance at the current Locations
 	\item Propose new placements 
 \end{itemize}
+
+\pagebreak
+\bibliographystyle{IEEEtranN}
+\bibliography{bibliography.bib}
+
 
 
 \end{document}
