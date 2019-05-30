@@ -3,6 +3,7 @@ import sys
 import os
 from os.path import join
 import pandas as pd
+import time
 
 
 import tqdm
@@ -18,6 +19,7 @@ sys.path.append('../fluidity-master/python/')
 import vtktools
 
 data_path = "../data/small3DLSBU/"
+saving_path = "../Dropbox/MScProject/"
 
 
 def load_data(ts_0,ts_end, crop=None,):
@@ -43,15 +45,56 @@ def load_data(ts_0,ts_end, crop=None,):
             print('Can\'t open the file \'' + str(join(data_path,'LSBU_'+ str(ts)+'.vtu'))+ '\'')
             
     print('Number of Locations : ' ,data_dict[ts_0].GetLocations().shape[0])
-
-    crop_data(data_dict,
-              min_x= crop[0][0], max_x= crop[0][1],
-              min_y= crop[1][0], max_y= crop[1][1],
-              min_z= crop[2][0], max_z=crop[2][1])
     
-    print('Number of Locations after croping : ' ,data_dict[ts_0].GetLocations().shape[0])
+    if crop != None :
+        crop_data(data_dict,
+                  min_x= crop[0][0], max_x= crop[0][1],
+                  min_y= crop[1][0], max_y= crop[1][1],
+                  min_z= crop[2][0], max_z=crop[2][1])
+    
+        print('Number of Locations after croping : ' ,data_dict[ts_0].GetLocations().shape[0])
     
     return data_dict, location_df(data_dict), time_vec(data_dict)
+
+
+def save_data(data_dict, field_name, field_data):
+    """ Function that saves all the fields specified in the list
+        Input : 
+        --- data_dict : dictionary indexed by time stamp of all the loaded VTK files (all fields)
+        --- field_name : string or list of strings of the field names
+        --- field_data : np.array of the fields to save - shape : (n_locations, n_fields)
+        
+    """
+    
+    if type(field_name) is str :
+        field_name = [field_name]
+    
+    # Load the first element of data_dict
+    temp_vtk = data_dict[list(data_dict.keys())[0]]
+    
+    # Copy this vtk file to the saving location
+    
+    timestr = time.strftime("%Y:%m:%d-%H:%M:%S")
+    file_name = '_'.join(['LSBU_res',timestr,'_'.join(field_name)])
+    file_path = join(saving_path,file_name)
+    temp_vtk.Write(file_path)
+    
+    # Load the copy of the file
+    temp_vtk = vtktools.vtu(file_path)
+    print(temp_vtk.filename)
+    
+    # Add new fields 
+    for i, name in field_name : 
+        
+        vtktools.vtu.AddField(name,field_data[:,i])
+        
+    # Write those fields int the file : 
+    temp_vtk.Write(file_path)
+    
+    
+    
+    
+    
 
 def crop_data(data_dict,min_x= -50, max_x= 50, min_y= -50, max_y= 50, min_z=0, max_z=50):
     ''' Crops the space of the positions for each timestamp '''
@@ -129,9 +172,9 @@ def find_nearest_point(location_df, point = [0.0, 0.0, 0.0]):
         --- n_point : coordinates of the point
         
     """
-    location_df['dist'] = location_df.apply(lambda x : np.linalg.norm([x['X'],x['Y'],x['Z']] - point), axis=1);
-    i_point = location_df['dist'].idxmin()
-    n_point = data_df.loc[i_point,:].values
+    dist_df = location_df.apply(lambda x : np.linalg.norm([x['X'],x['Y'],x['Z']] - point), axis=1);
+    i_point = dist_df.idxmin()
+    n_point = location_df.loc[i_point,:].values
     return i_point, n_point
 
 def idx_slice(location_df, direction='Z', s_min = 0.0, s_max = 1.0):
@@ -168,4 +211,5 @@ def idx_all_slices(location_df, direction='Z', w_slice= 1.0):
     index_slices_dict = location_df[[direction]].apply(lambda x : bins[np.digitize(x, bins, right=False)]).groupby(direction).apply(lambda x: x.index.tolist()).to_dict()
     
     return index_slices_dict
+
 
