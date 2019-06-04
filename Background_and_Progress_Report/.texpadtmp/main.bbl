@@ -1,0 +1,30 @@
+\begin{thebibliography}{}
+
+\bibitem[\protect\astroncite{Arcucci et~al.}{2018}]{arcucci_effective_2018}
+Arcucci, R., Pain, C., and Guo, Y.-K. (2018).
+\newblock Effective variational data assimilation in air-pollution prediction.
+\newblock {\em Big Data Mining and Analytics}, 1(4):297--307.
+
+\bibitem[\protect\astroncite{Cressie}{1991}]{cressie_statistics_1991}
+Cressie, N. A.~C. (1991).
+\newblock {\em Statistics for spatial data}.
+\newblock Wiley series in probability and mathematical statistics. Wiley, New
+  York.
+
+\bibitem[\protect\astroncite{Rasmussen and
+  Williams}{2006}]{rasmussen_gaussian_2006}
+Rasmussen, C.~E. and Williams, C. K.~I. (2006).
+\newblock {\em Gaussian processes for machine learning}.
+\newblock Adaptive computation and machine learning. MIT Press, Cambridge,
+  Mass.
+\newblock OCLC: ocm61285753.
+
+\bibitem[\protect\astroncite{Song et~al.}{2018}]{song_natural_2018}
+Song, J., Fan, S., Lin, W., Mottet, L., Woodward, H., Davies~Wykes, M.,
+  Arcucci, R., Xiao, D., Debay, J.-E., ApSimon, H., Aristodemou, E., Birch, D.,
+  Carpentieri, M., Fang, F., Herzog, M., Hunt, G.~R., Jones, R.~L., Pain, C.,
+  Pavlidis, D., Robins, A.~G., Short, C.~A., and Linden, P.~F. (2018).
+\newblock Natural ventilation in cities: the implications of fluid mechanics.
+\newblock {\em Building Research \& Information}, 46(8):809--828.
+
+\end{thebibliography}

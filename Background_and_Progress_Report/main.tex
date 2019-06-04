@@ -1,0 +1,152 @@
+\documentclass[12pt,twoside]{report}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Definitions for the title page
+% Edit these to provide the correct information
+% e.g. \newcommand{\reportauthor}{Timothy Kimber}
+
+\newcommand{\reporttitle}{ Gaussian Processes for \\ Optimal Sensor Position \\[0.5cm] { \Large  Background \& Progress Report}}
+\newcommand{\reportauthor}{Adrian \textsc{Löwenstein} \\ \phantom{blank author} }
+\newcommand{\supervisor}{Rossella \textsc{Arcucci} \\ Miguel \textsc{Molina-Solana}}
+
+\newcommand{\degreetype}{Computing (Machine Learning)}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% load some definitions and default packages
+\input{includes}
+
+% load some macros
+\input{notation}
+
+\date{June 2019}
+
+\begin{document}
+
+% load title page
+\input{titlepage}
+
+
+% page numbering etc.
+\pagenumbering{roman}
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\setcounter{page}{1}
+\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\begin{abstract}
+%Your abstract.
+%\end{abstract}
+
+\cleardoublepage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\section*{Acknowledgments}
+%Comment this out if not needed.
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%--- table of contents
+\fancyhead[RE,LO]{\sffamily {Table of Contents}}
+\tableofcontents 
+
+
+\clearpage{\pagestyle{empty}\cleardoublepage}
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\fancyhead[LE,RO]{\slshape \rightmark}
+\fancyhead[LO,RE]{\slshape \leftmark}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Introduction}
+
+\section{Summary}
+Gaussian processes (GP) have been widely used since the 1970’s in the fields of geostatistics and meteorology. Current applications are in diverse fields including sensor placement
+In this project, we propose the employment of a GP model to calculate the optimal spatial positioning of sensors to study and collect air pollution data in big cities. We will then validate the results by means of a data assimilation software with the data at the proposed positions.
+
+\section{Data}
+London South Bank University (LSBU) air pollution data (velocity, tracer)
+
+ 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Background}
+
+In this chapter we will cover the literature and the theory that will be used throughout the project. First we will review the context of the project and how it fits into the \textbf{MAGIC} project. Then our focus goes to the definition of \textbf{Gaussian Processes} (GP) and how they are used in the context of geospatial data. Furthermore, the use of GP relies heavily on \textbf{Covariance} matrixes which needs to be estimated. Those tools enable us to create \textbf{optimisation} algorithms for the position of sensors. Finally we will quickly explore the concepts of \textbf{Data Assimilation} (DA) that will be used to validate the results of the optimisation. 
+
+\section{The MAGIC Project}
+
+This work is done in the context of the \textbf{Managing Air for Green Inner Cities} project. This is a multidisciplinary project and has for objective to find solutions to the pollution and heating phenomenons in cities. Traditionally, urban environmental control relies on polluting and energy consuming heating, ventilation and cooling (HVAC) systems. The usage of the systems increases the heat and the pollution levels, inducing an increased need for the HVAC. The MAGIC project aims at breaking this vicious circle and has for objective to provide tools to make possible the design of cities acting as a natural HVAC system. \\
+
+
+This has been extensively discussed by  \cite{song_natural_2018}.  For this purpose, integrated management and decision-support system is under development. It includes a variety of simulations for pollutants and temperature at different scales; a set of mathematical tools to allow fast computation in the context of real-time analysis; and cost-benefit models to asses the viability of the planning options and decisions. \\
+
+As explained by \cite{song_natural_2018}, the test site which has been selected to conduct the study is a real urban area located in London South Bank University (LSBU) in  Elephant and Castle, London. In order to investigate the effect of ventilation on the cities problem, researchers in the MAGIC project have created simulations and experiments both in outdoor and indoor conditions, on the test site. They used wind tunnel experiments and computational fluid dynamics (CFD) to simulate the outdoor environment. Further works include the development of reduced-order modelling (ROM) in order to make faster the simulations while keeping a high level of accuracy \citep{arcucci_effective_2018}. \\
+
+Another key research direction in the use Data Assimilation (DA) and more specifically Variational DA (VarDA) for assimilating measured data in real time and allowing better prediction of the model in the near future \citep{arcucci_effective_2018}. The further use of those method would be the optimisation of the position of the sensors which provide information for the VarDA.
+
+\section{Data Assimilation}
+\subsection{Definitions}
+
+\subsection{DA in the MAGIC Project}
+
+\section{Gaussian Process and Sensor Optimisation}
+
+\subsection{Usage of Gaussian Processes}
+
+As explained by \cite{rasmussen_gaussian_2006}, the history of Gaussian Processes \cite{rasmussen_gaussian_2006} goes back at least as far as the 1940s. A lot of usages were developped in various fields. For prediction in geostatistics with methods known as kringing, and metheorology for example. For spatial prediction  or. \\
+
+Gradually GP started to be be used in more general cases for regression. Works from ...  present the usage of the GP for one dimensional regression problems. 
+
+
+\subsection{Definitions}
+
+\subsection{Usage in Sensor Optimisation}
+
+
+\subsection{Definitions}
+
+\section{Covariance}
+
+We have seen how GP could be used for the optimisation of the position of sensors. In order to have good results we need to have a good estimate of the kernel function between the points of
+
+\subsection{Stationnary Covariance}
+
+Isotropic kernels
+
+\subsection{Covariance Estimation}
+
+Sample variance = bad estimator in high dimensions
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Progress}
+
+\section{Data Exploration}
+
+\section{Covariance Estimation}
+
+\section{Sensor Optimisation}
+
+
+\cite{cressie_statistics_1991}
+\cite{arcucci_effective_2018}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Further Developements}
+
+
+%% bibliography
+\bibliographystyle{apa}
+\bibliography{bibliography}
+
+\end{document}

@@ -1,0 +1,21 @@
+\BOOKMARK [0][]{chapter.2}{1 Introduction}{}% 1
+\BOOKMARK [1][]{section.3}{1.1 Summary}{chapter.2}% 2
+\BOOKMARK [1][]{section.4}{1.2 Data}{chapter.2}% 3
+\BOOKMARK [0][]{chapter.5}{2 Background}{}% 4
+\BOOKMARK [1][]{section.6}{2.1 The MAGIC Project}{chapter.5}% 5
+\BOOKMARK [1][]{section.7}{2.2 Data Assimilation}{chapter.5}% 6
+\BOOKMARK [2][]{subsection.8}{2.2.1 Definitions}{section.7}% 7
+\BOOKMARK [2][]{subsection.9}{2.2.2 DA in the MAGIC Project}{section.7}% 8
+\BOOKMARK [1][]{section.10}{2.3 Gaussian Process and Sensor Optimisation}{chapter.5}% 9
+\BOOKMARK [2][]{subsection.11}{2.3.1 Usage of Gaussian Processes}{section.10}% 10
+\BOOKMARK [2][]{subsection.12}{2.3.2 Definitions}{section.10}% 11
+\BOOKMARK [2][]{subsection.13}{2.3.3 Usage in Sensor Optimisation}{section.10}% 12
+\BOOKMARK [2][]{subsection.14}{2.3.4 Definitions}{section.10}% 13
+\BOOKMARK [1][]{section.15}{2.4 Covariance}{chapter.5}% 14
+\BOOKMARK [2][]{subsection.16}{2.4.1 Stationnary Covariance}{section.15}% 15
+\BOOKMARK [2][]{subsection.17}{2.4.2 Covariance Estimation}{section.15}% 16
+\BOOKMARK [0][]{chapter.18}{3 Progress}{}% 17
+\BOOKMARK [1][]{section.19}{3.1 Data Exploration}{chapter.18}% 18
+\BOOKMARK [1][]{section.20}{3.2 Covariance Estimation}{chapter.18}% 19
+\BOOKMARK [1][]{section.21}{3.3 Sensor Optimisation}{chapter.18}% 20
+\BOOKMARK [0][]{chapter.22}{4 Further Developements}{}% 21
