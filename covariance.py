@@ -11,7 +11,7 @@ import heapq
 
 temp_path = "../data/temp_data/"
 
-def cov_matrix(X):
+def sample_cov_matrix(X):
     """ Computes the covariance matrix of the input mat
     
     """
@@ -91,3 +91,31 @@ def cov_matrix_p(X, step_size = 1e5, n_processes = 100):
 def mean_matrix(data_mat):
     mean_mat = np.mean(data_mat,axis=1)
     return mean_mat
+
+def exponential_kernel(r, l):
+    """ This function defines the exponential kernal (p.83 of GP Book)
+        Inputs : 
+        --- r : distance between 2 points
+        --- l : lengthscale that parametrize the strength of the covariance
+    """
+    return np.exp(- r**2/(2*l**2))
+
+def matern32_kernel(r, l):
+    """ This function defines the matern 3/2 kernal (p.83 of GP Book)
+        Inputs : 
+        --- r : distance between 2 points
+        --- l : lengthscale that parametrize the strength of the covariance
+    """
+    
+    return (1 + np.sqrt(3)*r/l) * np.exp(- np.sqrt(3)*r/l)
+
+def matern52_kernel(r, l):
+    """ This function defines the matern 5/2 kernal (p.85 of GP Book)
+        Inputs : 
+        --- r : distance between 2 points
+        --- l : lengthscale that parametrize the strength of the covariance
+    """
+    
+    return (1 + np.sqrt(5)*r/l + 5*r**2/(3*l**2) ) * np.exp(- np.sqrt(5)*r/l)
+
+
