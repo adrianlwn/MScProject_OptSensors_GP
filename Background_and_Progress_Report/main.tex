@@ -86,30 +86,79 @@ As explained by \cite{song_natural_2018}, the test site which has been selected 
 
 Another key research direction in the use Data Assimilation (DA) and more specifically Variational DA (VarDA) for assimilating measured data in real time and allowing better prediction of the model in the near future \citep{arcucci_effective_2018}. The further use of those method would be the optimisation of the position of the sensors which provide information for the VarDA.
 
-\section{Data Assimilation}
-\subsection{Definitions}
-
-\subsection{DA in the MAGIC Project}
 
 \section{Gaussian Process and Sensor Optimisation}
 
-\subsection{Usage of Gaussian Processes}
+In this chapter we will review Gaussian Processes (GP) which are probabilistic models for spatial predictions based on observations assumption. \\ 
 
-As explained by \cite{rasmussen_gaussian_2006}, the history of Gaussian Processes \cite{rasmussen_gaussian_2006} goes back at least as far as the 1940s. A lot of usages were developped in various fields. For prediction in geostatistics with methods known as kringing, and metheorology for example. For spatial prediction  or. \\
-
-Gradually GP started to be be used in more general cases for regression. Works from ...  present the usage of the GP for one dimensional regression problems. 
+As explained by \citet[p.~29]{rasmussen_gaussian_2006}, the history of Gaussian Processes goes back at least as far as the 1940s. A lot of usages were developed in various fields. Notably for predictions in spatial statistics \citep{cressie_statistics_1991}.  Applied in particular in Geostatistics with methods known as \textit{kringing}, and in Meteorology. Gradually GP started to be be used in more general cases for regression. Nowadays it is used in the context of Machine Learning. \\
 
 
-\subsection{Definitions}
-
-\subsection{Usage in Sensor Optimisation}
+A for sensor optimisation, we will follow the approach that was developed by \citet{krause_near-optimal_2008}. This method relies on GP for finding a near-optimal solution to the problem of placing sensors. 
 
 
-\subsection{Definitions}
+\subsection{Sensor Data Modelling}
 
-\section{Covariance}
+\subsubsection{Multivariate Gaussian Distribution}
 
-We have seen how GP could be used for the optimisation of the position of sensors. In order to have good results we need to have a good estimate of the kernel function between the points of
+GP will serve as a basis tool in our project. In the space we are monitoring we have a certain number of sensors measuring a certain quantity, such as temperature, pressure, speed of the wind or the concentration of a pollutant at a given position. We assume that the measured quantity  has a \textit{multivariate Gaussian joint distribution} between each point of the space. The associated random variable is $\X_\V$ for the set of locations $\V$ we would have the following distribution : $P(\X_\V = \vec{x}_\V) \sim \mathcal{N}(\mu_\V, \Sigma_{\V\V}) $, or explicitly : 
+
+
+\begin{equation}
+	P(\X_\V = \vec{x}_\V) \frac{1}{(2\pi)^{n/2} |\Sigma_{\V\V}|} \exp^{-\frac{1}{2}(\vec{x}_\V - \mu_\V)^T \Sigma_{\V\V}^{-1} (\vec{x}_\V - \mu_\V)}
+\end{equation}
+
+
+\subsubsection{Prediction with Gaussian Processes}
+Let us still consider that we have the set of locations $\V$ and a set of sensors $\A$. In order to predict the quantity at positions were we have no sensors ($\V \backslash \A $) we can use a Gaussian Process. This GP is associated with a \textbf{mean function} $\mathcal{M}(\cdot)$ and a symmetric positive-definite \textbf{kernel function} $\mathcal{K}(\cdot,\cdot)$. We will denote the mean function values for a set of positions $\A$ by $\mu_\A$ and the kernel function values, or covariance matrix, between those points by $\Sigma_\A$. More detailed definitions are available in \citet[p.~13-16]{rasmussen_gaussian_2006}. \\
+
+For a set of observations $\vec{x}_\A$ at positions $\A$ we can express for a finite set of other positions $\V \backslash \A $ the conditional distribution of those values. This means that we are able, for each point $y \in \V \backslash \A $, to predict the mean and the variance of $\vec{x}_y$. Using conditional distribution for the Multivariate Gaussian Distribution \citep[p.~193]{deisenroth_mathematics_2018}, we are able to express the following : 
+\begin{align}
+	P(\X_y | \vec{x}_\A ) &= \mathcal{N}(\mu_{y | \A}, \Sigma_{y | \A}) \\
+	\mu_{y | \A} &= \mu_y + \Sigma_{y\A} \Sigma_{\A\A}^{-1} (y - \mu_y)\\ 
+	\Sigma_{y | \A} &=  \Sigma_{yy} - \Sigma_{y\A} \Sigma_{\A\A}^{-1} \Sigma_{\A y}
+\end{align}
+
+
+An important point to notice is that the predicted covariance for the point y is not dependent of the values measured at $\A$, this is really useful because if allows us to define the uncertainty at $y$ without using actual measurements. \\
+
+For the rest of this section we assume that we have at our disposal a good estimate a of the covariance matrix between each point. In practise this is not that obvious as we will see in section \ref{sec:cov_est}. The following is valid for any covariance matrix that is symmetric and positive-definite. 
+ 
+
+\subsection{Sensor Position Optimisation}
+
+Now that we have modelled the relationship between the positions with and without sensors we can establish an algorithm that was developed by \citet{krause_near-optimal_2008}. The process of placing sensors in an optimal way is called in spatial statistics, \textit{sampling} or \textit{experimental design}. \\ 
+
+We want to place a number of $k$ sensors positions indexed by $\V$
+
+\subsubsection{Placement Criterion}
+
+\paragraph{Entropy Criterion}
+
+
+\paragraph{Mutual Information Criterion}
+
+\subsubsection{Algorithm}
+ 
+
+
+
+\subsubsection{Improvements over the Algorithm}
+
+Address issue of matrix inversion with algorithm from \cite[p.~19]{rasmussen_gaussian_2006}
+
+
+\subsubsection{Near-Optimality of the Algorithm}
+
+
+
+
+
+\section{Covariance Estimation} \label{sec:cov_est}
+
+We have seen how GP could be used for the optimisation of the position of sensors. In order to have good results we need to have a good estimate of the kernel function between the points of our space. 
+
+
 
 \subsection{Stationnary Covariance}
 
@@ -130,6 +179,8 @@ Sample variance = bad estimator in high dimensions
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Progress}
+
+This chapter su
 
 \section{Data Exploration}
 

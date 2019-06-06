@@ -4,19 +4,22 @@
 \contentsline {section}{\numberline {1.2}Data}{1}{section.4}
 \contentsline {chapter}{\numberline {2}Background}{2}{chapter.5}
 \contentsline {section}{\numberline {2.1}The MAGIC Project}{2}{section.6}
-\contentsline {section}{\numberline {2.2}Data Assimilation}{3}{section.7}
-\contentsline {subsection}{\numberline {2.2.1}Definitions}{3}{subsection.8}
-\contentsline {subsection}{\numberline {2.2.2}DA in the MAGIC Project}{3}{subsection.9}
-\contentsline {section}{\numberline {2.3}Gaussian Process and Sensor Optimisation}{3}{section.10}
-\contentsline {subsection}{\numberline {2.3.1}Usage of Gaussian Processes}{3}{subsection.11}
-\contentsline {subsection}{\numberline {2.3.2}Definitions}{3}{subsection.12}
-\contentsline {subsection}{\numberline {2.3.3}Usage in Sensor Optimisation}{3}{subsection.13}
-\contentsline {subsection}{\numberline {2.3.4}Definitions}{3}{subsection.14}
-\contentsline {section}{\numberline {2.4}Covariance}{3}{section.15}
-\contentsline {subsection}{\numberline {2.4.1}Stationnary Covariance}{3}{subsection.16}
-\contentsline {subsection}{\numberline {2.4.2}Covariance Estimation}{4}{subsection.17}
-\contentsline {chapter}{\numberline {3}Progress}{5}{chapter.18}
-\contentsline {section}{\numberline {3.1}Data Exploration}{5}{section.19}
-\contentsline {section}{\numberline {3.2}Covariance Estimation}{5}{section.20}
-\contentsline {section}{\numberline {3.3}Sensor Optimisation}{5}{section.21}
-\contentsline {chapter}{\numberline {4}Further Developements}{6}{chapter.22}
+\contentsline {section}{\numberline {2.2}Gaussian Process and Sensor Optimisation}{3}{section.7}
+\contentsline {subsection}{\numberline {2.2.1}Sensor Data Modelling}{3}{subsection.8}
+\contentsline {subsubsection}{\numberline {2.2.1.1}Multivariate Gaussian Distribution}{3}{subsubsection.9}
+\contentsline {subsubsection}{\numberline {2.2.1.2}Prediction with Gaussian Processes}{3}{subsubsection.11}
+\contentsline {subsection}{\numberline {2.2.2}Sensor Position Optimisation}{4}{subsection.15}
+\contentsline {subsubsection}{\numberline {2.2.2.1}Placement Criterion}{4}{subsubsection.16}
+\contentsline {paragraph}{Entropy Criterion}{4}{paragraph*.17}
+\contentsline {paragraph}{Mutual Information Criterion}{4}{paragraph*.18}
+\contentsline {subsubsection}{\numberline {2.2.2.2}Algorithm}{4}{subsubsection.19}
+\contentsline {subsubsection}{\numberline {2.2.2.3}Improvements over the Algorithm}{4}{subsubsection.20}
+\contentsline {subsubsection}{\numberline {2.2.2.4}Near-Optimality of the Algorithm}{5}{subsubsection.21}
+\contentsline {section}{\numberline {2.3}Covariance Estimation}{5}{section.22}
+\contentsline {subsection}{\numberline {2.3.1}Stationnary Covariance}{5}{subsection.23}
+\contentsline {subsection}{\numberline {2.3.2}Covariance Estimation}{5}{subsection.24}
+\contentsline {chapter}{\numberline {3}Progress}{6}{chapter.25}
+\contentsline {section}{\numberline {3.1}Data Exploration}{6}{section.26}
+\contentsline {section}{\numberline {3.2}Covariance Estimation}{6}{section.27}
+\contentsline {section}{\numberline {3.3}Sensor Optimisation}{6}{section.28}
+\contentsline {chapter}{\numberline {4}Further Developements}{7}{chapter.29}

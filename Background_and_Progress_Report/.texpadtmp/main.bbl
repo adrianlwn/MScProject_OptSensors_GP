@@ -11,6 +11,18 @@ Cressie, N. A.~C. (1991).
 \newblock Wiley series in probability and mathematical statistics. Wiley, New
   York.
 
+\bibitem[\protect\astroncite{Deisenroth
+  et~al.}{2018}]{deisenroth_mathematics_2018}
+Deisenroth, M.~P., Faisal, A., and Ong, C.~S. (2018).
+\newblock Mathematics for {Machine} {Learning}.
+\newblock page~43.
+
+\bibitem[\protect\astroncite{Krause et~al.}{2008}]{krause_near-optimal_2008}
+Krause, A., Singh, A., and Guestrin, C. (2008).
+\newblock Near-{Optimal} {Sensor} {Placements} in {Gaussian} {Processes}:
+  {Theory}, {Efficient} {Algorithms} and {Empirical} {Studies}.
+\newblock page~50.
+
 \bibitem[\protect\astroncite{Rasmussen and
   Williams}{2006}]{rasmussen_gaussian_2006}
 Rasmussen, C.~E. and Williams, C. K.~I. (2006).
