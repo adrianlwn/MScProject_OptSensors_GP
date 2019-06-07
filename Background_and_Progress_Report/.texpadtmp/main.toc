@@ -8,19 +8,21 @@
 \contentsline {subsection}{\numberline {2.2.1}Sensor Data Modelling}{3}{subsection.8}
 \contentsline {subsubsection}{\numberline {2.2.1.1}Multivariate Gaussian Distribution}{3}{subsubsection.9}
 \contentsline {subsubsection}{\numberline {2.2.1.2}Prediction with Gaussian Processes}{3}{subsubsection.11}
-\contentsline {subsection}{\numberline {2.2.2}Covariance Estimation}{4}{subsection.15}
-\contentsline {subsubsection}{\numberline {2.2.2.1}Properties of Covariance}{4}{subsubsection.16}
-\contentsline {subsubsection}{\numberline {2.2.2.2}Covariance Estimation}{4}{subsubsection.17}
-\contentsline {subsubsection}{\numberline {2.2.2.3}Numerical Stability}{5}{subsubsection.18}
-\contentsline {section}{\numberline {2.3}Sensor Position Optimisation}{5}{section.20}
-\contentsline {subsection}{\numberline {2.3.1}Placement Criterion}{5}{subsection.21}
-\contentsline {subsubsection}{\numberline {2.3.1.1}Entropy Criterion}{5}{subsubsection.22}
-\contentsline {subsubsection}{\numberline {2.3.1.2}Mutual Information Criterion}{6}{subsubsection.32}
-\contentsline {subsection}{\numberline {2.3.2}Approximation Algorithm}{6}{subsection.35}
-\contentsline {subsection}{\numberline {2.3.3}Improvements over the Algorithm}{8}{subsection.45}
-\contentsline {subsubsection}{\numberline {2.3.3.1}Lazy Procedure}{8}{subsubsection.46}
-\contentsline {subsubsection}{\numberline {2.3.3.2}Local Kernels}{8}{subsubsection.49}
-\contentsline {chapter}{\numberline {3}Progress}{11}{chapter.57}
-\contentsline {section}{\numberline {3.1}Data Exploration}{11}{section.58}
-\contentsline {section}{\numberline {3.2}Covariance Estimation}{11}{section.59}
-\contentsline {section}{\numberline {3.3}Sensor Optimisation}{11}{section.60}
+\contentsline {subsection}{\numberline {2.2.2}Scalable Gaussian Processes}{4}{subsection.15}
+\contentsline {subsection}{\numberline {2.2.3}Covariance Matrix Estimation}{4}{subsection.16}
+\contentsline {subsubsection}{\numberline {2.2.3.1}Properties of Covariance}{4}{subsubsection.17}
+\contentsline {subsubsection}{\numberline {2.2.3.2}Covariance Estimation}{5}{subsubsection.18}
+\contentsline {paragraph}{}{5}{paragraph*.19}
+\contentsline {subsubsection}{\numberline {2.2.3.3}Numerical Stability}{5}{subsubsection.20}
+\contentsline {section}{\numberline {2.3}Sensor Position Optimisation}{5}{section.22}
+\contentsline {subsection}{\numberline {2.3.1}Placement Criterion}{5}{subsection.23}
+\contentsline {subsubsection}{\numberline {2.3.1.1}Entropy Criterion}{5}{subsubsection.24}
+\contentsline {subsubsection}{\numberline {2.3.1.2}Mutual Information Criterion}{6}{subsubsection.34}
+\contentsline {subsection}{\numberline {2.3.2}Approximation Algorithm}{7}{subsection.37}
+\contentsline {subsection}{\numberline {2.3.3}Improvements over the Algorithm}{8}{subsection.47}
+\contentsline {subsubsection}{\numberline {2.3.3.1}Lazy Procedure}{8}{subsubsection.48}
+\contentsline {subsubsection}{\numberline {2.3.3.2}Local Kernels}{9}{subsubsection.51}
+\contentsline {chapter}{\numberline {3}Progress}{11}{chapter.59}
+\contentsline {section}{\numberline {3.1}Data Exploration}{11}{section.60}
+\contentsline {section}{\numberline {3.2}Covariance Estimation}{11}{section.61}
+\contentsline {section}{\numberline {3.3}Sensor Optimisation}{11}{section.62}

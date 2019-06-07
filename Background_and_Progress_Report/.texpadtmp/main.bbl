@@ -33,11 +33,25 @@ Krause, A., Singh, A., and Guestrin, C. (2008).
   {Theory}, {Efficient} {Algorithms} and {Empirical} {Studies}.
 \newblock page~50.
 
+\bibitem[\protect\astroncite{Liu et~al.}{2018}]{liu_when_2018}
+Liu, H., Ong, Y.-S., Shen, X., and Cai, J. (2018).
+\newblock When {Gaussian} {Process} {Meets} {Big} {Data}: {A} {Review} of
+  {Scalable} {GPs}.
+\newblock {\em arXiv:1807.01065 [cs, stat]}.
+\newblock arXiv: 1807.01065.
+
 \bibitem[\protect\astroncite{Nemhauser et~al.}{1978}]{nemhauser_analysis_1978}
 Nemhauser, G.~L., Wolsey, L.~A., and Fisher, M.~L. (1978).
 \newblock An analysis of approximations for maximizing submodular set
   functions{\textemdash}{I}.
 \newblock {\em Mathematical Programming}, 14(1):265--294.
+
+\bibitem[\protect\astroncite{Pourahmadi}{2011}]{pourahmadi_covariance_2011}
+Pourahmadi, M. (2011).
+\newblock Covariance {Estimation}: {The} {GLM} and {Regularization}
+  {Perspectives}.
+\newblock {\em Statistical Science}, 26(3):369--387.
+\newblock arXiv: 1202.1661.
 
 \bibitem[\protect\astroncite{Rasmussen and
   Williams}{2006}]{rasmussen_gaussian_2006}

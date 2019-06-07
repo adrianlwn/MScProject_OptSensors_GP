@@ -5,45 +5,45 @@ The style file: apa.bst
 Database file #1: ../bibliography.bib
 Warning--empty journal in deisenroth_mathematics_2018
 Warning--empty journal in krause_near-optimal_2008
-You've used 9 entries,
+You've used 11 entries,
             1940 wiz_defined-function locations,
-            527 strings with 5742 characters,
-and the built_in function-call counts, 4092 in all, are:
-= -- 383
-> -- 231
-< -- 6
-+ -- 84
-- -- 82
-* -- 383
-:= -- 726
-add.period$ -- 31
-call.type$ -- 9
-change.case$ -- 83
-chr.to.int$ -- 9
-cite$ -- 11
-duplicate$ -- 136
-empty$ -- 240
-format.name$ -- 97
-if$ -- 778
+            540 strings with 6107 characters,
+and the built_in function-call counts, 4846 in all, are:
+= -- 458
+> -- 261
+< -- 7
++ -- 94
+- -- 92
+* -- 449
+:= -- 862
+add.period$ -- 39
+call.type$ -- 11
+change.case$ -- 98
+chr.to.int$ -- 11
+cite$ -- 13
+duplicate$ -- 163
+empty$ -- 290
+format.name$ -- 109
+if$ -- 920
 int.to.chr$ -- 1
 int.to.str$ -- 0
-missing$ -- 12
-newline$ -- 49
-num.names$ -- 27
-pop$ -- 79
+missing$ -- 14
+newline$ -- 61
+num.names$ -- 33
+pop$ -- 89
 preamble$ -- 1
-purify$ -- 86
+purify$ -- 101
 quote$ -- 0
-skip$ -- 102
+skip$ -- 123
 stack$ -- 0
-substring$ -- 218
-swap$ -- 26
+substring$ -- 267
+swap$ -- 30
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 48
+type$ -- 60
 warning$ -- 2
-while$ -- 28
+while$ -- 34
 width$ -- 0
-write$ -- 122
+write$ -- 151
 (There were 2 warnings)
