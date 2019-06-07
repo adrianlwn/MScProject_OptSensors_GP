@@ -5,6 +5,16 @@ Arcucci, R., Pain, C., and Guo, Y.-K. (2018).
 \newblock Effective variational data assimilation in air-pollution prediction.
 \newblock {\em Big Data Mining and Analytics}, 1(4):297--307.
 
+\bibitem[\protect\astroncite{Caselton and Zidek}{1984}]{caselton_optimal_1984}
+Caselton, W. and Zidek, J. (1984).
+\newblock Optimal monitoring network designs.
+\newblock {\em Statistics \& Probability Letters}, 2(4):223--227.
+
+\bibitem[\protect\astroncite{Cover and Thomas}{1991}]{cover_elements_1991}
+Cover, T.~M. and Thomas, J.~A. (1991).
+\newblock {\em Elements of information theory}.
+\newblock Wiley series in telecommunications. Wiley, New York.
+
 \bibitem[\protect\astroncite{Cressie}{1991}]{cressie_statistics_1991}
 Cressie, N. A.~C. (1991).
 \newblock {\em Statistics for spatial data}.
@@ -22,6 +32,12 @@ Krause, A., Singh, A., and Guestrin, C. (2008).
 \newblock Near-{Optimal} {Sensor} {Placements} in {Gaussian} {Processes}:
   {Theory}, {Efficient} {Algorithms} and {Empirical} {Studies}.
 \newblock page~50.
+
+\bibitem[\protect\astroncite{Nemhauser et~al.}{1978}]{nemhauser_analysis_1978}
+Nemhauser, G.~L., Wolsey, L.~A., and Fisher, M.~L. (1978).
+\newblock An analysis of approximations for maximizing submodular set
+  functions{\textemdash}{I}.
+\newblock {\em Mathematical Programming}, 14(1):265--294.
 
 \bibitem[\protect\astroncite{Rasmussen and
   Williams}{2006}]{rasmussen_gaussian_2006}

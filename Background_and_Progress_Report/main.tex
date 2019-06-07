@@ -87,14 +87,13 @@ As explained by \cite{song_natural_2018}, the test site which has been selected 
 Another key research direction in the use Data Assimilation (DA) and more specifically Variational DA (VarDA) for assimilating measured data in real time and allowing better prediction of the model in the near future \citep{arcucci_effective_2018}. The further use of those method would be the optimisation of the position of the sensors which provide information for the VarDA.
 
 
-\section{Gaussian Process and Sensor Optimisation}
+\section{Gaussian Processes}
 
 In this chapter we will review Gaussian Processes (GP) which are probabilistic models for spatial predictions based on observations assumption. \\ 
 
 As explained by \citet[p.~29]{rasmussen_gaussian_2006}, the history of Gaussian Processes goes back at least as far as the 1940s. A lot of usages were developed in various fields. Notably for predictions in spatial statistics \citep{cressie_statistics_1991}.  Applied in particular in Geostatistics with methods known as \textit{kringing}, and in Meteorology. Gradually GP started to be be used in more general cases for regression. Nowadays it is used in the context of Machine Learning. \\
 
-
-A for sensor optimisation, we will follow the approach that was developed by \citet{krause_near-optimal_2008}. This method relies on GP for finding a near-optimal solution to the problem of placing sensors. 
+As for sensor optimisation, we will follow the approach that was developed by \citet{krause_near-optimal_2008}. This method relies on GP for finding a near-optimal solution to the problem of placing sensors. 
 
 
 \subsection{Sensor Data Modelling}
@@ -116,65 +115,247 @@ For a set of observations $\vec{x}_\A$ at positions $\A$ we can express for a fi
 \begin{align}
 	P(\X_y | \vec{x}_\A ) &= \mathcal{N}(\mu_{y | \A}, \Sigma_{y | \A}) \\
 	\mu_{y | \A} &= \mu_y + \Sigma_{y\A} \Sigma_{\A\A}^{-1} (y - \mu_y)\\ 
-	\Sigma_{y | \A} &=  \Sigma_{yy} - \Sigma_{y\A} \Sigma_{\A\A}^{-1} \Sigma_{\A y}
+	\Sigma_{y | \A} &=  \Sigma_{yy} - \Sigma_{y\A} \Sigma_{\A\A}^{-1} \Sigma_{\A y} \label{equ:covGP}
 \end{align}
 
 
 An important point to notice is that the predicted covariance for the point y is not dependent of the values measured at $\A$, this is really useful because if allows us to define the uncertainty at $y$ without using actual measurements. \\
 
 For the rest of this section we assume that we have at our disposal a good estimate a of the covariance matrix between each point. In practise this is not that obvious as we will see in section \ref{sec:cov_est}. The following is valid for any covariance matrix that is symmetric and positive-definite. 
- 
-
-\subsection{Sensor Position Optimisation}
-
-Now that we have modelled the relationship between the positions with and without sensors we can establish an algorithm that was developed by \citet{krause_near-optimal_2008}. The process of placing sensors in an optimal way is called in spatial statistics, \textit{sampling} or \textit{experimental design}. \\ 
-
-We want to place a number of $k$ sensors positions indexed by $\V$
-
-\subsubsection{Placement Criterion}
-
-\paragraph{Entropy Criterion}
-
-
-\paragraph{Mutual Information Criterion}
-
-\subsubsection{Algorithm}
- 
 
 
 
-\subsubsection{Improvements over the Algorithm}
-
-Address issue of matrix inversion with algorithm from \cite[p.~19]{rasmussen_gaussian_2006}
-
-
-\subsubsection{Near-Optimality of the Algorithm}
-
-
-
-
-
-\section{Covariance Estimation} \label{sec:cov_est}
+\subsection{Covariance Estimation} \label{sec:cov_est}
 
 We have seen how GP could be used for the optimisation of the position of sensors. In order to have good results we need to have a good estimate of the kernel function between the points of our space. 
 
 
 
-\subsection{Stationnary Covariance}
+\subsubsection{Properties of Covariance}
 
 Isotropic kernels
 
-\subsection{Covariance Estimation}
+Talk about spatial covariance \cite{cressie_statistics_1991}
+
+
+
+\subsubsection{Covariance Estimation}
+Many application require the covariance to be estimated because of the lack of measures. Very often a limited number of sensors has been in position and the key challenge is to interpolate the covariance. talk of the different methods\\
+
+In our specific case, we already have at our disposal a very dense network of measurement. With more than $100'000$ different locations we don't need to explore the space outside of those points. Unfortunately the sample covariance is a very bad estimator of the true covariance in high dimensional settings such as ours. source of that \\
+
+
+
 
 Sample variance = bad estimator in high dimensions
 
 
 
+\subsubsection{Numerical Stability}
+\todo{Use the cholesky transformation for inverting the covariance : simple solution}
+
+In the equation \ref{equ:updateGreedy}, we need to invert 2 different covariance matrix. In order to make it operation more stable numerically, we will use the matrix inversion algorithm proposed by \cite[p.~19]{rasmussen_gaussian_2006}. It use Cholesky factorisation of the covariance matrix to compute the covariance estimate of equation \ref{equ:covGP}. 
 
 
 
 
 
+
+
+
+
+ 
+
+\section{Sensor Position Optimisation}
+
+Now that we have modelled the relationship between the positions using GPS we can establish an algorithm that was developed by \citet{krause_near-optimal_2008}. The process of placing sensors in an optimal way is called in spatial statistics, \textit{sampling} or \textit{experimental design}. We want to find the optimal way place a number of $k$ sensors (indexed by $\A$) inside the set of possible sensor locations $\S$ . So that we have $\A \subseteq \S \subseteq \V$. \\
+
+First we will define how to characterise a good design in term of sensor placement. Then we will define the main optimisation algorithm and its improvements.
+
+\subsection{Placement Criterion}
+
+\subsubsection{Entropy Criterion}
+
+Intuitively a good way of measuring uncertainty is the \textit{entropy}. By observing the conditional entropy of the location where no sensor was placed $\VA$, we can estimate the uncertainty remaining for those locations. We define the following conditional entropy of the un-instrumented location knowing the instrumented ones \citep[p.~16]{cover_elements_1991} :
+
+\begin{align}
+	H(\X_{\VA} | \X_\A) &= \mathbb{E}_{p(\vec{x}_{\VA},\vec{x}_\A)} \log p(\X_{\VA} | \X_\A) \\
+	H(\X_{\VA} | \X_\A) &= - \sum_{\vec{x}_{\VA} \in \X_{\VA}}\sum_{\vec{x}_{\A} \in \X_{\A}} p(\vec{x}_{\VA},\vec{x}_\A) \log p(\vec{x}_{\VA}|\vec{x}_\A) \\
+	H(\X_{\VA} | \X_\A) &= - \int p(\vec{x}_{\VA},\vec{x}_\A) \log p(\vec{x}_{\VA}|\vec{x}_\A) \: d\vec{x}_{\VA} \, d\vec{x}_\A 
+\end{align}
+
+For the specific case of the \textit{Multivariate Gaussian Distribution}, \citet{krause_near-optimal_2008} gives us the expression of the entropy of a point $y \in \VA$ conditioned by the set $\A$ in a closed form depending exclusively on the covariance between those elements : $K_{y | \A}$. Thus we have :  
+
+\begin{equation}
+	H(\X_{y} | \X_\A) = \frac{1}{2} \log \Sigma_{y | \A} + \frac{1}{2} \left(1 + \log 2\pi  \right) \label{equ:entGP}
+\end{equation}
+
+This formulation is extremely useful because we can directly use the expression of the covariance given by the \textit{Gaussian Process} expressed previously (\ref{equ:covGP}). \\
+
+
+This conditional entropy can also be expressed using the \textit{chain rule}  \citep[p.~16]{cover_elements_1991} : 
+
+\begin{align}
+	H(\X_{\VA} | \X_\A) &= H(\X_{\VA} ,  \X_\A) -  H(\X_{\A}) \\
+	&= H(\X_{\V}) -  H(\X_{\A}) 
+\label{equ:chainentropy}
+\end{align}
+
+The optimal set of sensors $\A^*$ with size $|\A^*| = k$, is then defined for the minimum of this entropy. If we minimise this quantity we will reduce the uncertainty on the un-instrumented locations $\VA$ : 
+
+\begin{align}
+	\A^* &= {\arg\min}_{\A \subseteq \V : |\A| = k } \: H(\X_{\VA} | \X_\A) \\
+	 &= {\arg\min}_{\A \subseteq \V : |\A| = k }\:  H(\X_\V) -  H(\X_{\A}) \\
+	 &= {\arg\max}_{\A \subseteq \V : |\A| = k }\:  H(\X_{\A}) 
+\end{align}
+
+
+\subsubsection{Mutual Information Criterion}
+
+The Entropy criterion provides an intuitive way to solve the problem, unfortunately, during experiments referenced by \citet{krause_near-optimal_2008}, it was noted that this criterion has a tendency to induce placement at the border of the space, and therefore wastes a lot of precious information. This is due to the fact that the entropy criterion is \textit{indirect} because it measures the uncertainty of the selected sensor position, instead of measuring the uncertainty of every other location of the space (which are the ones we are interested in). \\
+
+An other criterion was proposed by \citet{caselton_optimal_1984} : the \textit{Mutual Information} (MI) Criterion. We try to maximise the mutual information between the set of selected sensors $\A$ and the rest of the space $\VA$. Using the definitions of MI provided by \citet[p.~19]{cover_elements_1991} : 
+
+\begin{align}
+	\A^* &= {\arg\max}_{\A \subseteq \V : |\A| = k } \: I(\X_{\VA} , \X_\A) \\
+	&= {\arg\max}_{\A \subseteq \V : |\A| = k } \: H(\X_{\VA}) -  H(\X_{\VA} | \X_{\A})
+\end{align}
+
+
+Experimentally, \citet{krause_near-optimal_2008} explain that  the mutual information outperforms entropy placement optimisation. They also argue that this criterion relies heavily on the quality of the model $P(\X_\V)$ (i.e. how the covariance is modelled, see section \ref{sec:cov_est}) for giving good results. 
+
+\subsection{Approximation Algorithm}
+ 
+ As stated by \citet{krause_near-optimal_2008}, the problem is a \textit{NP-complete problem}. Therefore we present here an algorithm that is able to approximate in polynomial time the optimal solution, with a constant factor guarantee. \\
+ 
+ Let us define the initial sensor set $\A_0 = \emptyset$. At each iteration we have a new sensor set : $\A$,  and for a point $y$, we define : $\bar{\A} = \V \backslash ( \A \cup y )$. We also have the set of positions that can be selected as sensors : $\S$,  and the associated set : $\U = \V \backslash \S $. \\
+ 
+ 
+ The idea is to greedily add sensors until we reach the wanted number ($k$).   This greedy approach in enabled by the use the \textit{chain rule} of entropy.  Starting from $\A = \A_0$, at each iteration we add to $\A$ the point $y \in \S \backslash A $ which decreases the least the current MI : 
+\begin{align}
+	y* &= {\arg \max}_{y \in \S \backslash A } \: MI(\A \cup y, \bar{\A} ) - MI(\A, \VA) \\
+	&= {\arg \max}_{y \in \S \backslash A } \: H(y | \A ) - H(y | \bar{\A} )
+\end{align}
+
+In our specific case with the Multivariate Gaussian Distribution, we can take the formulation presented in equation \ref{equ:entGP} and rewrite the objective to : 
+
+\begin{align}
+	y*  &= {\arg \max}_{y \in \S \backslash A } \: \frac{1}{2} \log \Sigma_{y | \A} - \frac{1}{2} \log \Sigma_{y | \bar{\A}} \\
+	&= {\arg \max}_{y \in \S \backslash A } \: \log \left(\frac{\Sigma_{y | \A}}{\Sigma_{y | \bar{\A}}} \right) \\
+	&= {\arg \max}_{y \in \S \backslash A } \: \frac{\Sigma_{y | \A}}{\Sigma_{y | \bar{\A}}}
+\end{align}
+
+Here we can use the GP that we have defined earlier in equation \ref{equ:covGP} to finally write the problem to solve at each iteration of the algorithm : 
+
+\begin{equation}
+	y*  = {\arg \max}_{y \in \S \backslash A } \: \frac{\Sigma_{yy} - \Sigma_{y\A} \Sigma_{\A\A}^{-1} \Sigma_{\A y} }{\Sigma_{yy} - \Sigma_{y\bar{\A}} \Sigma_{\bar{\A}\bar{\A}}^{-1} \Sigma_{\bar{\A} y} } \label{equ:updateGreedy}
+\end{equation}
+
+Then we update the set of sensors such that $\A = \A \cup y^*$, and then restart the process until $|\A| = k$. It is described in algorithm \ref{alg:greedy}  \\
+
+\begin{algorithm}[h]
+ \KwData{Covariance matrix $\Sigma_{\V\V}$ , $k$, $\V$}
+ \KwResult{Sensor Selection $\A$}
+ begin\;
+ \For{$j \leftarrow 1$ \KwTo $k$}{
+ 	\For{$y \in \S \backslash \A $}{
+ 	$\delta_y \leftarrow \frac{\Sigma_{yy} - \Sigma_{y\A} \Sigma_{\A\A}^{-1} \Sigma_{\A y} }{\Sigma_{yy} - \Sigma_{y\bar{\A}} \Sigma_{\bar{\A}\bar{\A}}^{-1} \Sigma_{\bar{\A} y} }$
+ 	}
+	$y^* \leftarrow {\arg \max}_{y \in \S \backslash A } \delta_y$ \\
+	$\A \leftarrow \A \cup y^* $
+ }
+ \caption{Greedy Algorithm}
+ \label{alg:greedy}
+\end{algorithm}
+
+
+This algorithm computes a solution that is very close to the optimal one if the discretisation of the space is small enough. The bound of solution obtained is approximately 63\% of the optimal solution. If the true optimal set is $\A^*$ and $\hat{\A}$ is the solution returned by the greedy algorithm, then \citet{krause_near-optimal_2008} proves, for a small $\epsilon >0 $, that : 
+ \begin{equation}
+	MI(\hat{\A}) \geq (1 - \frac{1}{e}) \cdot MI(\A^*) - k\epsilon
+\end{equation}
+To prove that they use the notion of \textit{submodularity} \citep{nemhauser_analysis_1978} applied to the $MI(\cdot)$ function. Intuitively this represents the notion of \textit{diminishing returns} :  adding a sensor to a small set of sensors has more benefits than adding a sensor to a large set of sensors. 
+
+
+\subsection{Improvements over the Algorithm}
+
+
+%\subsubsection{Scaling-up}
+
+We have exposed the main greedy algorithm to solve that optimisation problem. \citet{krause_near-optimal_2008} explains that the complexity is a big issue for scaling this algorithm up. If we consider that ne number of locations in our space is $|\V| = n$, and that the number of sensors to place is $k$, the complexity of the main algorithm is $\mathcal{O}(kn^4)$. They propose two solutions to this issue : a \textit{lazy procedure} that cuts the complexity to  $\mathcal{O}(kn^3)$ and a \textit{local kernel} strategy that reduces it to $\mathcal{O}(kn)$
+
+\subsubsection{Lazy Procedure} This procedure uses strategically the notion of \textit{submodularity} and \textit{priority queues}. We can describe it intuitively : When a sensor is selected $y^*$, the other nearby points will have de decreased $\delta_y$ and will therefore be less desirable. Therefore if we maintain a priority queue with the orderer values of $\delta_y$ at each step we will take the top values and update them to they current value successively. If the current value needs to be updated and the location is close to the previous optimum, it would have a small $\delta_y$ and be send back in the queue. If we meet a point which has been updated and is still a the top of the queue, it means that this point is our new optimum. This technique can be efficiently applied using \textbf{binary heaps}. This algorithm is described in algorithm \ref{alg:lazy}. \\ 
+
+
+\begin{algorithm}[h]
+ \KwData{Covariance matrix $\Sigma_{\V\V}$ , $k$, $\V$}
+ \KwResult{Sensor Selection $\A$}
+ initialisation\;
+ $\A = \emptyset$ \\
+ \lForEach{$y \in \S $}{$\delta_y \leftarrow + \infty$} 
+ begin\;
+ \For{$j \leftarrow 1$ \KwTo $k$}{
+  	\lForEach{$y \in \S \backslash \A $}{$current_y \leftarrow $ False }
+ 	\While{True}{
+ 	$y^* \leftarrow {\arg \max}_{y \in \S \backslash A } \delta_y$ \\
+	\lIf{$current_{y^*}$}{break}
+ 	$\delta_{y^*} $ is updated with \ref{equ:updateGreedy} \\
+ 	$current_y \leftarrow $ True
+ 	
+ 	}
+	$\A \leftarrow \A \cup y^* $
+ }
+\caption{Lazy Algorithm}
+\label{alg:lazy}
+\end{algorithm}
+
+\subsubsection{Local Kernels} This procedure takes advantage of the structure of the covariance matrix. For many GPs, correlation decreases exponentially with the distance between points. So, the idea here is to truncate the covariance matrix to points that are the most correlated. \\ 
+
+If we want to compute the covariance between a point of interest $y$ and a set of points $\mathcal{B} \subset \V $ we have the original covariance matrix $\Sigma_{y\mathcal{B}}$. When we remove from the set $\mathcal{B}$, the set of elements  $x \in \S$ such that $|\K(y,x)| > \epsilon $ we define the new set  $\tilde{\mathcal{B}}_y = N(y,\epsilon)$ . This set is defined such as it contains less than $d$ locations : $|N(y,\epsilon)| \leq d $. The truncated covariance associated with this set is named : $\tilde{\Sigma}_{y\mathcal{B}}$. Finally, we define the approximate conditional entropy $\tilde{H}_\epsilon(y | \X) \simeq H(y | \X)$, computed with truncated covariance of the points of $N(y,\epsilon)$. The $\delta_y$ values are initialised by taking the difference between the true entropy and the truncated covariance, as :
+\begin{align}
+	\delta_y &= \tilde{H}_\epsilon(y | \A) - \tilde{H}_\epsilon(y | \bar{\A}) \\
+			&= H(y) - \tilde{H}_\epsilon(y | \V \backslash y )
+\end{align}
+Or equivalently by keeping the previous notations: 
+\begin{align}
+	\delta_y &= \frac{\Sigma_{yy} }{\Sigma_{yy} - \tilde{\Sigma}_{y\V \backslash y} \tilde{\Sigma}_{\V \backslash y \V \backslash y}^{-1} \tilde{\Sigma}_{\V \backslash y y} } \label{equ:initLocal}
+\end{align}
+
+
+As for the other iterations (when $\A \neq \emptyset$), we have : 
+
+\begin{align}
+	\delta_y &= \tilde{H}_\epsilon(y | \A) - \tilde{H}_\epsilon(y | \bar{\A}) \\
+	&= \frac{\Sigma_{yy} - \tilde{\Sigma}_{y\A} \tilde{\Sigma}_{\A\A}^{-1} \tilde{\Sigma}_{\A y} }{\tilde{\Sigma}_{yy} - \tilde{\Sigma}_{y\bar{\A}} \tilde{\Sigma}_{\bar{\A}\bar{\A}}^{-1} \tilde{\Sigma}_{\bar{\A} y} } \label{equ:updateLocal}
+\end{align}
+
+
+We explicitly define the steps  this in algorithm \ref{alg:local}. \\
+
+\begin{algorithm}[h]
+ \KwData{Covariance matrix $\Sigma_{\V\V}$ , $k$, $\V$, $\epsilon$}
+ \KwResult{Sensor Selection $\A$}
+ initialisation\;
+ $\A = \emptyset$ \\
+ \lForEach{$y \in \S $}{$\delta_y \leftarrow $ \ref{equ:initLocal} }
+ begin\;
+ \For{$j \leftarrow 1$ \KwTo $k$}{
+  	\lForEach{$y \in \S \backslash \A $}{$current_y \leftarrow $ False }
+ 	\While{True}{
+ 	$y^* \leftarrow {\arg \max}_{y \in \S \backslash A } \delta_y$ \\
+ 	$\A \leftarrow \A \cup y^* $ \\ 
+	\lForEach{$y \in N(y^*,\epsilon) $}{$\delta_y \leftarrow $ \ref{equ:updateLocal} }
+ 	
+ 	}
+	
+ }
+\caption{Local Kernel Algorithm}
+\label{alg:local}
+\end{algorithm} 
+
+
+\citet{krause_near-optimal_2008} proves that this algorithm approximates the optimal solution with complexity $\mathcal{O}(nd^3 + nk + kd^4)$. The solution found by this algorithm is close to the real optimum within given bounds. \\
+
+This two strategies can be combined in order to make the problem even more scalable. 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -193,7 +374,7 @@ This chapter su
 \cite{arcucci_effective_2018}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Further Developements}
+%\chapter{Further Developements}
 
 
 %% bibliography

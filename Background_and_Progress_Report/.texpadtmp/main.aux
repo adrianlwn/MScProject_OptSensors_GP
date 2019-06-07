@@ -16,10 +16,12 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
+\providecommand \oddpage@label [2]{}
 \babel@aux{english}{}
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.2}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Summary}{1}{section.3}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.2}Data}{1}{section.4}}
 \citation{song_natural_2018}
@@ -28,6 +30,7 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {2}Background}{2}{chapter.5}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
 \@writefile{toc}{\contentsline {section}{\numberline {2.1}The MAGIC Project}{2}{section.6}}
 \@writefile{brf}{\backcite{song_natural_2018}{{2}{2.1}{section.6}}}
 \@writefile{brf}{\backcite{song_natural_2018}{{2}{2.1}{section.6}}}
@@ -38,7 +41,7 @@
 \citation{rasmussen_gaussian_2006}
 \@writefile{brf}{\backcite{arcucci_effective_2018}{{3}{2.1}{section.6}}}
 \@writefile{brf}{\backcite{arcucci_effective_2018}{{3}{2.1}{section.6}}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Gaussian Process and Sensor Optimisation}{3}{section.7}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Gaussian Processes}{3}{section.7}}
 \@writefile{brf}{\backcite{rasmussen_gaussian_2006}{{3}{2.2}{section.7}}}
 \@writefile{brf}{\backcite{cressie_statistics_1991}{{3}{2.2}{section.7}}}
 \@writefile{brf}{\backcite{krause_near-optimal_2008}{{3}{2.2}{section.7}}}
@@ -46,41 +49,85 @@
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1.1}Multivariate Gaussian Distribution}{3}{subsubsection.9}}
 \@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.1.2}Prediction with Gaussian Processes}{3}{subsubsection.11}}
 \citation{deisenroth_mathematics_2018}
-\citation{krause_near-optimal_2008}
-\citation{rasmussen_gaussian_2006}
+\citation{cressie_statistics_1991}
 \@writefile{brf}{\backcite{rasmussen_gaussian_2006}{{4}{2.2.1.2}{subsubsection.11}}}
 \@writefile{brf}{\backcite{deisenroth_mathematics_2018}{{4}{2.2.1.2}{subsubsection.11}}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Sensor Position Optimisation}{4}{subsection.15}}
-\@writefile{brf}{\backcite{krause_near-optimal_2008}{{4}{2.2.2}{subsection.15}}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2.1}Placement Criterion}{4}{subsubsection.16}}
-\@writefile{toc}{\contentsline {paragraph}{Entropy Criterion}{4}{paragraph*.17}}
-\@writefile{toc}{\contentsline {paragraph}{Mutual Information Criterion}{4}{paragraph*.18}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2.2}Algorithm}{4}{subsubsection.19}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2.3}Improvements over the Algorithm}{4}{subsubsection.20}}
-\@writefile{brf}{\backcite{rasmussen_gaussian_2006}{{4}{2.2.2.3}{subsubsection.20}}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2.4}Near-Optimality of the Algorithm}{5}{subsubsection.21}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Covariance Estimation}{5}{section.22}}
-\newlabel{sec:cov_est}{{2.3}{5}{Covariance Estimation}{section.22}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Stationnary Covariance}{5}{subsection.23}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Covariance Estimation}{5}{subsection.24}}
+\newlabel{equ:covGP}{{2.4}{4}{Prediction with Gaussian Processes}{equation.14}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2.2}Covariance Estimation}{4}{subsection.15}}
+\newlabel{sec:cov_est}{{2.2.2}{4}{Covariance Estimation}{subsection.15}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2.1}Properties of Covariance}{4}{subsubsection.16}}
+\@writefile{brf}{\backcite{cressie_statistics_1991}{{4}{2.2.2.1}{subsubsection.16}}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2.2}Covariance Estimation}{4}{subsubsection.17}}
+\citation{rasmussen_gaussian_2006}
+\citation{krause_near-optimal_2008}
+\citation{cover_elements_1991}
+\citation{krause_near-optimal_2008}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.2.2.3}Numerical Stability}{5}{subsubsection.18}}
+\@writefile{tdo}{\contentsline {todo}{Use the cholesky transformation for inverting the covariance : simple solution}{5}{section*.19}}
+\pgfsyspdfmark {pgfid1}{19562754}{46623894}
+\@writefile{brf}{\backcite{rasmussen_gaussian_2006}{{5}{2.2.2.3}{section*.19}}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Sensor Position Optimisation}{5}{section.20}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{5}{2.3}{section.20}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Placement Criterion}{5}{subsection.21}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1.1}Entropy Criterion}{5}{subsubsection.22}}
+\@writefile{brf}{\backcite{cover_elements_1991}{{5}{2.3.1.1}{subsubsection.22}}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{5}{2.3.1.1}{equation.25}}}
+\newlabel{equ:entGP}{{2.8}{5}{Entropy Criterion}{equation.26}{}}
+\citation{cover_elements_1991}
+\citation{krause_near-optimal_2008}
+\citation{caselton_optimal_1984}
+\citation{cover_elements_1991}
+\citation{krause_near-optimal_2008}
+\citation{krause_near-optimal_2008}
+\@writefile{brf}{\backcite{cover_elements_1991}{{6}{2.3.1.1}{equation.26}}}
+\newlabel{equ:chainentropy}{{2.10}{6}{Entropy Criterion}{equation.28}{}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1.2}Mutual Information Criterion}{6}{subsubsection.32}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{6}{2.3.1.2}{subsubsection.32}}}
+\@writefile{brf}{\backcite{caselton_optimal_1984}{{6}{2.3.1.2}{subsubsection.32}}}
+\@writefile{brf}{\backcite{cover_elements_1991}{{6}{2.3.1.2}{subsubsection.32}}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{6}{2.3.1.2}{equation.34}}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Approximation Algorithm}{6}{subsection.35}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{6}{2.3.2}{subsection.35}}}
+\citation{krause_near-optimal_2008}
+\citation{nemhauser_analysis_1978}
+\citation{krause_near-optimal_2008}
+\newlabel{equ:updateGreedy}{{2.21}{7}{Approximation Algorithm}{equation.41}{}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{7}{2.3.2}{algocf.43}}}
+\@writefile{brf}{\backcite{nemhauser_analysis_1978}{{7}{2.3.2}{equation.44}}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {1}{\ignorespaces Greedy Algorithm\relax }}{8}{algocf.43}}
+\providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
+\newlabel{alg:greedy}{{1}{8}{Approximation Algorithm}{algocf.43}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}Improvements over the Algorithm}{8}{subsection.45}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{8}{2.3.3}{subsection.45}}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3.1}Lazy Procedure}{8}{subsubsection.46}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3.2}Local Kernels}{8}{subsubsection.49}}
+\citation{krause_near-optimal_2008}
+\@writefile{loa}{\contentsline {algocf}{\numberline {2}{\ignorespaces Lazy Algorithm\relax }}{9}{algocf.48}}
+\newlabel{alg:lazy}{{2}{9}{Lazy Procedure}{algocf.48}{}}
+\newlabel{equ:initLocal}{{2.25}{9}{Local Kernels}{equation.52}{}}
+\newlabel{equ:updateLocal}{{2.27}{9}{Local Kernels}{equation.54}{}}
+\@writefile{brf}{\backcite{krause_near-optimal_2008}{{9}{2.3.3.2}{algocf.56}}}
+\@writefile{loa}{\contentsline {algocf}{\numberline {3}{\ignorespaces Local Kernel Algorithm\relax }}{10}{algocf.56}}
+\newlabel{alg:local}{{3}{10}{Local Kernels}{algocf.56}{}}
 \citation{cressie_statistics_1991}
 \citation{arcucci_effective_2018}
-\@writefile{toc}{\contentsline {chapter}{\numberline {3}Progress}{6}{chapter.25}}
-\@writefile{lof}{\addvspace {10\p@ }}
-\@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {3.1}Data Exploration}{6}{section.26}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.2}Covariance Estimation}{6}{section.27}}
-\@writefile{toc}{\contentsline {section}{\numberline {3.3}Sensor Optimisation}{6}{section.28}}
-\@writefile{brf}{\backcite{cressie_statistics_1991}{{6}{3.3}{section.28}}}
-\@writefile{brf}{\backcite{arcucci_effective_2018}{{6}{3.3}{section.28}}}
 \bibstyle{apa}
 \bibdata{bibliography}
-\@writefile{toc}{\contentsline {chapter}{\numberline {4}Further Developements}{7}{chapter.29}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Progress}{11}{chapter.57}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{loa}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Data Exploration}{11}{section.58}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}Covariance Estimation}{11}{section.59}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Sensor Optimisation}{11}{section.60}}
+\@writefile{brf}{\backcite{cressie_statistics_1991}{{11}{3.3}{section.60}}}
+\@writefile{brf}{\backcite{arcucci_effective_2018}{{11}{3.3}{section.60}}}
 \bibcite{arcucci_effective_2018}{{1}{2018}{{Arcucci et~al.}}{{}}}
-\bibcite{cressie_statistics_1991}{{2}{1991}{{Cressie}}{{}}}
-\bibcite{deisenroth_mathematics_2018}{{3}{2018}{{Deisenroth et~al.}}{{}}}
-\bibcite{krause_near-optimal_2008}{{4}{2008}{{Krause et~al.}}{{}}}
-\bibcite{rasmussen_gaussian_2006}{{5}{2006}{{Rasmussen and Williams}}{{}}}
-\bibcite{song_natural_2018}{{6}{2018}{{Song et~al.}}{{}}}
+\bibcite{caselton_optimal_1984}{{2}{1984}{{Caselton and Zidek}}{{}}}
+\bibcite{cover_elements_1991}{{3}{1991}{{Cover and Thomas}}{{}}}
+\bibcite{cressie_statistics_1991}{{4}{1991}{{Cressie}}{{}}}
+\bibcite{deisenroth_mathematics_2018}{{5}{2018}{{Deisenroth et~al.}}{{}}}
+\bibcite{krause_near-optimal_2008}{{6}{2008}{{Krause et~al.}}{{}}}
+\bibcite{nemhauser_analysis_1978}{{7}{1978}{{Nemhauser et~al.}}{{}}}
+\bibcite{rasmussen_gaussian_2006}{{8}{2006}{{Rasmussen and Williams}}{{}}}
+\bibcite{song_natural_2018}{{9}{2018}{{Song et~al.}}{{}}}
