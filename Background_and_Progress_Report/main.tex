@@ -60,14 +60,16 @@
 \fancyhead[LO,RE]{\slshape \leftmark}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Introduction}
+\chapter{Project Proposal}
 
-\section{Summary}
+
+\paragraph{Project Proposal:}
 Gaussian processes (GP) have been widely used since the 1970’s in the fields of geostatistics and meteorology. Current applications are in diverse fields including sensor placement
 In this project, we propose the employment of a GP model to calculate the optimal spatial positioning of sensors to study and collect air pollution data in big cities. We will then validate the results by means of a data assimilation software with the data at the proposed positions.
 
-\section{Data}
-London South Bank University (LSBU) air pollution data (velocity, tracer)
+\paragraph{Dataset:} London South Bank University (LSBU) air pollution data (velocity, tracer)
+
+
 
  
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -91,10 +93,11 @@ Another key research direction in the use Data Assimilation (DA) and more specif
 
 In this chapter we will review Gaussian Processes (GP) which are probabilistic models for spatial predictions based on observations assumption. \\ 
 
-As explained by \citet[p.~29]{rasmussen_gaussian_2006}, the history of Gaussian Processes goes back at least as far as the 1940s. A lot of usages were developed in various fields. Notably for predictions in spatial statistics \citep{cressie_statistics_1991}.  Applied in particular in Geostatistics with methods known as \textit{kringing}, and in Meteorology. Gradually GP started to be be used in more general cases for regression. Nowadays it is used in the context of Machine Learning. \\
+As explained by \citet[p.~29]{rasmussen_gaussian_2006}, the history of Gaussian Processes goes back at least as far as the 1940s. A lot of usages were developed in various fields. Notably for predictions in spatial statistics \citep{cressie_statistics_1991}.  Applied in particular in Geostatistics with methods known as \textit{kringing}, and in Meteorology. Gradually GP started to be be used in more general cases for regression. Nowadays it is often used in the context of Machine Learning. \\
 
-As for sensor optimisation, we will follow the approach that was developed by \citet{krause_near-optimal_2008}. This method relies on GP for finding a near-optimal solution to the problem of placing sensors. 
 
+For our problem we will be modeling the data of the sensor with GPs.
+%As for sensor optimisation, we will follow the approach that was developed by \citet{krause_near-optimal_2008}. This method relies on GP for finding a near-optimal solution to the problem of placing sensors. 
 
 \subsection{Sensor Data Modelling}
 
@@ -118,15 +121,17 @@ For a set of observations $\vec{x}_\A$ at positions $\A$ we can express for a fi
 	K_{y | \A} &=  K_{yy} - K_{y\A} K_{\A\A}^{-1} K_{\A y} \label{equ:covGP}
 \end{align}
 
-
-An important point to notice is that the predicted covariance for the point y is not dependent of the values measured at $\A$, this is really useful because if allows us to define the uncertainty at $y$ without using actual measurements. \\
+An important point to notice is that the predicted covariance for the point y is not dependent of the values measured at $\A$, this is really useful because if allows us to define the uncertainty at $y$ without using only the covariance. \\
 
 \subsection{Scalable Gaussian Processes} 
 
-The biggest weakness of Standard GPs is their complexity. For $n$ training points, the algorithm requires the inversion of a $n \times n$ covariance matrix $K_{nn}$. \citet{liu_when_2018} gives a extensive review of all methods used to make the GPs more scalable. 
+The biggest weakness of Standard GPs is their complexity. For $p$ training points, the algorithm requires the inversion of a $p \times p$ covariance matrix $K_{pp}$. \citet{liu_when_2018} gives an extensive review of all methods used to make the GPs more scalable. \\
 
+\citet{liu_when_2018} provides a survey proposing several startegies, both global and local. 
 
+%One simple approach is to  covariance matrix. In order to make it operation more stable numerically, we will use the matrix inversion algorithm proposed by \cite[p.~19]{rasmussen_gaussian_2006}. It use Cholesky factorisation of the covariance matrix to compute the covariance estimate of equation \ref{equ:covGP}. 
 
+\textbf{Note :} This section needs a lot a further development, in order to find an implement the best possible approach. 
 
 \subsection{Covariance Matrix Estimation} \label{sec:cov_est}
 
@@ -139,35 +144,42 @@ We have seen how GPs are defined and made more scalable. In order to have good r
 In our specific case, we already have at our disposal a very dense network of measurement. With more than $100'000$ different locations we don't need to explore the space outside of those points. Unfortunately the sample covariance is a very bad estimator of the true covariance in high dimensional settings such as ours \citep{pourahmadi_covariance_2011}. \\
 
 
-We will see the properties that our covariance to accurately model our space. 
+We will see the properties that our covariance to accurately model our space, before discussing the best ways of estimating the covariance matrix estimation.
 
 
 \subsubsection{Properties of Covariance}
 
-Isotropic kernels
+By definition a covariance matrix must be \textbf{positive-definite} and \textbf{symmetrical} \citep[p.~80]{rasmussen_gaussian_2006}. \\
 
-Talk about \textbf{spatial} covariance \cite{cressie_statistics_1991}
+A covariance function between two inputs $x$ and $x'$ is \textbf{stationary}   when it is invariant to translation. Thus, when it is a function of $x' - x$. \\
+In a covariance function that is \textbf{isotropic}, we remove the dependance of the direction and, it become a function of the distance between the two points :  $|x' - x|$. The isotropy of the covariance function is a stronger assumption than  \\ 
 
+In our problem we can't assume that the process is stationary nor isotropic. Our space is 3-dimensional and not homogeneous. The presence of the buildings and other obstacles that a likely to make environment variables less smooth \citep{paciorek_nonstationary_2004}. Also it has been shown by \citet{krause_near-optimal_2008} that non-stationary covariance matrixes give better results than stationary or isotropic. This makes us choose a non-stationary covariance matrix for the  GPs of our problem.
 
 
 \subsubsection{Covariance Estimation}
 
-\paragraph{}
+We consider the process $Y$ in $p$ different locations at $T$ sampling times. $\vec{Y}_t = (Y_{1t}, \dots, Y_{pt})$, with $t = 1 \dots T$. We want to estimate the covariance matrix $\Sigma$. \\
 
+\paragraph{Sample Covariance}
 
+The simplest estimator of the covariance matrix is the \textbf{sample covariance matrix} $\vec{S}$ directly computed from the captured data. 
 
+\begin{equation}
+	\vec{S} = \frac{1}{T -1} \sum_{t=1}^T (\vec{Y}_t - \bar{\vec{Y}})\cdot (\vec{Y}_t - \bar{\vec{Y}}_t)^T, \quad \bar{\vec{Y}} = \frac{1}{T} \sum_{t=1}^T \vec{Y}_t
+\end{equation}
 
+Unfortunately this  covariance is singular when $p >> T$ \citep{fan_overview_2015}, and the accumulation of errors due to the number of parameters to estimate. One additional assumption that we need to make for this covariance is its the sparsity of the covariance which is needed to reduce the number of parameters and is often realistic in practice. 
 
-Sample variance = bad estimator in high dimensions
+\paragraph{Estimating a Spatial Covariance} 
 
+\cite{nott_estimation_2002-1} proposed to fit local variograms in order to approaximate the covariance matrix. It is a method that was developped in \cite{cressie_statistics_1991}. \\
 
+An other method is the use of spatial deformation of kernel to orther of obtain non-stationarity \citep{sampson_nonparametric_1992}. \\
 
-\subsubsection{Numerical Stability}
-\todo{Use the cholesky transformation for inverting the covariance : simple solution}
+Several different approaches are developed in the literature, notably the works of \citep{fan_overview_2015} and \cite{guttorp_20_1994} which it more focused on spatial data. 
 
-In the equation \ref{equ:updateGreedy}, we need to invert 2 different covariance matrix. In order to make it operation more stable numerically, we will use the matrix inversion algorithm proposed by \cite[p.~19]{rasmussen_gaussian_2006}. It use Cholesky factorisation of the covariance matrix to compute the covariance estimate of equation \ref{equ:covGP}. 
-
-
+\textbf{Note :} This section needs a lot a further development, in order to find an implement the best possible approach. 
 
 \section{Sensor Position Optimisation}
 
@@ -367,17 +379,66 @@ This two strategies can be combined in order to make the problem even more scala
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \chapter{Progress}
 
-This chapter su
+This chapter exposes the work done until now in the project. It will focus on the data exploration done, the issues encountered in the covariance estimation, and the results of the algorithms developed in the sensor optimisation procedure.  All the commented codes are available on the Github repository of the project. 
+
+
+\section{Framework}
+
+In order to implement the algorithm and manipulate the VTK files of the dataset and I relied on Python 3.7 scripts that I runned the cluster of the DSI.  \\
+ 
+ I have implemented a set of function to load and save the dataset and various intermediary computation results. Additional methods for the quick manipulation and the visualisation of the space. And functions that implement the covariance matrix estimate and the optimisation algorithms. 
 
 \section{Data Exploration}
 
+As a main dataset we use a the simulation results on an unstructured mesh of measurements with a very high density in the low middle of the space. The simulation used has $100'040$ points over 988 timestamps. Several fields are present in the simulation : the \textbf{pressure}, the \textbf{tracer} concentration, the \textbf{background tracer} concentration and the \textbf{velocity}. We represent in the next plots 2 cuts made to visualise the tracer and the tracer background. \\ 
+\begin{figure}[hbt]
+  \includegraphics[width=\linewidth]{figures/Tracer/tracer_cut_z_639}
+  \caption{Cut of tracer at t = 639 }
+\end{figure}
+
+\begin{figure}[hbt]
+  \includegraphics[width=\linewidth]{figures/Tracer/tracerBackground_cut_z_106}
+  \caption{Cut of tracer background at t = 106 }
+\end{figure}
+
+
 \section{Covariance Estimation}
+
+In order to test optimisation algorithm I have make the choice to first use a subset of the whole dataset containing $2'488$ point and created by cropping the space to a cube of $30\times30\times30\times$ at the center of the original space. On  this subspace I have made the choice to compute an isotropic covariance matrix (Exponential kernel,  Matern 3/2 and 5/2) with a length-scale of $l=3$ for testing the performance of the optimisation algorithm. \\
+
+
+I had initially tried it with the sample covariance. As a matter of fact, it did'nt work properly, resulting in problems due to the positive-definiteness and the singularity of the sample covariance. \\ 
+
+Also, the memory taken by those covariance matrix shows the necessity of the usage of a sparse matrix representation for the covariance.  \\ 
+
 
 \section{Sensor Optimisation}
 
+We have tested two algorithm exposed earlier : \\
+  
+The standard greedy approach (algorithm \ref{alg:greedy} ). \\
+The Lazy approach developed using python heaps. (algorithm \ref{alg:lazy}). This version is as expected much faster than the standard version.  \\ 
 
-\cite{cressie_statistics_1991}
-\cite{arcucci_effective_2018}
+We plot in the following figure the results obtained in the setting described earlier for a number of sensors $k=10$. 
+
+\begin{figure}[hbt]
+  \includegraphics[width=\linewidth]{figures/SensorOpt/sensor10_matern52_15x15x30cube_1}
+  \caption{Position of the optimal set of 10 sensors}
+\end{figure}
+
+
+
+\chapter{Conclusion}
+
+In this report we have stated some of the research that was done in order to solve the sensor position optimisation problem. \\ 
+
+The biggest challenge here is to make the algorithm scalable for optimising over $100'000$ sensor locations. It requires to develop p strategies to make the GPs scalable. The main other challenge is to find a method to accurately estimate the covariance matrix. The theory enabling this scalability still need to be developed \\
+
+I have implemented some of the optimisation algorithm proposed on a smaller dataset and with a poor estimation of the covariance function. It has given consistent results and has proven that once the main challenges, described earlier are solved, we will have a good optimisation algorithm for that kind of setups. 
+
+ 
+
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %\chapter{Further Developements}

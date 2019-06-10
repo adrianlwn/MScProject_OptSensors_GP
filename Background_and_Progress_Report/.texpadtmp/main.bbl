@@ -27,6 +27,20 @@ Deisenroth, M.~P., Faisal, A., and Ong, C.~S. (2018).
 \newblock Mathematics for {Machine} {Learning}.
 \newblock page~43.
 
+\bibitem[\protect\astroncite{Fan et~al.}{2015}]{fan_overview_2015}
+Fan, J., Liao, Y., and Liu, H. (2015).
+\newblock An {Overview} on the {Estimation} of {Large} {Covariance} and
+  {Precision} {Matrices}.
+\newblock {\em arXiv:1504.02995 [stat]}.
+\newblock arXiv: 1504.02995.
+
+\bibitem[\protect\astroncite{Guttorp and Sampson}{1994}]{guttorp_20_1994}
+Guttorp, P. and Sampson, P.~D. (1994).
+\newblock 20 {Methods} for estimating heterogeneous spatial covariance
+  functions with environmental applications.
+\newblock In {\em Handbook of {Statistics}}, volume~12, pages 661--689.
+  Elsevier.
+
 \bibitem[\protect\astroncite{Krause et~al.}{2008}]{krause_near-optimal_2008}
 Krause, A., Singh, A., and Guestrin, C. (2008).
 \newblock Near-{Optimal} {Sensor} {Placements} in {Gaussian} {Processes}:
@@ -46,6 +60,20 @@ Nemhauser, G.~L., Wolsey, L.~A., and Fisher, M.~L. (1978).
   functions{\textemdash}{I}.
 \newblock {\em Mathematical Programming}, 14(1):265--294.
 
+\bibitem[\protect\astroncite{Nott and Dunsmuir}{2002}]{nott_estimation_2002-1}
+Nott, D.~J. and Dunsmuir, W. T.~M. (2002).
+\newblock Estimation of nonstationary spatial covariance structure.
+\newblock {\em Biometrika}, 89(4):819--829.
+
+\bibitem[\protect\astroncite{Paciorek and
+  Schervish}{2004}]{paciorek_nonstationary_2004}
+Paciorek, C.~J. and Schervish, M.~J. (2004).
+\newblock Nonstationary {Covariance} {Functions} for {Gaussian} {Process}
+  {Regression}.
+\newblock In Thrun, S., Saul, L.~K., and Sch{\"o}lkopf, B., editors, {\em
+  Advances in {Neural} {Information} {Processing} {Systems} 16}, pages
+  273--280. MIT Press.
+
 \bibitem[\protect\astroncite{Pourahmadi}{2011}]{pourahmadi_covariance_2011}
 Pourahmadi, M. (2011).
 \newblock Covariance {Estimation}: {The} {GLM} and {Regularization}
@@ -60,6 +88,14 @@ Rasmussen, C.~E. and Williams, C. K.~I. (2006).
 \newblock Adaptive computation and machine learning. MIT Press, Cambridge,
   Mass.
 \newblock OCLC: ocm61285753.
+
+\bibitem[\protect\astroncite{Sampson and
+  Guttorp}{1992}]{sampson_nonparametric_1992}
+Sampson, P.~D. and Guttorp, P. (1992).
+\newblock Nonparametric {Estimation} of {Nonstationary} {Spatial} {Covariance}
+  {Structure}.
+\newblock {\em Journal of the American Statistical Association},
+  87(417):108--119.
 
 \bibitem[\protect\astroncite{Song et~al.}{2018}]{song_natural_2018}
 Song, J., Fan, S., Lin, W., Mottet, L., Woodward, H., Davies~Wykes, M.,

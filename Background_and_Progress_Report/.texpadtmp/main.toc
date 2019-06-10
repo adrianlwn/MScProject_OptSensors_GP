@@ -1,7 +1,7 @@
 \babel@toc {english}{}
-\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.2}
-\contentsline {section}{\numberline {1.1}Summary}{1}{section.3}
-\contentsline {section}{\numberline {1.2}Data}{1}{section.4}
+\contentsline {chapter}{\numberline {1}Project Proposal}{1}{chapter.2}
+\contentsline {paragraph}{Project Proposal:}{1}{paragraph*.3}
+\contentsline {paragraph}{Dataset:}{1}{paragraph*.4}
 \contentsline {chapter}{\numberline {2}Background}{2}{chapter.5}
 \contentsline {section}{\numberline {2.1}The MAGIC Project}{2}{section.6}
 \contentsline {section}{\numberline {2.2}Gaussian Processes}{3}{section.7}
@@ -10,19 +10,21 @@
 \contentsline {subsubsection}{\numberline {2.2.1.2}Prediction with Gaussian Processes}{3}{subsubsection.11}
 \contentsline {subsection}{\numberline {2.2.2}Scalable Gaussian Processes}{4}{subsection.15}
 \contentsline {subsection}{\numberline {2.2.3}Covariance Matrix Estimation}{4}{subsection.16}
-\contentsline {subsubsection}{\numberline {2.2.3.1}Properties of Covariance}{4}{subsubsection.17}
+\contentsline {subsubsection}{\numberline {2.2.3.1}Properties of Covariance}{5}{subsubsection.17}
 \contentsline {subsubsection}{\numberline {2.2.3.2}Covariance Estimation}{5}{subsubsection.18}
-\contentsline {paragraph}{}{5}{paragraph*.19}
-\contentsline {subsubsection}{\numberline {2.2.3.3}Numerical Stability}{5}{subsubsection.20}
-\contentsline {section}{\numberline {2.3}Sensor Position Optimisation}{5}{section.22}
-\contentsline {subsection}{\numberline {2.3.1}Placement Criterion}{5}{subsection.23}
-\contentsline {subsubsection}{\numberline {2.3.1.1}Entropy Criterion}{5}{subsubsection.24}
-\contentsline {subsubsection}{\numberline {2.3.1.2}Mutual Information Criterion}{6}{subsubsection.34}
-\contentsline {subsection}{\numberline {2.3.2}Approximation Algorithm}{7}{subsection.37}
-\contentsline {subsection}{\numberline {2.3.3}Improvements over the Algorithm}{8}{subsection.47}
-\contentsline {subsubsection}{\numberline {2.3.3.1}Lazy Procedure}{8}{subsubsection.48}
+\contentsline {paragraph}{Sample Covariance}{5}{paragraph*.19}
+\contentsline {paragraph}{Estimating a Spatial Covariance}{5}{paragraph*.21}
+\contentsline {section}{\numberline {2.3}Sensor Position Optimisation}{6}{section.22}
+\contentsline {subsection}{\numberline {2.3.1}Placement Criterion}{6}{subsection.23}
+\contentsline {subsubsection}{\numberline {2.3.1.1}Entropy Criterion}{6}{subsubsection.24}
+\contentsline {subsubsection}{\numberline {2.3.1.2}Mutual Information Criterion}{7}{subsubsection.34}
+\contentsline {subsection}{\numberline {2.3.2}Approximation Algorithm}{8}{subsection.37}
+\contentsline {subsection}{\numberline {2.3.3}Improvements over the Algorithm}{9}{subsection.47}
+\contentsline {subsubsection}{\numberline {2.3.3.1}Lazy Procedure}{9}{subsubsection.48}
 \contentsline {subsubsection}{\numberline {2.3.3.2}Local Kernels}{9}{subsubsection.51}
-\contentsline {chapter}{\numberline {3}Progress}{11}{chapter.59}
-\contentsline {section}{\numberline {3.1}Data Exploration}{11}{section.60}
-\contentsline {section}{\numberline {3.2}Covariance Estimation}{11}{section.61}
-\contentsline {section}{\numberline {3.3}Sensor Optimisation}{11}{section.62}
+\contentsline {chapter}{\numberline {3}Progress}{12}{chapter.59}
+\contentsline {section}{\numberline {3.1}Framework}{12}{section.60}
+\contentsline {section}{\numberline {3.2}Data Exploration}{12}{section.61}
+\contentsline {section}{\numberline {3.3}Covariance Estimation}{12}{section.64}
+\contentsline {section}{\numberline {3.4}Sensor Optimisation}{13}{section.65}
+\contentsline {chapter}{\numberline {4}Conclusion}{15}{chapter.67}
