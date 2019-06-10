@@ -18,11 +18,10 @@ from mpl_toolkits.mplot3d import Axes3D
 sys.path.append('../fluidity-master/python/')
 import vtktools
 
-data_path = "../data/small3DLSBU/"
-saving_path = "../Dropbox/MScProject/"
 
 
-def load_data(ts_0,ts_end, crop=None,):
+
+def load_VTK(ts_0,ts_end, crop=None,):
     """ Function that loads the VTK files in memory from timestamps : ts_0 to ts_end. 
         It crops the data if required.
         
@@ -57,7 +56,7 @@ def load_data(ts_0,ts_end, crop=None,):
     return data_dict, location_df(data_dict), time_vec(data_dict)
 
 
-def save_data(data_dict, field_name, field_data):
+def save_VTK(data_dict, field_name, field_data):
     """ Function that saves all the fields specified in the list
         Input : 
         --- data_dict : dictionary indexed by time stamp of all the loaded VTK files (all fields)
