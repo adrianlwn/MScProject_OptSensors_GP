@@ -1,6 +1,7 @@
 import numpy as np
 import sys
-from os.path import join
+from os import mkdir
+from os.path import join, isdir, isfile
 import pandas as pd
 import time
 from tqdm import tqdm
@@ -9,6 +10,11 @@ from utils.config import *
 
 sys.path.append('../fluidity-master/python/')
 import vtktools
+
+
+# ============================================
+# =============VTU files Handling=============
+# ============================================
 
 
 def load_vtu(ts_0, ts_end, crop=None, ):
@@ -28,6 +34,8 @@ def load_vtu(ts_0, ts_end, crop=None, ):
     """
 
     print("==> Import vtu files from {} to {}".format(ts_0, ts_end))
+    if crop is not None:
+        print("==> Cropping vtu files to {}".format(str(crop)))
     data_dict = {}
     for ts in tqdm(range(ts_0, ts_end + 1)):
         try:
@@ -37,19 +45,15 @@ def load_vtu(ts_0, ts_end, crop=None, ):
         except:
             print('Can\'t open the file \'' + file_path + '\'')
 
-    print('Number of Locations : ', data_dict[ts_0].GetLocations().shape[0])
+        if crop is not None:
+            data_dict[ts].Crop(crop[0][0], crop[0][1],
+                               crop[1][0], crop[1][1],
+                               crop[2][0], crop[2][1])
 
-    if crop is not None:
-        print("==> Cropping vtu files to {}".format(str(crop)))
-
-        crop_data(data_dict,
-                  min_x=crop[0][0], max_x=crop[0][1],
-                  min_y=crop[1][0], max_y=crop[1][1],
-                  min_z=crop[2][0], max_z=crop[2][1])
-
-        print('Number of Locations after cropping : ', data_dict[ts_0].GetLocations().shape[0])
+    print('Number of Locations after cropping : ', data_dict[ts_0].GetLocations().shape[0])
 
     ref_vtu = data_dict[ts_0]
+
     return data_dict, ref_vtu, extract_location_df(data_dict), extract_time_vec(data_dict)
 
 
@@ -66,7 +70,7 @@ def save_vtu(ref_vtu, field_name, field_data):
         field_name = [field_name]
 
     # Load the first element of data_dict
-    #ref_vtu = data_dict[list(data_dict.keys())[0]]
+    # ref_vtu = data_dict[list(data_dict.keys())[0]]
 
     # Copy this vtk file to the saving location
 
@@ -78,14 +82,14 @@ def save_vtu(ref_vtu, field_name, field_data):
 
     # Load the copy of the file
     temp_vtk = vtktools.vtu(file_path)
-    print('Saving to : {}'.format(temp_vtk.filename))
 
-    # Add new fields 
-    for i, name in field_name:
-        vtktools.vtu.AddField(name, field_data[:, i])
+    # Add new fields
+    for i, name in enumerate(field_name):
+        temp_vtk.AddField(name, field_data[:, i])
 
     # Write those fields int the file : 
     temp_vtk.Write(file_path)
+    print('==> Saved to : {}'.format(temp_vtk.filename))
 
 
 def crop_data(data_dict, min_x=-50, max_x=50, min_y=-50, max_y=50, min_z=0, max_z=50):
@@ -154,6 +158,41 @@ def extract_location_df(data_dict):
     """
     i_0 = list(data_dict.keys())[0]
     return pd.DataFrame(data_dict[i_0].GetLocations(), columns=['X', 'Y', 'Z'])
+
+
+def save_data_df(data_df: pd.DataFrame, field_name, i_start, i_end, crop):
+    folder_path = create_temp_folder(i_start, i_end, crop)
+    file_name = '_'.join(['data', field_name]) + '.pkl'
+    full_path = join(folder_path, file_name)
+    data_df.to_pickle(full_path)
+    print("==> Saving to : {}".format(full_path))
+
+
+def load_data_df(field_name, i_start, i_end, crop) -> pd.DataFrame:
+    folder_path = create_temp_folder(i_start, i_end, crop)
+    file_name = '_'.join(['data', field_name]) + '.pkl'
+    full_path = join(folder_path, file_name)
+    try:
+        data_df = pd.read_pickle(full_path)
+        print("==> Loading from : {}".format(full_path))
+    except:
+        print("==> Failed to load : {}".format(full_path))
+
+    return data_df
+
+
+def create_temp_folder(i_start, i_end, crop) -> str:
+    # Creates and Returns the path to the cache folder
+    folder_name = '_'.join(['cache', str(i_start), str(i_end), str(crop)])
+    full_path = join(data_path, temp_folder, folder_name)
+    if not isdir(full_path):
+        mkdir(full_path)
+    return full_path
+
+
+# ============================================
+# ========== Handling Extracted Files=========
+# ============================================
 
 
 def find_nearest_point(location_df, point=[0.0, 0.0, 0.0]):
