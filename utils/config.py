@@ -1,2 +1,6 @@
-data_path = "../data/small3DLSBU/"
-saving_path = "../Dropbox/MScProject/"
+
+""" Paths Variable """
+
+data_path = "../data/"
+VTK_folder = "small3DLSBU"
+temp_folder = "temp_data"
