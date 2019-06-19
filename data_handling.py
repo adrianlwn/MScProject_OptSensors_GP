@@ -1,9 +1,12 @@
 import numpy as np
+import scipy
+
 import sys
 import os
 from os.path import join
 import pandas as pd
 import time
+import pickle
 
 
 import tqdm
@@ -18,11 +21,12 @@ from mpl_toolkits.mplot3d import Axes3D
 sys.path.append('../fluidity-master/python/')
 import vtktools
 
-data_path = "../data/small3DLSBU/"
-saving_path = "../Dropbox/MScProject/"
+data_path = "../data/"
+temp_path = "../data/temp_data/"
 
 
-def load_data(ts_0,ts_end, crop=None,):
+
+def load_VTK_data(ts_0,ts_end, crop=None, dataset_name = "small3DLSBU"):
     """ Function that loads the VTK files in memory from timestamps : ts_0 to ts_end. 
         It crops the data if required.
         
@@ -37,12 +41,15 @@ def load_data(ts_0,ts_end, crop=None,):
         --- time_vec : a numpy array containg the real time stamps of the simulation 
     
     """
+    
+    
     data_dict = {}
     for ts in range(ts_0,ts_end+1):
         try:
-            data_dict[ts] = vtktools.vtu(join(data_path,'LSBU_'+ str(ts)+'.vtu'))
+            full_path = join(data_path,dataset_name)
+            data_dict[ts] = vtktools.vtu(join(full_path ,'LSBU_'+ str(ts)+'.vtu'))
         except:
-            print('Can\'t open the file \'' + str(join(data_path,'LSBU_'+ str(ts)+'.vtu'))+ '\'')
+            print('Can\'t open the file \'' + full_path + '\'')
             
     print('Number of Locations : ' ,data_dict[ts_0].GetLocations().shape[0])
     
@@ -57,7 +64,7 @@ def load_data(ts_0,ts_end, crop=None,):
     return data_dict, location_df(data_dict), time_vec(data_dict)
 
 
-def save_data(data_dict, field_name, field_data):
+def save_VTK_data(data_dict, field_name, field_data):
     """ Function that saves all the fields specified in the list
         Input : 
         --- data_dict : dictionary indexed by time stamp of all the loaded VTK files (all fields)
@@ -68,6 +75,8 @@ def save_data(data_dict, field_name, field_data):
     
     if type(field_name) is str :
         field_name = [field_name]
+        field_data = np.array(field_data).reshape(-1,1)
+    
     
     # Load the first element of data_dict
     temp_vtk = data_dict[list(data_dict.keys())[0]]
@@ -75,8 +84,8 @@ def save_data(data_dict, field_name, field_data):
     # Copy this vtk file to the saving location
     
     timestr = time.strftime("%Y:%m:%d-%H:%M:%S")
-    file_name = '_'.join(['LSBU_res',timestr,'_'.join(field_name)])
-    file_path = join(saving_path,file_name)
+    file_name = '_'.join(['LSBU_res',timestr,'_'.join(field_name),]) + '.vtu'
+    file_path = join(temp_path, file_name)
     temp_vtk.Write(file_path)
     
     # Load the copy of the file
@@ -84,15 +93,36 @@ def save_data(data_dict, field_name, field_data):
     print(temp_vtk.filename)
     
     # Add new fields 
-    for i, name in field_name : 
+    for i, name in enumerate(field_name) : 
         
-        vtktools.vtu.AddField(name,field_data[:,i])
+        temp_vtk.AddField(name,field_data[:,i])
         
     # Write those fields int the file : 
     temp_vtk.Write(file_path)
+    print("Saved Data to ",file_path)
     
     
     
+def save_cropped_data(data_tuple, field, crop, i_start, i_end):
+    """ Saves the Data Loaded and cropped into a pickle """
+    file_name = "_".join([field,str(i_start),str(i_end),str(crop)])
+    full_path = join(temp_path, file_name)
+    
+    with open(full_path, 'wb') as f:
+        pickle.dump(data_tuple, f)
+        print("Saved Data to ",full_path)
+
+    
+def load_cropped_data(field, crop, i_start, i_end):
+    """ Load the Data Loaded and cropped from a pickle """
+    file_name = "_".join([field, str(i_start),str(i_end),str(crop)])
+    full_path = join(temp_path,file_name)
+    
+    with open(full_path, 'rb') as f:
+        data_tuple = pickle.load(f)
+        print("Loaded Data from ",full_path)
+    return data_tuple
+
     
     
 
@@ -176,6 +206,17 @@ def find_nearest_point(location_df, point = [0.0, 0.0, 0.0]):
     i_point = dist_df.idxmin()
     n_point = location_df.loc[i_point,:].values
     return i_point, n_point
+
+def distance_matrix(location_df):
+    """ Function that computes the matrix of the distance between the points given
+        Input : 
+        --- location_df : df of the points location in the mesh
+        Returns : 
+        --- distance_matrix : distance matrix for all the points
+        
+    """
+    
+    return scipy.spatial.distance_matrix(location_df.values,location_df.values)
 
 def idx_slice(location_df, direction='Z', s_min = 0.0, s_max = 1.0):
     """ Function that computes the slices of the mesh indexes in the direction and of the width specified.

@@ -1,4 +1,6 @@
 import numpy as np
+import scipy
+
 import sys
 import os
 from os.path import join
@@ -9,9 +11,10 @@ import time
 import tqdm
 import heapq
 
-def define_sets(n_S = None,seed = 42):
+def define_sets(n_V, n_S = None,seed = 42):
     """ Function that defines the sets used in the optimsation problem. S is randomly selected in V. 
         Inputs : 
+        --- n_V : number of points in the datasets
         --- n_S : number of sensor to randomly selected in V (if None, S = V ) 
         --- seed : seed used for the random selection of S
         Outputs : 
@@ -20,7 +23,7 @@ def define_sets(n_S = None,seed = 42):
         --- n_U, U : size and idx of points contained in U : set of non sensor points
         
     """
-    n_V = location_df.shape[0]
+    
     V = np.array(range(n_V))
 
     if n_S == None : 
@@ -35,12 +38,13 @@ def define_sets(n_S = None,seed = 42):
     
     return n_V, V, n_S, S, n_U, U
 
-def approx_max_info(k):
+def approx_max_info(k, K, sets):
     """ This function implements the Algorithm 1: Approximation algorithm 
     for maximizing mutual information.
     
     Input Arguments : 
     --- k : number of Sensors to place in S ( k <= n_S )
+    --- sets : the ensemble of sets 
     
     Needed global variables : 
     --- K : Covariance Matrix between all points
@@ -49,6 +53,7 @@ def approx_max_info(k):
     --- n_S : number of such points
     
     """
+    n_V, V, n_S, S, n_U, U = sets
     
     n_A = 0
     A = np.array([])
@@ -65,23 +70,24 @@ def approx_max_info(k):
             A_ = np.setdiff1d(V,np.append(A,[y]))
             # Mutual Information Gain
 
-            delta_y[i] = H_cond(y, A) / H_cond(y, A_)
+            delta_y[i] = H_cond(y, A, K) / H_cond(y, A_, K)
         
         # Greedily selection the best point to add to A
         y_opt = S_A[np.argmax(delta_y)]
-        print((delta_y >0).sum()/len(delta_y))
+        
         # Add the selected point to A
         n_A += 1
         A = np.append(A,y_opt).astype(int)
         
     return A
 
-def approx_lazy_max_info(k):
+def approx_lazy_max_info(k, K, sets):
     """ This function implements the Algorithm 2: Approximation algorithm for 
     maximizing mutual information efficiently using lazy evaluation.
     
     Input Arguments : 
     --- k : number of Sensors to place
+    --- sets : the ensemble of sets 
     
     Needed global variables : 
     --- K : Covariance Matrix between all points
@@ -90,6 +96,8 @@ def approx_lazy_max_info(k):
     --- n_S : number of such points
     
     """
+    n_V, V, n_S, S, n_U, U = sets
+
 
     # INIT : 
     n_A = 0
@@ -113,7 +121,7 @@ def approx_lazy_max_info(k):
             else : 
                 A_ = np.setdiff1d(V,np.append(A,[y_opt]))
                 # Mutual Information Gain
-                delta_y_opt = H_cond(y_opt, A) / H_cond(y_opt, A_)
+                delta_y_opt = H_cond(y_opt, A, K) / H_cond(y_opt, A_, K)
                 heapq.heappush(delta_heap, (-1*delta_y_opt , y_opt ,j) )
         
         # Add the selected point to A
@@ -121,7 +129,7 @@ def approx_lazy_max_info(k):
         A = np.append(A, y_opt).astype(int)       
     return A
 
-def approx_local_max_info(k, epsilon):
+def approx_local_max_info(k, K, epsilon):
     """ NOT FININISHED : This function implements the Algorithm 3: Approximation algorithm for 
     maximizing mutual information efficiently using local kernels.
     
@@ -169,25 +177,25 @@ def approx_local_max_info(k, epsilon):
         for i in A: 
 
             # Mutual Information Gain
-            delta_y = H_cond(y, loc_A) / H_cond(y, loc_A_)
+            delta_y = H_cond(y, loc_A, K) / H_cond(y, loc_A_, K)
 
             heapq.heappush(delta_heap,(-1*delta_y ,y ,j))
        
     return A
         
 
-def delta_MI(y,A):
+def delta_MI(y,A,K):
     """ Function that computes the Mutual Entropy Difference """
     A_ = np.setdiff1d(V,np.append(A,[y]))
     
-    return H_cond(y, A) / H_cond(y, A_)
+    return H_cond(y, A, K) / H_cond(y, A_, K)
     
-def H_cond(y,X):
+def H_cond(y,X,K):
         """ Function that returns the conditional Entropy of y knowing X """        
         return K[y,y] - K[np.ix_([y],X)] @ np.linalg.inv(K[np.ix_(X,X)]) @ K[np.ix_(X,[y])] 
         #return K[y,y] - K[np.ix_([y],X)] @ np.linalg.solve(K[np.ix_(X,X)], K[np.ix_(X,[y])])
 
-def local_set(y, X, epsilon):
+def local_set(y, X, K, epsilon):
     """ Function that returns a set of points X_trunc for which K[y,X_trunc] > epsilon
         X being the input set
         Implementing the idea of local Kernels.
