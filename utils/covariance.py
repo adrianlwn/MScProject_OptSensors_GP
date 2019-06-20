@@ -1,18 +1,53 @@
 import numpy as np
 import os
-from os.path import join
+from os.path import join, isfile
 import pandas as pd
 
 from utils.config import *
+from utils.data_handling import create_temp_folder
+
+
+def cov_matrix(X, parameters, recompute=False):
+    """
+
+    :param X: data of computed covariance
+    :param parameters: dict of param
+    :param recompute: if we force to recompute the
+    :return:
+    """
+    method = parameters["cov_method"]
+
+    # Check if covariance is already computed
+    folder_path = create_temp_folder(parameters)
+    cov_file_name = "_".join(["cov", method]).npy
+    cov_full_path = join(folder_path, cov_file_name)
+
+    if (not recompute) & isfile(cov_full_path):
+        K = np.load(cov_full_path)
+    else:
+        recompute = True
+
+    # Computing the Covariance matrix
+
+    if recompute & method == "sample":
+        K = sample_cov_matrix(X)
+        # Saving it in file
+        np.save(cov_full_path, K)
+
+    elif recompute & method == "XX":
+        pass
+
+    elif recompute:
+        print("Incorrect method")
+    # Saving the Covariance Matrix in File
+
+    return K
 
 
 def sample_cov_matrix(X):
-    """ Computes the covariance matrix of the input mat
-    
+    """ Computes the sample covariance matrix using numpy function
     """
-
-    K = np.cov(X)
-    return K
+    return np.cov(X)
 
 
 def save_matrix(X, name, inplace=False):
@@ -22,7 +57,7 @@ def save_matrix(X, name, inplace=False):
     data_path
 
     # Define the Path
-    full_path = join(temp_path, '_'.join([name, str(0)]) + '.npy')
+    full_path = join(data_path, temp_path, '_'.join([name, str(0)]) + '.npy')
 
     # Check if file needs to be replaced
     if not (inplace):

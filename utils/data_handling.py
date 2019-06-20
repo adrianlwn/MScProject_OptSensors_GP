@@ -17,7 +17,7 @@ import vtktools
 # ============================================
 
 
-def load_vtu(ts_0, ts_end, crop=None, ):
+def load_vtu(parameters):
     """ Function that loads the VTK files in memory from timestamps : ts_0 to ts_end. 
         It crops the data if required.
         
@@ -32,6 +32,10 @@ def load_vtu(ts_0, ts_end, crop=None, ):
         --- time_vec : a numpy array containg the real time stamps of the simulation 
     
     """
+
+    ts_0 = parameters["i_start"]
+    ts_end = parameters["i_end"]
+    crop = parameters["crop"]
 
     print("==> Import vtu files from {} to {}".format(ts_0, ts_end))
     if crop is not None:
@@ -133,9 +137,11 @@ def extract_time_vec(data_dict):
     return time_vec
 
 
-def extract_data_df(data_dict, field_name):
+def extract_data_df(data_dict, parameters):
     # Extracts the time series for the specific field at each position
     # Returns a pandas DataFrame
+
+    field_name = parameters["field_name"]
 
     i_0 = list(data_dict.keys())[0]
     T = len(data_dict)
@@ -160,16 +166,20 @@ def extract_location_df(data_dict):
     return pd.DataFrame(data_dict[i_0].GetLocations(), columns=['X', 'Y', 'Z'])
 
 
-def save_data_df(data_df: pd.DataFrame, field_name, i_start, i_end, crop):
-    folder_path = create_temp_folder(i_start, i_end, crop)
+def save_data_df(data_df: pd.DataFrame, parameters):
+    field_name = parameters["field_name"]
+
+    folder_path = create_temp_folder(parameters)
     file_name = '_'.join(['data', field_name]) + '.pkl'
     full_path = join(folder_path, file_name)
     data_df.to_pickle(full_path)
     print("==> Saving to : {}".format(full_path))
 
 
-def load_data_df(field_name, i_start, i_end, crop) -> pd.DataFrame:
-    folder_path = create_temp_folder(i_start, i_end, crop)
+def load_data_df(parameters) -> pd.DataFrame:
+    field_name = parameters["field_name"]
+
+    folder_path = create_temp_folder(parameters)
     file_name = '_'.join(['data', field_name]) + '.pkl'
     full_path = join(folder_path, file_name)
     try:
@@ -181,7 +191,11 @@ def load_data_df(field_name, i_start, i_end, crop) -> pd.DataFrame:
     return data_df
 
 
-def create_temp_folder(i_start, i_end, crop) -> str:
+def create_temp_folder(parameters) -> str:
+    i_start = parameters["i_start"]
+    i_end = parameters["i_end"]
+    crop = parameters["crop"]
+
     # Creates and Returns the path to the cache folder
     folder_name = '_'.join(['cache', str(i_start), str(i_end), str(crop)])
     full_path = join(data_path, temp_folder, folder_name)
