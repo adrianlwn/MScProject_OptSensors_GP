@@ -6,9 +6,9 @@ parameters["field_name"] = "TracerBackground"
 
 
 # Covariance Choice : Sample Covariance
-""" 
+ 
 parameters["cov_method"] = "sample"
-"""
+
 
 # Covariance Choice : Matern Kernel 5/2
 """ 
