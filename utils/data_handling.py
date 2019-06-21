@@ -16,10 +16,9 @@ import vtktools
 # =============VTU files Handling=============
 # ============================================
 
-
-def load_vtu(parameters):
+def initial_load_data(parameters, reload=False):
     """ Function that loads the VTK files in memory from timestamps : ts_0 to ts_end. 
-        It crops the data if required.
+        It crops the data if required. It extracts the field required in parameters.
         
         Inputs : 
         --- ts_0 : initial time stamp, must be in [0 -> 988] 
@@ -32,11 +31,48 @@ def load_vtu(parameters):
         --- time_vec : a numpy array containg the real time stamps of the simulation 
     
     """
-
     ts_0 = parameters["i_start"]
     ts_end = parameters["i_end"]
     crop = parameters["crop"]
 
+    # Path of the folder unique to the parameters
+    data_folder = create_temp_folder(parameters)
+
+    if not reload or not (isdir(data_folder)):
+        # If we don't have the files, we load them from vtu
+
+        print("### Loading preprocessed files")
+        ref_vtu = load_vtu(ts_0, ts_0, crop)
+        loc_df = load_df('loc', parameters)
+        time_df = load_df('time', parameters)
+        data_df = load_df('data', parameters)
+
+    else:
+        print("### Loading files from original VTU")
+        data_dict = load_vtu(ts_0, ts_end, crop)
+        ref_vtu = data_dict[ts_0]
+
+        loc_df = extract_location_df(data_dict)
+        save_df('loc', loc_df, parameters)
+
+        time_df = extract_time_df(data_dict)
+        save_df('time', time_df, parameters)
+
+        data_df = extract_data_df(data_dict, parameters)
+        save_df('data', data_df, parameters)
+
+    return ref_vtu, data_df, loc_df, time_df
+
+
+def load_vtu(ts_0, ts_end, crop):
+    """ Function that loads the vtu data in a dictionary
+
+    :param ts_0:
+    :param ts_end:
+    :param crop:
+    :return:
+    """
+    # If we already have the files, we import the content from the vtu files
     print("==> Import vtu files from {} to {}".format(ts_0, ts_end))
     if crop is not None:
         print("==> Cropping vtu files to {}".format(str(crop)))
@@ -56,9 +92,7 @@ def load_vtu(parameters):
 
     print('Number of Locations after cropping : ', data_dict[ts_0].GetLocations().shape[0])
 
-    ref_vtu = data_dict[ts_0]
-
-    return data_dict, ref_vtu, extract_location_df(data_dict), extract_time_vec(data_dict)
+    return data_dict
 
 
 def save_vtu(ref_vtu, field_name, field_data):
@@ -107,7 +141,7 @@ def crop_data(data_dict, min_x=-50, max_x=50, min_y=-50, max_y=50, min_z=0, max_
                            min_z, max_z)
 
 
-def extract_data_mat(data_dict, field_name):
+def extract_data_df(data_dict, field_name):
     # Extracts the time series for the specific field at each position
 
     print("==> Extracting the field \"{}\" from the vtu files.".format(field_name))
@@ -119,10 +153,10 @@ def extract_data_mat(data_dict, field_name):
 
     for t, ts in enumerate(data_dict):
         data_mat[:, t] = data_dict[ts].GetField(field_name).T
-    return data_mat
+    return pd.DataFrame(data_mat)
 
 
-def extract_time_vec(data_dict):
+def extract_time_df(data_dict):
     # Extracts the time vector of the simulation
     # Returns a numpy array
 
@@ -134,7 +168,7 @@ def extract_time_vec(data_dict):
 
     for t, ts in enumerate(data_dict):
         time_vec[t] = data_dict[ts].GetField('Time')[0]
-    return time_vec
+    return pd.DataFrame(time_vec)
 
 
 def extract_data_df(data_dict, parameters):
@@ -181,6 +215,31 @@ def load_data_df(parameters) -> pd.DataFrame:
 
     folder_path = create_temp_folder(parameters)
     file_name = '_'.join(['data', field_name]) + '.pkl'
+    full_path = join(folder_path, file_name)
+    try:
+        data_df = pd.read_pickle(full_path)
+        print("==> Loading from : {}".format(full_path))
+    except:
+        print("==> Failed to load : {}".format(full_path))
+
+    return data_df
+
+
+def save_df(type, data_df: pd.DataFrame, parameters):
+    field_name = parameters["field_name"]
+
+    folder_path = create_temp_folder(parameters)
+    file_name = '_'.join([type, field_name]) + '.pkl'
+    full_path = join(folder_path, file_name)
+    data_df.to_pickle(full_path)
+    print("==> Saving to : {}".format(full_path))
+
+
+def load_df(type, parameters) -> pd.DataFrame:
+    field_name = parameters["field_name"]
+
+    folder_path = create_temp_folder(parameters)
+    file_name = '_'.join([type, field_name]) + '.pkl'
     full_path = join(folder_path, file_name)
     try:
         data_df = pd.read_pickle(full_path)
