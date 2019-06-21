@@ -1,6 +1,6 @@
 import numpy as np
 import sys
-from os import mkdir
+from os import mkdir, listdir
 from os.path import join, isdir, isfile
 import pandas as pd
 import time
@@ -16,7 +16,7 @@ import vtktools
 # =============VTU files Handling=============
 # ============================================
 
-def initial_load_data(parameters, reload=False):
+def initial_load_data(parameters, recompute=False):
     """ Function that loads the VTK files in memory from timestamps : ts_0 to ts_end. 
         It crops the data if required. It extracts the field required in parameters.
         
@@ -37,18 +37,17 @@ def initial_load_data(parameters, reload=False):
 
     # Path of the folder unique to the parameters
     data_folder = create_temp_folder(parameters)
-
-    if not reload or not (isdir(data_folder)):
-        # If we don't have the files, we load them from vtu
-
-        print("### Loading preprocessed files")
+    
+    if not(recompute or not listdir(data_folder)):
+        # If we don't have the files, we recompute them from vtu
+        print("### Loading files from original VTU")
         ref_vtu = load_vtu(ts_0, ts_0, crop)
         loc_df = load_df('loc', parameters)
         time_df = load_df('time', parameters)
         data_df = load_df('data', parameters)
 
     else:
-        print("### Loading files from original VTU")
+        print("### Loading preprocessed files")
         data_dict = load_vtu(ts_0, ts_end, crop)
         ref_vtu = data_dict[ts_0]
 
