@@ -8,8 +8,7 @@ import time
 import tqdm
 import heapq
 
-import tensorflow as tf
-import gpflow
+import GPy
 
 
 def define_sets(n_V, n_S=None, seed=42):
