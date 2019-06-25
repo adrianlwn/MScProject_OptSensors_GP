@@ -384,7 +384,7 @@ This chapter exposes the work done until now in the project. It will focus on th
 
 \section{Framework}
 
-In order to implement the algorithm and manipulate the VTK files of the dataset and I relied on Python 3.7 scripts that I runned the cluster of the DSI.  \\
+In order to implement the algorithm and manipulate the VTK files of the dataset and I relied on Python 3.7 scripts that I ran on the cluster of the DSI.  \\
  
  I have implemented a set of function to load and save the dataset and various intermediary computation results. Additional methods for the quick manipulation and the visualisation of the space. And functions that implement the covariance matrix estimate and the optimisation algorithms. 
 
@@ -427,12 +427,19 @@ We plot in the following figure the results obtained in the setting described ea
 \end{figure}
 
 
+\section{Implementation Description}
+
+I have initially developed the tools used to extract, visualise and export VTK files. 
+
+\subsection{}
+
+
 
 \chapter{Conclusion}
 
 In this report we have stated some of the research that was done in order to solve the sensor position optimisation problem. \\ 
 
-The biggest challenge here is to make the algorithm scalable for optimising over $100'000$ sensor locations. It requires to develop p strategies to make the GPs scalable. The main other challenge is to find a method to accurately estimate the covariance matrix. The theory enabling this scalability still need to be developed \\
+The biggest challenge here is to make the algorithm scalable for optimising over $100'000$ sensor locations. It requires to develop strategies to make the GPs scalable. The main other challenge is to find a method to accurately estimate the covariance matrix. The theory enabling this scalability still need to be developed \\
 
 I have implemented some of the optimisation algorithm proposed on a smaller dataset and with a poor estimation of the covariance function. It has given consistent results and has proven that once the main challenges, described earlier are solved, we will have a good optimisation algorithm for that kind of setups. 
 
