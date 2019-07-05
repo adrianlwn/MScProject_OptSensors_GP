@@ -34,6 +34,10 @@ Fan, J., Liao, Y., and Liu, H. (2015).
 \newblock {\em arXiv:1504.02995 [stat]}.
 \newblock arXiv: 1504.02995.
 
+\bibitem[\protect\astroncite{GPy}{2014}]{gpy_gpy:_2014}
+GPy (2014).
+\newblock {GPy}: {Gaussian} process framework in python.
+
 \bibitem[\protect\astroncite{Guttorp and Sampson}{1994}]{guttorp_20_1994}
 Guttorp, P. and Sampson, P.~D. (1994).
 \newblock 20 {Methods} for estimating heterogeneous spatial covariance
@@ -104,5 +108,17 @@ Song, J., Fan, S., Lin, W., Mottet, L., Woodward, H., Davies~Wykes, M.,
   Pavlidis, D., Robins, A.~G., Short, C.~A., and Linden, P.~F. (2018).
 \newblock Natural ventilation in cities: the implications of fluid mechanics.
 \newblock {\em Building Research \& Information}, 46(8):809--828.
+
+\bibitem[\protect\astroncite{Titsias}{2009}]{titsias_variational_2009}
+Titsias, M.~K. (2009).
+\newblock Variational {Learning} of {Inducing} {Variables} in {Sparse}
+  {Gaussian} {Processes}.
+\newblock page~8.
+
+\bibitem[\protect\astroncite{Wilson and Nickisch}{2015}]{wilson_kernel_2015}
+Wilson, A.~G. and Nickisch, H. (2015).
+\newblock Kernel {Interpolation} for {Scalable} {Structured} {Gaussian}
+  {Processes} ({KISS}-{GP}).
+\newblock page~10.
 
 \end{thebibliography}

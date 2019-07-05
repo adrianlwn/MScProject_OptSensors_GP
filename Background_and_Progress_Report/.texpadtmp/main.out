@@ -4,14 +4,20 @@
 \BOOKMARK [1][]{section.7}{2.2 Gaussian Processes}{chapter.5}% 4
 \BOOKMARK [2][]{subsection.8}{2.2.1 Sensor Data Modelling}{section.7}% 5
 \BOOKMARK [2][]{subsection.15}{2.2.2 Scalable Gaussian Processes}{section.7}% 6
-\BOOKMARK [2][]{subsection.16}{2.2.3 Covariance Matrix Estimation}{section.7}% 7
-\BOOKMARK [1][]{section.22}{2.3 Sensor Position Optimisation}{chapter.5}% 8
-\BOOKMARK [2][]{subsection.23}{2.3.1 Placement Criterion}{section.22}% 9
-\BOOKMARK [2][]{subsection.37}{2.3.2 Approximation Algorithm}{section.22}% 10
-\BOOKMARK [2][]{subsection.47}{2.3.3 Improvements over the Algorithm}{section.22}% 11
-\BOOKMARK [0][]{chapter.59}{3 Progress}{}% 12
-\BOOKMARK [1][]{section.60}{3.1 Framework}{chapter.59}% 13
-\BOOKMARK [1][]{section.61}{3.2 Data Exploration}{chapter.59}% 14
-\BOOKMARK [1][]{section.64}{3.3 Covariance Estimation}{chapter.59}% 15
-\BOOKMARK [1][]{section.65}{3.4 Sensor Optimisation}{chapter.59}% 16
-\BOOKMARK [0][]{chapter.67}{4 Conclusion}{}% 17
+\BOOKMARK [2][]{subsection.21}{2.2.3 Covariance Matrix Estimation}{section.7}% 7
+\BOOKMARK [1][]{section.27}{2.3 Sensor Position Optimisation}{chapter.5}% 8
+\BOOKMARK [2][]{subsection.28}{2.3.1 Placement Criterion}{section.27}% 9
+\BOOKMARK [2][]{subsection.42}{2.3.2 Approximation Algorithm}{section.27}% 10
+\BOOKMARK [2][]{subsection.52}{2.3.3 Improvements over the Algorithm}{section.27}% 11
+\BOOKMARK [0][]{chapter.64}{3 Progress}{}% 12
+\BOOKMARK [1][]{section.65}{3.1 Data Exploration}{chapter.64}% 13
+\BOOKMARK [1][]{section.69}{3.2 Implementation}{chapter.64}% 14
+\BOOKMARK [2][]{subsection.70}{3.2.1 Initialisation}{section.69}% 15
+\BOOKMARK [2][]{subsection.71}{3.2.2 Modeling}{section.69}% 16
+\BOOKMARK [2][]{subsection.72}{3.2.3 Optimisation}{section.69}% 17
+\BOOKMARK [2][]{subsection.74}{3.2.4 Display and Exportation}{section.69}% 18
+\BOOKMARK [1][]{section.75}{3.3 Discussion}{chapter.64}% 19
+\BOOKMARK [2][]{subsection.76}{3.3.1 Summary of the GP Sensor Optimisation}{section.75}% 20
+\BOOKMARK [2][]{subsection.78}{3.3.2 Covariance Estimation}{section.75}% 21
+\BOOKMARK [2][]{subsection.87}{3.3.3 Gaussian Process}{section.75}% 22
+\BOOKMARK [0][]{chapter.88}{4 Conclusion}{}% 23
