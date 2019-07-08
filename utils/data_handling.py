@@ -266,6 +266,36 @@ def create_temp_folder(parameters) -> str:
 # ========== Handling Extracted Files=========
 # ============================================
 
+def working_subset(data_df, loc_df, nbins = (25,25,25), threshold_sum = 10**-2 ):
+    """ This function returns the indices of the points in the space which 
+        are relevant for our optimisation problem. They are selected by cutting
+        the 3D space into cuboids. Those cuboids are of different shape and their number
+        is parametrised by nbins in each dimension. In each cuboid, we then compute a spatial
+        and temporal sum over the included points. Each cuboid is then kept if the previously 
+        summed value is over the specified threshold.
+        
+    """
+    data_df[data_df < 0] = 0
+    main_df = loc_df.copy()
+    main_df.loc[:,'data'] = data_df.sum(axis=1)
+
+    main_df.loc[:,'Xcut'] = pd.cut(main_df.loc[:,'X'],bins=nbins[0])
+    main_df.loc[:,'Ycut'] = pd.cut(main_df.loc[:,'Y'],bins=nbins[1])
+    main_df.loc[:,'Zcut'] = pd.cut(main_df.loc[:,'Z'],bins=nbins[2])
+    
+    cut_col = ['Xcut','Ycut','Zcut']
+    windowed_mean_df = main_df.groupby(cut_col).sum().loc[:,['data']].dropna()
+    windowed_mean_df.loc[:,'indices'] = main_df.groupby(cut_col).apply(lambda x : np.array(x.index.to_list()))
+    selected_windows = windowed_mean_df[(windowed_mean_df['data'] > threshold_sum)].dropna()
+    working_subset = np.hstack(selected_windows.indices.values)
+    print('The remaining number of points is : ',len(working_subset))
+    return working_subset
+
+def set_to_onehot(A,n):
+    """Function that maps a list of points to a one hot encoding of selected points"""
+    A_list = np.zeros((n,1))
+    A_list[A] = 1
+    return A_list
 
 def find_nearest_point(location_df, point=[0.0, 0.0, 0.0]):
     """ Function that returns the index and the location of the closest of the mesh.
