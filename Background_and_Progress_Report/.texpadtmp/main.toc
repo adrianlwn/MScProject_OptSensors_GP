@@ -1,41 +1,45 @@
 \babel@toc {english}{}
-\contentsline {chapter}{\numberline {1}Project Proposal}{1}{chapter.2}
-\contentsline {paragraph}{Project Proposal:}{1}{paragraph*.3}
-\contentsline {paragraph}{Dataset:}{1}{paragraph*.4}
-\contentsline {chapter}{\numberline {2}Background}{2}{chapter.5}
-\contentsline {section}{\numberline {2.1}The MAGIC Project}{2}{section.6}
-\contentsline {section}{\numberline {2.2}Gaussian Processes}{3}{section.7}
-\contentsline {subsection}{\numberline {2.2.1}Sensor Data Modelling}{3}{subsection.8}
-\contentsline {subsubsection}{\numberline {2.2.1.1}Multivariate Gaussian Distribution}{3}{subsubsection.9}
-\contentsline {subsubsection}{\numberline {2.2.1.2}Prediction with Gaussian Processes}{3}{subsubsection.11}
-\contentsline {subsection}{\numberline {2.2.2}Scalable Gaussian Processes}{4}{subsection.15}
-\contentsline {subsubsection}{\numberline {2.2.2.1}Global Approaches}{4}{subsubsection.16}
-\contentsline {subsubsection}{\numberline {2.2.2.2}Local Approaches}{6}{subsubsection.20}
-\contentsline {subsection}{\numberline {2.2.3}Covariance Matrix Estimation}{7}{subsection.21}
-\contentsline {subsubsection}{\numberline {2.2.3.1}Properties of Covariance}{7}{subsubsection.22}
-\contentsline {subsubsection}{\numberline {2.2.3.2}Covariance Estimation}{7}{subsubsection.23}
-\contentsline {paragraph}{Sample Covariance}{7}{paragraph*.24}
-\contentsline {paragraph}{Estimating a Spatial Covariance}{8}{paragraph*.26}
-\contentsline {section}{\numberline {2.3}Sensor Position Optimisation}{8}{section.27}
-\contentsline {subsection}{\numberline {2.3.1}Placement Criterion}{8}{subsection.28}
-\contentsline {subsubsection}{\numberline {2.3.1.1}Entropy Criterion}{8}{subsubsection.29}
-\contentsline {subsubsection}{\numberline {2.3.1.2}Mutual Information Criterion}{9}{subsubsection.39}
-\contentsline {subsection}{\numberline {2.3.2}Approximation Algorithm}{10}{subsection.42}
-\contentsline {subsection}{\numberline {2.3.3}Improvements over the Algorithm}{11}{subsection.52}
-\contentsline {subsubsection}{\numberline {2.3.3.1}Lazy Procedure}{11}{subsubsection.53}
-\contentsline {subsubsection}{\numberline {2.3.3.2}Local Kernels}{12}{subsubsection.56}
-\contentsline {chapter}{\numberline {3}Progress}{14}{chapter.64}
-\contentsline {section}{\numberline {3.1}Data Exploration}{14}{section.65}
-\contentsline {section}{\numberline {3.2}Implementation}{15}{section.69}
-\contentsline {subsection}{\numberline {3.2.1}Initialisation}{16}{subsection.70}
-\contentsline {subsection}{\numberline {3.2.2}Modeling}{16}{subsection.71}
-\contentsline {subsection}{\numberline {3.2.3}Optimisation}{16}{subsection.72}
-\contentsline {subsection}{\numberline {3.2.4}Display and Exportation}{16}{subsection.74}
-\contentsline {section}{\numberline {3.3}Discussion}{17}{section.75}
-\contentsline {subsection}{\numberline {3.3.1}Summary of the GP Sensor Optimisation}{17}{subsection.76}
-\contentsline {subsection}{\numberline {3.3.2}Covariance Estimation}{17}{subsection.78}
-\contentsline {subsubsection}{\numberline {3.3.2.1}Sample Covariance}{18}{subsubsection.83}
-\contentsline {subsubsection}{\numberline {3.3.2.2}Non-Stationary Covariance}{18}{subsubsection.84}
-\contentsline {subsubsection}{\numberline {3.3.2.3}Isotropic Covariance}{18}{subsubsection.86}
-\contentsline {subsection}{\numberline {3.3.3}Gaussian Process}{19}{subsection.87}
-\contentsline {chapter}{\numberline {4}Conclusion}{20}{chapter.88}
+\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.3}
+\contentsline {paragraph}{Project Proposal:}{2}{paragraph*.5}
+\contentsline {paragraph}{Dataset:}{2}{paragraph*.6}
+\contentsline {chapter}{\numberline {2}Background}{3}{chapter.7}
+\contentsline {section}{\numberline {2.1}The MAGIC Project}{3}{section.8}
+\contentsline {section}{\numberline {2.2}Gaussian Processes}{4}{section.9}
+\contentsline {subsection}{\numberline {2.2.1}Sensor Data Modelling}{4}{subsection.10}
+\contentsline {subsubsection}{\numberline {2.2.1.1}Multivariate Gaussian Distribution}{4}{subsubsection.11}
+\contentsline {subsubsection}{\numberline {2.2.1.2}Prediction with Gaussian Processes}{4}{subsubsection.13}
+\contentsline {subsection}{\numberline {2.2.2}Scalable Gaussian Processes}{5}{subsection.17}
+\contentsline {subsubsection}{\numberline {2.2.2.1}Global Approaches}{5}{subsubsection.18}
+\contentsline {subsubsection}{\numberline {2.2.2.2}Local Approaches}{7}{subsubsection.22}
+\contentsline {subsection}{\numberline {2.2.3}Covariance Matrix Estimation}{8}{subsection.23}
+\contentsline {subsubsection}{\numberline {2.2.3.1}Properties of Covariance}{8}{subsubsection.24}
+\contentsline {subsubsection}{\numberline {2.2.3.2}Covariance Estimation}{8}{subsubsection.25}
+\contentsline {paragraph}{Sample Covariance}{8}{paragraph*.26}
+\contentsline {paragraph}{Estimating a Spatial Covariance}{9}{paragraph*.28}
+\contentsline {section}{\numberline {2.3}Sensor Position Optimisation}{9}{section.29}
+\contentsline {subsection}{\numberline {2.3.1}Placement Criterion}{9}{subsection.30}
+\contentsline {subsubsection}{\numberline {2.3.1.1}Entropy Criterion}{9}{subsubsection.31}
+\contentsline {subsubsection}{\numberline {2.3.1.2}Mutual Information Criterion}{10}{subsubsection.41}
+\contentsline {subsection}{\numberline {2.3.2}Approximation Algorithm}{11}{subsection.44}
+\contentsline {subsection}{\numberline {2.3.3}Improvements over the Algorithm}{12}{subsection.54}
+\contentsline {subsubsection}{\numberline {2.3.3.1}Lazy Procedure}{12}{subsubsection.55}
+\contentsline {subsubsection}{\numberline {2.3.3.2}Local Kernels}{13}{subsubsection.58}
+\contentsline {chapter}{\numberline {3}Progress}{15}{chapter.66}
+\contentsline {section}{\numberline {3.1}Data Exploration}{15}{section.67}
+\contentsline {section}{\numberline {3.2}Implementation}{16}{section.71}
+\contentsline {subsection}{\numberline {3.2.1}Initialisation}{17}{subsection.72}
+\contentsline {subsection}{\numberline {3.2.2}Modeling}{17}{subsection.73}
+\contentsline {subsection}{\numberline {3.2.3}Optimisation}{17}{subsection.74}
+\contentsline {subsection}{\numberline {3.2.4}Display and Exportation}{17}{subsection.76}
+\contentsline {section}{\numberline {3.3}Discussion}{18}{section.77}
+\contentsline {subsection}{\numberline {3.3.1}Summary of the GP Sensor Optimisation}{18}{subsection.78}
+\contentsline {subsection}{\numberline {3.3.2}Covariance Estimation}{18}{subsection.80}
+\contentsline {subsubsection}{\numberline {3.3.2.1}Sample Covariance}{19}{subsubsection.85}
+\contentsline {subsubsection}{\numberline {3.3.2.2}Non-Stationary Covariance}{19}{subsubsection.86}
+\contentsline {subsubsection}{\numberline {3.3.2.3}Isotropic Covariance}{19}{subsubsection.88}
+\contentsline {subsection}{\numberline {3.3.3}Gaussian Process}{20}{subsection.89}
+\contentsline {section}{\numberline {3.4}Implementation Details}{20}{section.90}
+\contentsline {subsection}{\numberline {3.4.1}Environment}{20}{subsection.91}
+\contentsline {subsection}{\numberline {3.4.2}Initialisation}{20}{subsection.94}
+\contentsline {paragraph}{Selection of a working subset of the data}{20}{paragraph*.96}
+\contentsline {chapter}{\numberline {4}Conclusion}{22}{chapter.100}
