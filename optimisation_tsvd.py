@@ -2,7 +2,6 @@
 from utils.data_handling import *
 from utils.sensor_optimisation_tsvd import *
 from parameters import *
-import GPy
 import scipy.stats
 
 import matplotlib.pyplot as plt
