@@ -1,7 +1,8 @@
 parameters = dict()
 parameters["i_start"] = 0
 parameters["i_end"] = 20
-parameters["crop"] = ((-5, 5), (-5, 5), (0, 20))
+parameters["crop"] = ((-10, 10), (-10, 10), (0, 50))
+#((-15, 15), (-15, 15), (0, 100))
 parameters["field_name"] = "TracerBackground"
 
 
