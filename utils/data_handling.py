@@ -112,7 +112,7 @@ def save_vtu(ref_vtu, field_name, field_data):
     # Copy this vtk file to the saving location
 
     time_str = time.strftime("%Y:%m:%d-%H:%M:%S")
-    file_name = '_'.join(['LSBU_res', time_str, '_'.join(field_name)])
+    file_name = '_'.join(['LSBU_res', time_str, '_'.join(field_name)]) + ".vtu"
 
     file_path = join(join(data_path, temp_folder), file_name)
     ref_vtu.Write(file_path)
@@ -290,6 +290,8 @@ def working_subset(data_df, loc_df, nbins = (25,25,25), threshold_sum = 10**-2 )
     working_subset = np.hstack(selected_windows.indices.values)
     print('The remaining number of points is : ',len(working_subset))
     return working_subset
+
+
 
 def set_to_onehot(A,n):
     """Function that maps a list of points to a one hot encoding of selected points"""

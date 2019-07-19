@@ -4,7 +4,7 @@ parameters["i_end"] = 20
 parameters["crop"] = None 
 #((-10, 10), (-10, 10), (0, 50))
 #((-15, 15), (-15, 15), (0, 100))
-parameters["field_name"] = "TracerBackground"
+parameters["field_name"] = "Tracer"
 
 
 # Covariance Choice : Sample Covariance
