@@ -54,7 +54,7 @@ def sensor_loc_optimisation_naive(k, Z, sets, tau):
     --- S : Set of potential sensor points
     --- n_S : number of such points
     """
-    
+
     n_V, V, n_S, S, n_U, U = sets
 
     n_A = 0
@@ -67,7 +67,7 @@ def sensor_loc_optimisation_naive(k, Z, sets, tau):
         S_A = np.setdiff1d(S, A).astype(int)
         delta_y = np.zeros((n_S - j))
         ## Inner Loop : Iterating over the potential sensor places
-        for i, y in  tqdm.tqdm(enumerate(S_A), desc="Inner Loop"):
+        for i, y in tqdm.tqdm(enumerate(S_A), desc="Inner Loop"):
             A_ = np.setdiff1d(V, np.append(A, [y]))
             # Mutual Information Gain
 
@@ -115,7 +115,7 @@ def sensor_loc_optimisation_lazy(k, Z, sets, tau):
     # MAIN LOOP of the Algorithm : Iterating over the number of sensors to place
     for j in tqdm.tqdm(range(k)):
         p_bar = tqdm.tqdm(range(n_S), desc="Inner Loop")
-        ## INNER LOOP : Iterating over the potential sensor places
+        # INNER LOOP : Iterating over the potential sensor places
         while True:
             p_bar.update(1)
             delta, y_opt, count = heapq.heappop(delta_heap)
@@ -189,26 +189,23 @@ def approx_local_max_info(k, K, epsilon):
     return A
 
 
-
-
 def H_cond(y, X, Z, tau):
     """ Function that returns the conditional Entropy of y knowing X """
-    
-    Z_y = Z[y,:].reshape(1,-1)
-    if X.shape[0] == 0 :
-        Z_y_A = Z_y @ Z_y.T
-    else :
-        if len(X) <= tau:
-            Z_Atau = Z[X,:].reshape(1,-1)
-        else :
-            tsvd = TruncatedSVD(n_components=tau)
-            Z_Atau = tsvd.fit_transform(Z[X.astype(int),:].T).T
-        
-        Z_y_A  = Z_y @ Z_y.T -  Z_y @ Z_Atau.T @ np.linalg.inv(Z_Atau @ Z_Atau.T) @ Z_Atau @ Z_y.T
 
+    Z_y = Z[y, :].reshape(1, -1)
+    if X.shape[0] == 0:
+        Z_y_A = Z_y @ Z_y.T
+    else:
+        if len(X) <= tau:
+            Z_Atau = Z[X, :].reshape(len(X), -1)
+        else:
+            tsvd = TruncatedSVD(n_components=tau)
+            Z_Atau = tsvd.fit_transform(Z[X.astype(int), :].T).T
+
+        Z_y_A = Z_y @ Z_y.T - Z_y @ Z_Atau.T @ np.linalg.inv(Z_Atau @ Z_Atau.T) @ Z_Atau @ Z_y.T
 
     return Z_y_A
-    #return K[y, y] - K[np.ix_([y], X)] @ np.linalg.inv(K[np.ix_(X, X)]) @ K[np.ix_(X, [y])]
+    # return K[y, y] - K[np.ix_([y], X)] @ np.linalg.inv(K[np.ix_(X, X)]) @ K[np.ix_(X, [y])]
     # return K[y,y] - K[np.ix_([y],X)] @ np.linalg.solve(K[np.ix_(X,X)], K[np.ix_(X,[y])])
 
 
