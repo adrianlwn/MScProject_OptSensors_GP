@@ -1,6 +1,6 @@
 parameters = dict()
 parameters["i_start"] = 0
-parameters["i_end"] = 20
+parameters["i_end"] = 988
 parameters["crop"] = None 
 #((-10, 10), (-10, 10), (0, 50))
 #((-15, 15), (-15, 15), (0, 100))
@@ -24,13 +24,15 @@ parameters["lengthscale"] = 0.4
 # Shape of the building : 
 
 buildingshape = dict()
-buildingshape[1] = [(-57.71, -131.01),
+buildingshape[0] = [(-57.71, -131.01),
                      (-59.61, -122.03),
                      (25.77, -87.06),
+                     (28.18, -96.01)]
+buildingshape[1] = [(25.77, -87.06),
                      (-19.76, -28.47),
                      (-10.27, -18.55),
                      (38.68, -83.28),
-                     (31.09, -93.2)]
+                     (28.18, -95.66)]
 buildingshape[2] = [(-77.05, -91.36),
                      (-90.79, -75.77),
                      (-41.45, -11.47),
