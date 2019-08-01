@@ -5,6 +5,8 @@ from os.path import join, isdir, isfile
 import pandas as pd
 import time
 from tqdm import tqdm
+from shapely.geometry import Polygon, MultiPoint
+
 
 from utils.config import *
 
@@ -37,8 +39,8 @@ def initial_load_data(parameters, recompute=False):
 
     # Path of the folder unique to the parameters
     data_folder = create_temp_folder(parameters)
-    
-    if not(recompute or not listdir(data_folder)):
+
+    if not (recompute or not listdir(data_folder)):
         # If we don't have the files, we recompute them from vtu
         print("### Loading files from original VTU")
         ref_vtu = load_vtu(ts_0, ts_0, crop)
@@ -266,7 +268,7 @@ def create_temp_folder(parameters) -> str:
 # ========== Handling Extracted Files=========
 # ============================================
 
-def working_subset(data_df, loc_df, nbins = (25,25,25), threshold_sum = 10**-2 ):
+def working_subset(data_df, loc_df, nbins=(25, 25, 25), threshold_sum=10 ** -2):
     """ This function returns the indices of the points in the space which 
         are relevant for our optimisation problem. They are selected by cutting
         the 3D space into cuboids. Those cuboids are of different shape and their number
@@ -277,27 +279,70 @@ def working_subset(data_df, loc_df, nbins = (25,25,25), threshold_sum = 10**-2 )
     """
     data_df[data_df < 0] = 0
     main_df = loc_df.copy()
-    main_df.loc[:,'data'] = data_df.sum(axis=1)
+    main_df.loc[:, 'data'] = data_df.sum(axis=1)
 
-    main_df.loc[:,'Xcut'] = pd.cut(main_df.loc[:,'X'],bins=nbins[0])
-    main_df.loc[:,'Ycut'] = pd.cut(main_df.loc[:,'Y'],bins=nbins[1])
-    main_df.loc[:,'Zcut'] = pd.cut(main_df.loc[:,'Z'],bins=nbins[2])
-    
-    cut_col = ['Xcut','Ycut','Zcut']
-    windowed_mean_df = main_df.groupby(cut_col).sum().loc[:,['data']].dropna()
-    windowed_mean_df.loc[:,'indices'] = main_df.groupby(cut_col).apply(lambda x : np.array(x.index.to_list()))
+    main_df.loc[:, 'Xcut'] = pd.cut(main_df.loc[:, 'X'], bins=nbins[0])
+    main_df.loc[:, 'Ycut'] = pd.cut(main_df.loc[:, 'Y'], bins=nbins[1])
+    main_df.loc[:, 'Zcut'] = pd.cut(main_df.loc[:, 'Z'], bins=nbins[2])
+
+    cut_col = ['Xcut', 'Ycut', 'Zcut']
+    windowed_mean_df = main_df.groupby(cut_col).sum().loc[:, ['data']].dropna()
+    windowed_mean_df.loc[:, 'indices'] = main_df.groupby(cut_col).apply(lambda x: np.array(x.index.to_list()))
     selected_windows = windowed_mean_df[(windowed_mean_df['data'] > threshold_sum)].dropna()
     working_subset = np.hstack(selected_windows.indices.values)
-    print('The remaining number of points is : ',len(working_subset))
+    print('The remaining number of points is : ', len(working_subset))
     return working_subset
 
 
+def human_level_subset(buildingshape, loc_df, h, w):
+    """ This function returns a set of points which are taken at h meters from the ground and building tops,
+    and w meters from the buildings sides. This is enabled by
 
-def set_to_onehot(A,n):
+    :param buildingshape: the dictionary containing the shapes of the buildings to consider.
+    :param loc_df: the pandas dataframe containing the locations
+    :param h: the vertical distance from ground/building
+    :param w: the horizontal distance from sides of buildings
+    :return: the set of points selected
+    """
+    loc_df.loc[:, "I"] = loc_df.index
+    AllPoints = MultiPoint(loc_df.loc[:, ["X", "Y", "I"]].values)
+
+    buildingPoly = dict()
+    buildingHeight = dict()
+    bPointsSelect = []
+    for Nbuild in buildingshape:
+        # Building the Polygon of each Building
+        buildingPoly[Nbuild] = Polygon(buildingshape[Nbuild])
+
+        # Computing the height of each building :
+        # First Select the points which are inside the bounds (-1m buffer to get the inner points only)
+        bPoints = AllPoints.intersection(buildingPoly[Nbuild].buffer(-1))
+        # Get the index of those points
+        idx_bPoints = np.array([p.z for p in bPoints]).astype(int)
+        # Height = min of z of those points
+        buildingHeight[Nbuild] = loc_df.loc[idx_bPoints, "Z"].min()
+
+        # Select the points which are on top of each building with margin h (top) and w (side)
+        bPoints = AllPoints.intersection(buildingPoly[Nbuild].buffer(w))
+        idx_bPoints = np.array([p.z for p in bPoints]).astype(int)
+        idx_bPointsSelect = loc_df.loc[idx_bPoints, :].loc[loc_df.Z[idx_bPoints] <= buildingHeight[Nbuild] + h,
+                            :].index.values
+        bPointsSelect.append(list(idx_bPointsSelect))
+
+    # Add the points that are h meters from the ground
+    bPointsSelect.append(list(loc_df.loc[loc_df.Z <= h, :].index.values))
+    bPointsSelect = np.hstack(bPointsSelect)
+    bPointsSelect = list(set(list(bPointsSelect)))
+
+    return bPointsSelect
+
+
+def set_to_onehot(A, n):
     """Function that maps a list of points to a one hot encoding of selected points"""
-    A_list = np.zeros((n,1))
+    A_list = np.zeros((n, 1))
     A_list[A] = 1
     return A_list
+
 
 def find_nearest_point(location_df, point=[0.0, 0.0, 0.0]):
     """ Function that returns the index and the location of the closest of the mesh.
