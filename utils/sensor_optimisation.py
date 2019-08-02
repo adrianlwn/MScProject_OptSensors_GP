@@ -39,7 +39,6 @@ def define_sets(V, n_S=None, seed=42):
     return n_V, V, n_S, S, n_U, U
 
 
-
 def sensor_loc_optimisation_naive(k, K, sets):
     """ This function implements the Algorithm 1: Approximation algorithm
     for maximizing mutual information.
@@ -131,7 +130,7 @@ def sensor_loc_optimisation_lazy(k, K, sets):
     return A
 
 
-def sensor_loc_optimisation_naive_truncated(k, K, epsilon):
+def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
     """ NOT FININISHED : This function implements the Algorithm 3: Approximation algorithm for
     maximizing mutual information efficiently using local kernels.
 
@@ -147,103 +146,51 @@ def sensor_loc_optimisation_naive_truncated(k, K, epsilon):
 
     """
 
+    if method == "threshold":
+        epsilon = param
+    elif method == "fixed":
+        d = param
+    else:
+        print("Specifiy a method such as threshold or fixed ")
+        return -1
+
     n_V, V, n_S, S, n_U, U = sets
 
     n_A = 0
     A = np.array([])
-    
-    # Initialisation Loop : 
-    delta_y = np.zeros(n_S)
-    for i, y in enumerate(S):
-            A_ = np.setdiff1d(V, np.append(A, [y]))
-            # Mutual Information Gain
 
-            delta_y[i] = H_cond(y, A, K) / H_cond_epsilon(y, A_, K, epsilon)
-            
-    
+    # Initialisation Loop : 
+    delta_y = dict(zip(S.flatten().tolist(), np.zeros(n_S).tolist()))
+    for y in S:
+        A_ = np.setdiff1d(V, np.append(A, [y]))
+
+        # Mutual Information Gain
+        delta_y[y] = H_cond(y, A, K) / H_cond_epsilon(y, A_, K, epsilon)
 
     # Main Loop of the Algorithm : Iterating over the number of sensors to place
     S_A = np.setdiff1d(S, A).astype(int)
     for j in tqdm.tqdm_notebook(range(k)):
-        
-         # Greedily selection the best point to add to A
-        i_y_opt = np.argmax(delta_y)
-        delta_y = np.remove(delta_y,i_y_opt)
-        y_opt = S_A[i_y_opt]
+
+        # Greedily selection the best point to add to A
+        y_opt = max(delta_y, key=delta_y.get)
+        delta_y.pop(y_opt)
 
         # Add the selected point to A
         n_A += 1
         A = np.append(A, y_opt).astype(int)
 
         S_A = np.setdiff1d(S, A).astype(int)
-        
-        ## Inner Loop : Iterating over the potential sensor places
+
+        # Set of most correlated points
         N_yopt_espilon = local_set(y_opt, S_A, K, epsilon)
-        for i, y in enumerate(S_A):
-            if y in N_yopt_espilon : 
-                A_ = np.setdiff1d(V, np.append(A, [y]))
-                # Mutual Information Gain
 
-                delta_y[i] = H_cond_epsilon(y, A, K, epsilon) / H_cond_epsilon(y, A_, K, epsilon)
-    return A
-
-
-def sensor_loc_optimisation_naive_truncated_adaptative(k, K, d):
-    """ NOT FININISHED : This function implements the Algorithm 3: Approximation algorithm for
-    maximizing mutual information efficiently using local kernels.
-
-    Input Arguments :
-    --- k : number of Sensors to place
-    --- d : number of correlated points to keep. the parameter epsilon adapts itself to d 
-
-    Needed global variables :
-    --- K : Covariance Matrix between all points
-    --- V : Set of all points
-    --- S : Set of potential sensor points
-    --- n_S : number of such points
-
-    """
-
-    n_V, V, n_S, S, n_U, U = sets
-
-    n_A = 0
-    A = np.array([])
-    
-    # Initialisation Loop : 
-    delta_y = np.zeros(n_S)
-    for i, y in enumerate(S):
-            A_ = np.setdiff1d(V, np.append(A, [y]))
-            # Mutual Information Gain
-
-            delta_y[i] = H_cond(y, A, K) / H_cond_epsilon(y, A_, K, epsilon)
-            
-    
-
-    # Main Loop of the Algorithm : Iterating over the number of sensors to place
-    S_A = np.setdiff1d(S, A).astype(int)
-    for j in tqdm.tqdm_notebook(range(k)):
-        
-         # Greedily selection the best point to add to A
-        i_y_opt = np.argmax(delta_y)
-        delta_y = np.remove(delta_y,i_y_opt)
-        y_opt = S_A[i_y_opt]
-
-        # Add the selected point to A
-        n_A += 1
-        A = np.append(A, y_opt).astype(int)
-
-        S_A = np.setdiff1d(S, A).astype(int)
-        
         ## Inner Loop : Iterating over the potential sensor places
-        N_yopt_espilon = local_set(y_opt, S_A, K, epsilon)
-        for i, y in enumerate(S_A):
-            if y in N_yopt_espilon : 
+        for y in S_A:
+            if \
+                    y in N_yopt_espilon:
                 A_ = np.setdiff1d(V, np.append(A, [y]))
-                # Mutual Information Gain
-
-                delta_y[i] = H_cond_epsilon(y, A, K, epsilon) / H_cond_epsilon(y, A_, K, epsilon)
+                delta_y[y] = H_cond_epsilon(y, A, K, epsilon) / H_cond_epsilon(y, A_, K, epsilon)
     return A
-
 
 
 def delta_MI(y, A, K):
@@ -257,10 +204,12 @@ def H_cond(y, X, K):
     """ Function that returns the conditional Entropy of y knowing X """
     return K[y, y] - K[np.ix_([y], X)] @ np.linalg.inv(K[np.ix_(X, X)]) @ K[np.ix_(X, [y])]
 
+
 def H_cond_epsilon(y, X, K, epsilon):
     """ Function that returns the conditional Entropy of y knowing X """
     X_truncated = local_set(y, X, K, epsilon)
-    return K[y, y] - K[np.ix_([y], X_truncated)] @ np.linalg.inv(K[np.ix_(X_truncated, X_truncated)]) @ K[np.ix_(X_truncated, [y])]
+    return K[y, y] - K[np.ix_([y], X_truncated)] @ np.linalg.inv(K[np.ix_(X_truncated, X_truncated)]) @ K[
+        np.ix_(X_truncated, [y])]
 
 
 def local_set(y, X, K, epsilon):
@@ -277,21 +226,12 @@ def local_set(y, X, K, epsilon):
 
 
 def local_set_fixed(y, X, K, d):
-    """ Function that returns a set of points X_trunc for which K[y,X_trunc] > epsilon
-        X being the input set with |K[y,X_trunc]| <= d
+    """ Function that returns a set of d points X_trunc for which only the d most correlated points are taken.
         Implementing the idea of local Kernels.
 
     """
-    truncated = True
-    epsilon = 0.1
-    decay_rate = 0.1
-    while True
-    i_trunc = (np.abs(K[np.ix_([y], X)]) > epsilon).flatten()
+    i_trunc = np.argsort(K[np.ix_([y], X)])[::-1][:d]
     X_trunc = X[i_trunc]
     print('Length of local covariance set : d = ', len(X_trunc))
-    
-    epsilon *= decay_rate
-    
-    
 
     return X_trunc
