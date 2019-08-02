@@ -290,7 +290,7 @@ def working_subset(data_df, loc_df, nbins=(25, 25, 25), threshold_sum=10 ** -2):
     windowed_mean_df.loc[:, 'indices'] = main_df.groupby(cut_col).apply(lambda x: np.array(x.index.to_list()))
     selected_windows = windowed_mean_df[(windowed_mean_df['data'] > threshold_sum)].dropna()
     working_subset = np.hstack(selected_windows.indices.values)
-    print('The remaining number of points is : ', len(working_subset))
+    #print('The remaining number of points is : ', len(working_subset))
     return working_subset
 
 
