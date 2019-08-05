@@ -42,5 +42,7 @@
 \contentsline {subsection}{\numberline {3.4.1}Environment}{20}{subsection.91}
 \contentsline {subsection}{\numberline {3.4.2}Initialisation}{20}{subsection.94}
 \contentsline {paragraph}{Selection of a working subset of the data}{20}{paragraph*.96}
-\contentsline {paragraph}{Data Preprocessing}{21}{paragraph*.100}
-\contentsline {chapter}{\numberline {4}Conclusion}{23}{chapter.103}
+\contentsline {paragraph}{Selection of a subset at human level}{21}{paragraph*.100}
+\contentsline {paragraph}{Combined Selection}{23}{paragraph*.106}
+\contentsline {paragraph}{Data Preprocessing}{23}{paragraph*.108}
+\contentsline {chapter}{\numberline {4}Conclusion}{26}{chapter.112}
