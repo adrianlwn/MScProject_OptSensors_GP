@@ -55,25 +55,32 @@ def sensor_loc_optimisation_naive(k, K, sets):
 
     """
     n_V, V, n_S, S, n_U, U = sets
+    
+    p2i = dict(zip(S.tolist(),range(0,len(S))))
+    i2p = dict(zip(range(0,len(S)),S.tolist()))
 
     n_A = 0
     A = np.array([])
+    
+    delta_y = dict(zip(S.flatten().tolist(), np.zeros(n_S).tolist()))
 
     # Main Loop of the Algorithm : Iterating over the number of sensors to place
 
     for j in tqdm.tqdm_notebook(range(k)):
-
+        # Get the Indexes of the Points
+        
         S_A = np.setdiff1d(S, A).astype(int)
-        delta_y = np.zeros((n_S - j))
+                
         ## Inner Loop : Iterating over the potential sensor places
         for i, y in enumerate(S_A):
             A_ = np.setdiff1d(V, np.append(A, [y]))
+            
             # Mutual Information Gain
-
-            delta_y[i] = H_cond(y, A, K) / H_cond(y, A_, K)
+            delta_y[y] = H_cond(y, A, K, p2i, i2p) / H_cond(y, A_, K, p2i, i2p)
 
         # Greedily selection the best point to add to A
-        y_opt = S_A[np.argmax(delta_y)]
+        y_opt = max(delta_y, key=delta_y.get)
+        delta_y.pop(y_opt)
 
         # Add the selected point to A
         n_A += 1
@@ -98,6 +105,10 @@ def sensor_loc_optimisation_lazy(k, K, sets):
 
     """
     n_V, V, n_S, S, n_U, U = sets
+    
+    p2i = dict(zip(S.tolist(),range(0,len(S))))
+    i2p = dict(zip(range(0,len(S)),S.tolist()))
+
 
     # INIT :
     n_A = 0
@@ -111,8 +122,8 @@ def sensor_loc_optimisation_lazy(k, K, sets):
     heapq.heapify(delta_heap)
 
     # MAIN LOOP of the Algorithm : Iterating over the number of sensors to place
-    for j in tqdm.tqdm_notebook(range(k)):
-
+    for j in tqdm.tqdm(range(k),desc="Main Loop : Sensor Placement"):
+        
         ## INNER LOOP : Iterating over the potential sensor places
         while True:
             delta, y_opt, count = heapq.heappop(delta_heap)
@@ -120,8 +131,9 @@ def sensor_loc_optimisation_lazy(k, K, sets):
                 break
             else:
                 A_ = np.setdiff1d(V, np.append(A, [y_opt]))
+                
                 # Mutual Information Gain
-                delta_y_opt = H_cond(y_opt, A, K) / H_cond(y_opt, A_, K)
+                delta_y_opt = H_cond(y_opt, A, K, p2i, i2p) / H_cond(y_opt, A_, K, p2i, i2p)
                 heapq.heappush(delta_heap, (-1 * delta_y_opt, y_opt, j))
 
         # Add the selected point to A
@@ -155,21 +167,30 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
         return -1
 
     n_V, V, n_S, S, n_U, U = sets
+    
+    p2i = dict(zip(S.tolist(),range(0,len(S))))
+    i2p = dict(zip(range(0,len(S)),S.tolist()))
 
     n_A = 0
     A = np.array([])
 
     # Initialisation Loop : 
     delta_y = dict(zip(S.flatten().tolist(), np.zeros(n_S).tolist()))
-    for y in S:
+    for y in tqdm.tqdm(S,desc="Init Loop"):
         A_ = np.setdiff1d(V, np.append(A, [y]))
+        
 
         # Mutual Information Gain
-        delta_y[y] = H_cond(y, A, K) / H_cond_epsilon(y, A_, K, epsilon)
+        if method == "threshold":
+            delta_y[y] = H_cond(y, A, K, p2i, i2p) / H_cond_epsilon(y, A_, K, epsilon, p2i, i2p)
+
+        elif method == "fixed":
+            delta_y[y] = H_cond(y, A, K, p2i, i2p) / H_cond_fixed(y, A_, K, d, p2i, i2p)
+
 
     # Main Loop of the Algorithm : Iterating over the number of sensors to place
     S_A = np.setdiff1d(S, A).astype(int)
-    for j in tqdm.tqdm_notebook(range(k)):
+    for j in tqdm.tqdm(range(k),desc="Main Loop : Sensor Placement"):
 
         # Greedily selection the best point to add to A
         y_opt = max(delta_y, key=delta_y.get)
@@ -182,14 +203,21 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
         S_A = np.setdiff1d(S, A).astype(int)
 
         # Set of most correlated points
-        N_yopt_espilon = local_set(y_opt, S_A, K, epsilon)
+        if method == "threshold":
+            N_yopt_espilon = local_set(y_opt, S_A, K, epsilon, p2i ,i2p)
+
+        elif method == "fixed":
+            N_yopt_espilon = local_set_fixed(y_opt, S_A, K, d, p2i ,i2p)
 
         ## Inner Loop : Iterating over the potential sensor places
-        for y in S_A:
-            if \
-                    y in N_yopt_espilon:
+        for y in tqdm.tqdm(S_A,desc="Inner Loop : placing sensor " + str(j+1)):
+            if y in N_yopt_espilon:
                 A_ = np.setdiff1d(V, np.append(A, [y]))
-                delta_y[y] = H_cond_epsilon(y, A, K, epsilon) / H_cond_epsilon(y, A_, K, epsilon)
+                if method == "threshold":
+                    delta_y[y] = H_cond_epsilon(y, A, K, epsilon, p2i, i2p) / H_cond_epsilon(y, A_, K, epsilon, p2i, i2p)
+
+                elif method == "fixed":
+                    delta_y[y] = H_cond_fixed(y, A, K, d, p2i, i2p) / H_cond_fixed(y, A_, K, d, p2i, i2p)
     return A
 
 
@@ -200,38 +228,59 @@ def delta_MI(y, A, K):
     return H_cond(y, A, K) / H_cond(y, A_, K)
 
 
-def H_cond(y, X, K):
+def H_cond(y, X, K, p2i, i2p):
     """ Function that returns the conditional Entropy of y knowing X """
-    return K[y, y] - K[np.ix_([y], X)] @ np.linalg.inv(K[np.ix_(X, X)]) @ K[np.ix_(X, [y])]
+    iX = list(map(p2i.__getitem__, X))
+    iy = p2i[y]
+    return K[iy, iy] - K[np.ix_([iy], iX)] @ np.linalg.inv(K[np.ix_(iX, iX)]) @ K[np.ix_(iX, [iy])]
 
 
-def H_cond_epsilon(y, X, K, epsilon):
+def H_cond_epsilon(y, X, K, epsilon, p2i, i2p):
     """ Function that returns the conditional Entropy of y knowing X """
-    X_truncated = local_set(y, X, K, epsilon)
-    return K[y, y] - K[np.ix_([y], X_truncated)] @ np.linalg.inv(K[np.ix_(X_truncated, X_truncated)]) @ K[
-        np.ix_(X_truncated, [y])]
+    iy = p2i[y]
+    X_trunc = local_set(y, X, K, epsilon,p2i,i2p)
+    iX_trunc = list(map(p2i.__getitem__, X_trunc))
+    return K[iy, iy] - K[np.ix_([iy], iX_trunc)] @ np.linalg.inv(K[np.ix_(iX_trunc, iX_trunc)]) @ K[
+        np.ix_(iX_trunc, [iy])]
+
+def H_cond_fixed(y, X, K, d, p2i, i2p):
+    """ Function that returns the conditional Entropy of y knowing X """
+    iy = p2i[y]
+    X_trunc = local_set_fixed(y, X, K, d,p2i,i2p)
+    iX_trunc = list(map(p2i.__getitem__, X_trunc))
+    return K[iy, iy] - K[np.ix_([iy], iX_trunc)] @ np.linalg.inv(K[np.ix_(iX_trunc, iX_trunc)]) @ K[
+        np.ix_(iX_trunc, [iy])]
 
 
-def local_set(y, X, K, epsilon):
+def local_set(y, X, K, epsilon, p2i, i2p):
     """ Function that returns a set of points X_trunc for which K[y,X_trunc] > epsilon
         X being the input set
         Implementing the idea of local Kernels.
 
     """
-    i_trunc = (np.abs(K[np.ix_([y], X)]) > epsilon).flatten()
-    X_trunc = X[i_trunc]
+    iX = list(map(p2i.__getitem__, X))
+    iy = p2i[y]
+    i_trunc = (np.abs(K[np.ix_([iy], iX)]) > epsilon).flatten()
+
+    iX_trunc = np.array(iX)[i_trunc]
+    X_trunc = list(map(i2p.__getitem__, iX_trunc))
     print('Length of local covariance set : d = ', len(X_trunc))
 
     return X_trunc
 
 
-def local_set_fixed(y, X, K, d):
+def local_set_fixed(y, X, K, d, p2i, i2p):
     """ Function that returns a set of d points X_trunc for which only the d most correlated points are taken.
         Implementing the idea of local Kernels.
 
     """
-    i_trunc = np.argsort(K[np.ix_([y], X)])[::-1][:d]
-    X_trunc = X[i_trunc]
-    print('Length of local covariance set : d = ', len(X_trunc))
+    iX = list(map(p2i.__getitem__, X))
+    iy = p2i[y]
+    i_trunc = np.argsort(K[np.ix_([iy], iX)].flatten())[::-1][:d].tolist()
+    #print(i_trunc)
+    iX_trunc = np.array(iX)[i_trunc]
+    X_trunc = list(map(i2p.__getitem__, iX_trunc))
+    #print(i_trunc[0])
+    print('Length of local covariance set : d = ', len(X_trunc), ", largest = ", K[np.ix_([iy], [i_trunc[0]])]," smallest =", K[np.ix_([iy], [i_trunc[-1]])])
 
     return X_trunc
