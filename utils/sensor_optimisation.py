@@ -9,6 +9,7 @@ import time
 
 import tqdm
 import heapq
+import pdb
 
 
 def define_sets(V, n_S=None, seed=42):
@@ -276,11 +277,12 @@ def local_set_fixed(y, X, K, d, p2i, i2p):
     """
     iX = list(map(p2i.__getitem__, X))
     iy = p2i[y]
+    
     i_trunc = np.argsort(K[np.ix_([iy], iX)].flatten())[::-1][:d].tolist()
-    #print(i_trunc)
     iX_trunc = np.array(iX)[i_trunc]
     X_trunc = list(map(i2p.__getitem__, iX_trunc))
-    #print(i_trunc[0])
-    print('Length of local covariance set : d = ', len(X_trunc), ", largest = ", K[np.ix_([iy], [i_trunc[0]])]," smallest =", K[np.ix_([iy], [i_trunc[-1]])])
+    print('Length of local covariance set : d = ', len(X_trunc), ", largest = ", K[np.ix_([iy], [np.array(iX)[i_trunc[0]]])]," smallest =", K[np.ix_([iy], [np.array(iX)[i_trunc[-1]]])])        
+    #pdb.set_trace()
+
 
     return X_trunc
