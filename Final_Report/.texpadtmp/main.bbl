@@ -1,3 +1,104 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\astroncite{Arcucci et~al.}{2018}]{arcucci_effective_2018}
+Arcucci, R., Pain, C., and Guo, Y.-K. (2018).
+\newblock Effective variational data assimilation in air-pollution prediction.
+\newblock {\em Big Data Mining and Analytics}, 1(4):297--307.
+
+\bibitem[\protect\astroncite{Caselton and Zidek}{1984}]{caselton_optimal_1984}
+Caselton, W. and Zidek, J. (1984).
+\newblock Optimal monitoring network designs.
+\newblock {\em Statistics \& Probability Letters}, 2(4):223--227.
+
+\bibitem[\protect\astroncite{Cover and Thomas}{1991}]{cover_elements_1991}
+Cover, T.~M. and Thomas, J.~A. (1991).
+\newblock {\em Elements of information theory}.
+\newblock Wiley series in telecommunications. Wiley, New York.
+
+\bibitem[\protect\astroncite{Cressie}{1991}]{cressie_statistics_1991}
+Cressie, N. A.~C. (1991).
+\newblock {\em Statistics for spatial data}.
+\newblock Wiley series in probability and mathematical statistics. Wiley, New
+  York.
+
+\bibitem[\protect\astroncite{Deisenroth
+  et~al.}{2018}]{deisenroth_mathematics_2018}
+Deisenroth, M.~P., Faisal, A., and Ong, C.~S. (2018).
+\newblock Mathematics for {Machine} {Learning}.
+\newblock page~43.
+
+\bibitem[\protect\astroncite{Fan et~al.}{2015}]{fan_overview_2015}
+Fan, J., Liao, Y., and Liu, H. (2015).
+\newblock An {Overview} on the {Estimation} of {Large} {Covariance} and
+  {Precision} {Matrices}.
+\newblock {\em arXiv:1504.02995 [stat]}.
+\newblock arXiv: 1504.02995.
+
+\bibitem[\protect\astroncite{GPy}{2014}]{gpy_gpy:_2014}
+GPy (2014).
+\newblock {GPy}: {Gaussian} process framework in python.
+
+\bibitem[\protect\astroncite{Krause et~al.}{2008}]{krause_near-optimal_2008}
+Krause, A., Singh, A., and Guestrin, C. (2008).
+\newblock Near-{Optimal} {Sensor} {Placements} in {Gaussian} {Processes}:
+  {Theory}, {Efficient} {Algorithms} and {Empirical} {Studies}.
+\newblock page~50.
+
+\bibitem[\protect\astroncite{Liu et~al.}{2018}]{liu_when_2018}
+Liu, H., Ong, Y.-S., Shen, X., and Cai, J. (2018).
+\newblock When {Gaussian} {Process} {Meets} {Big} {Data}: {A} {Review} of
+  {Scalable} {GPs}.
+\newblock {\em arXiv:1807.01065 [cs, stat]}.
+\newblock arXiv: 1807.01065.
+
+\bibitem[\protect\astroncite{Nemhauser et~al.}{1978}]{nemhauser_analysis_1978}
+Nemhauser, G.~L., Wolsey, L.~A., and Fisher, M.~L. (1978).
+\newblock An analysis of approximations for maximizing submodular set
+  functions{\textemdash}{I}.
+\newblock {\em Mathematical Programming}, 14(1):265--294.
+
+\bibitem[\protect\astroncite{Paciorek and
+  Schervish}{2004}]{paciorek_nonstationary_2004}
+Paciorek, C.~J. and Schervish, M.~J. (2004).
+\newblock Nonstationary {Covariance} {Functions} for {Gaussian} {Process}
+  {Regression}.
+\newblock In Thrun, S., Saul, L.~K., and Sch{\"o}lkopf, B., editors, {\em
+  Advances in {Neural} {Information} {Processing} {Systems} 16}, pages
+  273--280. MIT Press.
+
+\bibitem[\protect\astroncite{Pourahmadi}{2011}]{pourahmadi_covariance_2011}
+Pourahmadi, M. (2011).
+\newblock Covariance {Estimation}: {The} {GLM} and {Regularization}
+  {Perspectives}.
+\newblock {\em Statistical Science}, 26(3):369--387.
+\newblock arXiv: 1202.1661.
+
+\bibitem[\protect\astroncite{Rasmussen and
+  Williams}{2006}]{rasmussen_gaussian_2006}
+Rasmussen, C.~E. and Williams, C. K.~I. (2006).
+\newblock {\em Gaussian processes for machine learning}.
+\newblock Adaptive computation and machine learning. MIT Press, Cambridge,
+  Mass.
+\newblock OCLC: ocm61285753.
+
+\bibitem[\protect\astroncite{Song et~al.}{2018}]{song_natural_2018}
+Song, J., Fan, S., Lin, W., Mottet, L., Woodward, H., Davies~Wykes, M.,
+  Arcucci, R., Xiao, D., Debay, J.-E., ApSimon, H., Aristodemou, E., Birch, D.,
+  Carpentieri, M., Fang, F., Herzog, M., Hunt, G.~R., Jones, R.~L., Pain, C.,
+  Pavlidis, D., Robins, A.~G., Short, C.~A., and Linden, P.~F. (2018).
+\newblock Natural ventilation in cities: the implications of fluid mechanics.
+\newblock {\em Building Research \& Information}, 46(8):809--828.
+
+\bibitem[\protect\astroncite{Titsias}{2009}]{titsias_variational_2009}
+Titsias, M.~K. (2009).
+\newblock Variational {Learning} of {Inducing} {Variables} in {Sparse}
+  {Gaussian} {Processes}.
+\newblock page~8.
+
+\bibitem[\protect\astroncite{Wilson and Nickisch}{2015}]{wilson_kernel_2015}
+Wilson, A.~G. and Nickisch, H. (2015).
+\newblock Kernel {Interpolation} for {Scalable} {Structured} {Gaussian}
+  {Processes} ({KISS}-{GP}).
+\newblock page~10.
+
 \end{thebibliography}

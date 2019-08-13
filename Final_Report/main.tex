@@ -1,15 +1,17 @@
 \documentclass[12pt,twoside]{report}
 
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 % Definitions for the title page
 % Edit these to provide the correct information
 % e.g. \newcommand{\reportauthor}{Timothy Kimber}
 
-\newcommand{\reporttitle}{Title}
-\newcommand{\reportauthor}{Your name}
-\newcommand{\supervisor}{Name of supervisor}
-\newcommand{\degreetype}{Type of Degree}
+\newcommand{\reporttitle}{ Gaussian Processes for \\ Optimal Sensor Position \\[0.5cm] { \Large  MSc Project Report}}
+\newcommand{\reportauthor}{Adrian \textsc{Löwenstein} \\ \phantom{blank author} }
+\newcommand{\supervisor}{Rossella \textsc{Arcucci} \\ Miguel \textsc{Molina-Solana}}
+
+\newcommand{\degreetype}{Computing (Machine Learning)}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -19,7 +21,7 @@
 % load some macros
 \input{notation}
 
-\date{September 2015}
+\date{\today}
 
 \begin{document}
 
@@ -34,18 +36,19 @@
 \pagestyle{fancy}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\begin{abstract}
-Your abstract.
-\end{abstract}
+%\begin{abstract}
+%Your abstract.
+%\end{abstract}
 
 \cleardoublepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section*{Acknowledgments}
-Comment this out if not needed.
+%\section*{Acknowledgments}
+%Comment this out if not needed.
 
 \clearpage{\pagestyle{empty}\cleardoublepage}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%% TABLE OF CONTENTS 
+
 %--- table of contents
 \fancyhead[RE,LO]{\sffamily {Table of Contents}}
 \tableofcontents 
@@ -57,37 +60,55 @@ Comment this out if not needed.
 \fancyhead[LE,RO]{\slshape \rightmark}
 \fancyhead[LO,RE]{\slshape \leftmark}
 
+\pagebreak
+%%%%%%%%%%% TABLE OF TODO's
+
+\listoftodos
+
+%%%%%%%%%%% CHAPTER : INTRODUCTION
+\include{introduction}
+ 
+%%%%%%%%%%% CHAPTER : LITERATURE REVIEW
+\include{literature_review}
+
+
+%% TEMP %%% CHAPTER : background
+\include{background}
+
+
+
+
+%%%%%%%%%%% CHAPTER : IMPLEMENTATION
+\include{implementation}
+
+%%%%%%%%%%% CHAPTER : RESULTS
+\include{results}
+
+%% TEMP %%% CHAPTER : progress
+\include{progress}
+
+
+
+
+
+
+%%%%%%%%%%% CHAPTER : CONCLUSION
+\include{conclusion}
+
+
+
+\appendix 
+
+\include{code_read_me}
+
+
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Introduction}
-
-\begin{figure}[tb]
-\centering
-\includegraphics[width = 0.4\hsize]{./figures/imperial}
-\caption{Imperial College Logo. It's nice blue, and the font is quite stylish. But you can choose a different one if you don't like it.}
-\label{fig:logo}
-\end{figure}
-
-Figure~\ref{fig:logo} is an example of a figure. 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Background}
-
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Contribution}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Experimental Results}
-
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\chapter{Conclusion}
+%\chapter{Further Developements}
 
 
 %% bibliography
 \bibliographystyle{apa}
-
+\bibliography{bibliography}
 
 \end{document}

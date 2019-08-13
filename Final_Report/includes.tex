@@ -19,12 +19,25 @@
 %----------------------------------------------------------------------------------------
 \usepackage[a4paper,hmargin=2.8cm,vmargin=2.0cm,includeheadfoot]{geometry}
 \usepackage{textpos}
-\usepackage{natbib} % for bibliography
+%\usepackage{natbib} % for bibliography
+\usepackage[natbibapa]{apacite} % []
 \usepackage{tabularx,longtable,multirow,subfigure,caption}%hangcaption
 \usepackage{fncylab} %formatting of labels
 \usepackage{fancyhdr} % page layout
 \usepackage{url} % URLs
 \usepackage[english]{babel}
+\setcounter{secnumdepth}{3}
+\usepackage{amssymb}
+\usepackage[boxed]{algorithm2e}
+\usepackage{todonotes}
+\presetkeys%
+    {todonotes}%
+    {inline}{}
+
+\usepackage{titlesec} % Redefine the paragraph
+\titleformat{\paragraph}[hang]{\normalfont\normalsize\bfseries}{\theparagraph}{1em}{}
+\titlespacing*{\paragraph}{0pt}{3.25ex plus 1ex minus .2ex}{0.5em}
+
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage{dsfont}
@@ -33,6 +46,7 @@
 \usepackage{array}
 \usepackage{latexsym}
 \usepackage[pdftex,pagebackref,hypertexnames=false,colorlinks]{hyperref} % provide links in pdf
+
 
 \hypersetup{pdftitle={},
   pdfsubject={}, 
