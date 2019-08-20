@@ -1,5 +1,17 @@
 \begin{thebibliography}{}
 
+\bibitem[\protect\astroncite{noa}{2019}]{noauthor_shapely_2019}
+ (2019).
+\newblock Shapely : {Manipulation} and analysis of geometric objects.
+  {Contribute} to {Toblerity}/{Shapely} development by creating an account on
+  {GitHub}.
+\newblock original-date: 2011-12-31T19:43:11Z.
+
+\bibitem[\protect\astroncite{Arcucci et~al.}{2019}]{arcucci_optimal_2019}
+Arcucci, R., Mottet, L., Pain, C., and Guo, Y.-K. (2019).
+\newblock Optimal reduced space for {Variational} {Data} {Assimilation}.
+\newblock {\em Journal of Computational Physics}, 379:51--69.
+
 \bibitem[\protect\astroncite{Arcucci et~al.}{2018}]{arcucci_effective_2018}
 Arcucci, R., Pain, C., and Guo, Y.-K. (2018).
 \newblock Effective variational data assimilation in air-pollution prediction.
@@ -10,16 +22,15 @@ Caselton, W. and Zidek, J. (1984).
 \newblock Optimal monitoring network designs.
 \newblock {\em Statistics \& Probability Letters}, 2(4):223--227.
 
+\bibitem[\protect\astroncite{Chen et~al.}{2010}]{chen_shrinkage_2010}
+Chen, Y., Wiesel, A., Eldar, Y.~C., and Hero, A.~O. (2010).
+\newblock Shrinkage {Algorithms} for {MMSE} {Covariance} {Estimation}.
+\newblock {\em IEEE Transactions on Signal Processing}, 58(10):5016--5029.
+
 \bibitem[\protect\astroncite{Cover and Thomas}{1991}]{cover_elements_1991}
 Cover, T.~M. and Thomas, J.~A. (1991).
 \newblock {\em Elements of information theory}.
 \newblock Wiley series in telecommunications. Wiley, New York.
-
-\bibitem[\protect\astroncite{Cressie}{1991}]{cressie_statistics_1991}
-Cressie, N. A.~C. (1991).
-\newblock {\em Statistics for spatial data}.
-\newblock Wiley series in probability and mathematical statistics. Wiley, New
-  York.
 
 \bibitem[\protect\astroncite{Deisenroth
   et~al.}{2018}]{deisenroth_mathematics_2018}
@@ -34,15 +45,40 @@ Fan, J., Liao, Y., and Liu, H. (2015).
 \newblock {\em arXiv:1504.02995 [stat]}.
 \newblock arXiv: 1504.02995.
 
-\bibitem[\protect\astroncite{GPy}{2014}]{gpy_gpy:_2014}
-GPy (2014).
-\newblock {GPy}: {Gaussian} process framework in python.
+\bibitem[\protect\astroncite{Foster et~al.}{2009}]{foster_stable_2009}
+Foster, L., Waagen, A., Aijaz, N., Hurley, M., Luis, A., Rinsky, J., Satyavolu,
+  C., and Com, M. (2009).
+\newblock Stable and {Efficient} {Gaussian} {Process} {Calculations}.
+\newblock page~26.
+
+\bibitem[\protect\astroncite{Hansen}{1987}]{hansen_truncatedsvd_1987}
+Hansen, P.~C. (1987).
+\newblock The {truncatedSVD} as a method for regularization.
+\newblock {\em BIT}, 27(4):534--553.
 
 \bibitem[\protect\astroncite{Krause et~al.}{2008}]{krause_near-optimal_2008}
 Krause, A., Singh, A., and Guestrin, C. (2008).
 \newblock Near-{Optimal} {Sensor} {Placements} in {Gaussian} {Processes}:
   {Theory}, {Efficient} {Algorithms} and {Empirical} {Studies}.
 \newblock page~50.
+
+\bibitem[\protect\astroncite{Ledoit and Wolf}{2003a}]{ledoit_honey_2003}
+Ledoit, O. and Wolf, M. (2003a).
+\newblock Honey, {I} {Shrunk} the {Sample} {Covariance} {Matrix}.
+\newblock page~22.
+
+\bibitem[\protect\astroncite{Ledoit and Wolf}{2003b}]{ledoit_improved_2003}
+Ledoit, O. and Wolf, M. (2003b).
+\newblock Improved estimation of the covariance matrix of stock returns with an
+  application to portfolio selection.
+\newblock {\em Journal of Empirical Finance}, 10(5):603--621.
+
+\bibitem[\protect\astroncite{Ledoit and
+  Wolf}{2004}]{ledoit_well-conditioned_2004}
+Ledoit, O. and Wolf, M. (2004).
+\newblock A well-conditioned estimator for large-dimensional covariance
+  matrices.
+\newblock {\em Journal of Multivariate Analysis}, 88(2):365--411.
 
 \bibitem[\protect\astroncite{Liu et~al.}{2018}]{liu_when_2018}
 Liu, H., Ong, Y.-S., Shen, X., and Cai, J. (2018).

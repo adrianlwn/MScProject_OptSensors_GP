@@ -267,16 +267,16 @@ Not limited to real-valued random variables like the correlation coefficient, MI
 	file = {Deisenroth and Ng - Distributed Gaussian Processes.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Gaussian Processes/Scalability/Deisenroth and Ng - Distributed Gaussian Processes.pdf:application/pdf}
 }
 
-@book{cressie_statistics_1991,
+@book{cressie_statistics_1993,
 	address = {New York},
 	series = {Wiley series in probability and mathematical statistics},
 	title = {Statistics for spatial data},
 	isbn = {978-0-471-84336-8},
 	publisher = {Wiley},
 	author = {Cressie, Noel A. C.},
-	year = {1991},
+	year = {1993},
 	keywords = {Spatial analysis (Statistics)},
-	file = {Cressie - 1991 - Statistics for spatial data.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Gaussian Processes/Cressie - 1991 - Statistics for spatial data.pdf:application/pdf}
+	file = {Cressie - 1993 - Statistics for spatial data.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Gaussian Processes/Cressie - 1993 - Statistics for spatial data.pdf:application/pdf}
 }
 
 @misc{noauthor_stationary_2019,
@@ -807,4 +807,181 @@ For many applications strict-sense stationarity is too restrictive. Other forms 
 	url = {http://github.com/SheffieldML/GPy},
 	author = {GPy},
 	year = {2014}
+}
+
+@article{cressie_fixed_2008-1,
+	title = {Fixed rank kriging for very large spatial data sets: {Fixed} {Rank} {Kriging}},
+	volume = {70},
+	issn = {13697412},
+	shorttitle = {Fixed rank kriging for very large spatial data sets},
+	url = {http://doi.wiley.com/10.1111/j.1467-9868.2007.00633.x},
+	doi = {10.1111/j.1467-9868.2007.00633.x},
+	abstract = {Spatial statistics for very large spatial data sets is challenging.The size of the data set, n, causes problems in computing optimal spatial predictors such as kriging, since its computational cost is of order n3. In addition, a large data set is often defined on a large spatial domain, so the spatial process of interest typically exhibits non-stationary behaviour over that domain. A flexible family of non-stationary covariance functions is defined by using a set of basis functions that is fixed in number, which leads to a spatial prediction method that we call fixed rank kriging. Specifically, fixed rank kriging is kriging within this class of non-stationary covariance functions. It relies on computational simplifications when n is very large, for obtaining the spatial best linear unbiased predictor and its mean-squared prediction error for a hidden spatial process. A method based on minimizing a weighted Frobenius norm yields best estimators of the covariance function parameters, which are then substituted into the fixed rank kriging equations. The new methodology is applied to a very large data set of total column ozone data, observed over the entire globe, where n is of the order of hundreds of thousands.},
+	language = {en},
+	number = {1},
+	urldate = {2019-07-04},
+	journal = {Journal of the Royal Statistical Society: Series B (Statistical Methodology)},
+	author = {Cressie, Noel and Johannesson, Gardar},
+	month = jan,
+	year = {2008},
+	pages = {209--226},
+	file = {Cressie and Johannesson - 2008 - Fixed rank kriging for very large spatial data set.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Gaussian Processes/Cressie and Johannesson - 2008 - Fixed rank kriging for very large spatial data set 2.pdf:application/pdf}
+}
+
+@article{katzfuss_tutorial_nodate,
+	title = {Tutorial on {Fixed} {Rank} {Kriging} ({FRK}) of {CO}2 {Data}},
+	abstract = {In this document, we describe Fixed Rank Kriging (FRK), an approach to the analysis of very large spatial datasets. Such datasets now arise in many fields; our focus is on satellite measurements of CO2. FRK predictors and standard errors can be computed rapidly, even for datasets with a million or more observations. FRK relies on a so-called spatial random effects (SRE) model, which assumes that the process of interest can be expressed as a linear combination of spatial basis functions, plus a fine-scale-variation component. Here, we describe in detail all steps involved in the analysis of a spatial dataset using FRK, we illustrate the steps using a synthetic dataset, and we provide Matlab code on an accompanying website.},
+	language = {en},
+	author = {Katzfuss, Matthias and Cressie, Noel},
+	pages = {24},
+	file = {Katzfuss and Cressie - Tutorial on Fixed Rank Kriging (FRK) of CO2 Data.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Gaussian Processes/Katzfuss and Cressie - Tutorial on Fixed Rank Kriging (FRK) of CO2 Data.pdf:application/pdf}
+}
+
+@article{foster_stable_2009,
+	title = {Stable and {Efficient} {Gaussian} {Process} {Calculations}},
+	abstract = {The use of Gaussian processes can be an effective approach to prediction in a supervised learning environment. For large data sets, the standard Gaussian process approach requires solving very large systems of linear equations and approximations are required for the calculations to be practical. We will focus on the subset of regressors approximation technique. We will demonstrate that there can be numerical instabilities in a well known implementation of the technique. We discuss alternate implementations that have better numerical stability properties and can lead to better predictions. Our results will be illustrated by looking at an application involving prediction of galaxy redshift from broadband spectrum data.},
+	language = {en},
+	author = {Foster, Leslie and Waagen, Alex and Aijaz, Nabeela and Hurley, Michael and Luis, Apolonio and Rinsky, Joel and Satyavolu, Chandrika and Com, Mailbolt},
+	year = {2009},
+	pages = {26},
+	file = {Foster et al. - 2009 - Stable and Efficient Gaussian Process Calculations.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Gaussian Processes/Foster et al. - 2009 - Stable and Efficient Gaussian Process Calculations.pdf:application/pdf}
+}
+
+@article{melkumyan_sparse_2009,
+	title = {A {Sparse} {Covariance} {Function} for {Exact} {Gaussian} {Process} {Inference} in {Large} {Datasets}},
+	abstract = {Despite the success of Gaussian processes (GPs) in modelling spatial stochastic processes, dealing with large datasets is still challenging. The problem arises by the need to invert a potentially large covariance matrix during inference. In this paper we address the complexity problem by constructing a new stationary covariance function (Mercer kernel) that naturally provides a sparse covariance matrix. The sparseness of the matrix is defined by hyperparameters optimised during learning. The new covariance function enables exact GP inference and performs comparatively to the squared-exponential one, at a lower computational cost. This allows the application of GPs to large-scale problems such as ore grade prediction in mining or 3D surface modelling. Experiments show that using the proposed covariance function, very sparse covariance matrices are normally obtained which can be effectively used for faster inference and less memory usage.},
+	language = {en},
+	author = {Melkumyan, Arman and Ramos, Fabio},
+	year = {2009},
+	pages = {7},
+	file = {Melkumyan and Ramos - 2009 - A Sparse Covariance Function for Exact Gaussian Pr.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Gaussian Processes/Melkumyan and Ramos - 2009 - A Sparse Covariance Function for Exact Gaussian Pr.pdf:application/pdf}
+}
+
+@article{friedman_sparse_2008,
+	title = {Sparse inverse covariance estimation with the graphical lasso},
+	volume = {9},
+	issn = {1465-4644, 1468-4357},
+	url = {https://academic.oup.com/biostatistics/article-lookup/doi/10.1093/biostatistics/kxm045},
+	doi = {10.1093/biostatistics/kxm045},
+	abstract = {We consider the problem of estimating sparse graphs by a lasso penalty applied to the inverse covariance matrix. Using a coordinate descent procedure for the lasso, we develop a simple algorithm{\textemdash} the Graphical Lasso{\textemdash} that is remarkably fast: it solves a 1000 node problem (\~{} 500, 000 parameters) in at most a minute, and is 30 to 4000 times faster than competing methods. It also provides a conceptual link between the exact problem and the approximation suggested by Meinshausen \& Bu{\textasciidieresis}hlmann (2006). We illustrate the method on some cell-signaling data from proteomics.},
+	language = {en},
+	number = {3},
+	urldate = {2019-07-15},
+	journal = {Biostatistics},
+	author = {Friedman, J. and Hastie, T. and Tibshirani, R.},
+	month = jul,
+	year = {2008},
+	pages = {432--441},
+	file = {Friedman et al. - 2008 - Sparse inverse covariance estimation with the grap.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Covariance/Friedman et al. - 2008 - Sparse inverse covariance estimation with the grap.pdf:application/pdf}
+}
+
+@article{pedregosa_scikit-learn:_2011,
+	title = {Scikit-learn: {Machine} {Learning} in {Python}},
+	abstract = {Scikit-learn is a Python module integrating a wide range of state-of-the-art machine learning algorithms for medium-scale supervised and unsupervised problems. This package focuses on bringing machine learning to non-specialists using a general-purpose high-level language. Emphasis is put on ease of use, performance, documentation, and API consistency. It has minimal dependencies and is distributed under the simplified BSD license, encouraging its use in both academic and commercial settings. Source code, binaries, and documentation can be downloaded from http://scikit-learn.sourceforge.net.},
+	language = {en},
+	journal = {MACHINE LEARNING IN PYTHON},
+	author = {Pedregosa, Fabian and Varoquaux, Gael and Gramfort, Alexandre and Michel, Vincent and Thirion, Bertrand and Grisel, Olivier and Blondel, Mathieu and Prettenhofer, Peter and Weiss, Ron and Dubourg, Vincent and Vanderplas, Jake and Passos, Alexandre and Cournapeau, David},
+	year = {2011},
+	pages = {6},
+	file = {Pedregosa et al. - Scikit-learn Machine Learning in Python.pdf:/Users/adrian/Zotero/storage/ECASTCSQ/Pedregosa et al. - Scikit-learn Machine Learning in Python.pdf:application/pdf}
+}
+
+@misc{noauthor_shapely_2019,
+	title = {Shapely : {Manipulation} and analysis of geometric objects. {Contribute} to {Toblerity}/{Shapely} development by creating an account on {GitHub}},
+	copyright = {View license},
+	url = {https://github.com/Toblerity/Shapely},
+	urldate = {2019-08-01},
+	publisher = {Toblerity},
+	month = aug,
+	year = {2019},
+	note = {original-date: 2011-12-31T19:43:11Z}
+}
+
+@article{chen_shrinkage_2010,
+	title = {Shrinkage {Algorithms} for {MMSE} {Covariance} {Estimation}},
+	volume = {58},
+	issn = {1053-587X, 1941-0476},
+	url = {http://ieeexplore.ieee.org/document/5484583/},
+	doi = {10.1109/TSP.2010.2053029},
+	abstract = {We address covariance estimation in the sense of minimum mean-squared error (MMSE) when the samples are Gaussian distributed. Specifically, we consider shrinkage methods which are suitable for high dimensional problems with a small number of samples (large p small n). First, we improve on the Ledoit-Wolf (LW) method by conditioning on a sufficient statistic. By the Rao-Blackwell theorem, this yields a new estimator called RBLW, whose mean-squared error dominates that of LW for Gaussian variables. Second, to further reduce the estimation error, we propose an iterative approach which approximates the clairvoyant shrinkage estimator. Convergence of this iterative method is established and a closed form expression for the limit is determined, which is referred to as the oracle approximating shrinkage (OAS) estimator. Both RBLW and OAS estimators have simple expressions and are easily implemented. Although the two methods are developed from different perspectives, their structure is identical up to specified constants. The RBLW estimator provably dominates the LW method for Gaussian samples. Numerical simulations demonstrate that the OAS approach can perform even better than RBLW, especially when n is much less than p. We also demonstrate the performance of these techniques in the context of adaptive beamforming.},
+	language = {en},
+	number = {10},
+	urldate = {2019-08-06},
+	journal = {IEEE Transactions on Signal Processing},
+	author = {Chen, Yilun and Wiesel, Ami and Eldar, Yonina C. and Hero, Alfred O.},
+	month = oct,
+	year = {2010},
+	pages = {5016--5029},
+	file = {Chen et al. - 2010 - Shrinkage Algorithms for MMSE Covariance Estimatio.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Covariance/Chen et al. - 2010 - Shrinkage Algorithms for MMSE Covariance Estimatio.pdf:application/pdf}
+}
+
+@article{ledoit_honey_2003,
+	title = {Honey, {I} {Shrunk} the {Sample} {Covariance} {Matrix}},
+	abstract = {The central message of this paper is that nobody should be using the sample covariance matrix for the purpose of portfolio optimization. It contains estimation error of the kind most likely to perturb a mean-variance optimizer. In its place, we suggest using the matrix obtained from the sample covariance matrix through a transformation called shrinkage. This tends to pull the most extreme coefficients towards more central values, thereby systematically reducing estimation error where it matters most. Statistically, the challenge is to know the optimal shrinkage intensity, and we give the formula for that. Without changing any other step in the portfolio optimization process, we show on actual stock market data that shrinkage reduces tracking error relative to a benchmark index, and substantially increases the realized information ratio of the active portfolio manager.},
+	language = {en},
+	author = {Ledoit, Olivier and Wolf, Michael},
+	year = {2003},
+	pages = {22},
+	file = {1bv0Vq-honey.pdf:/Users/adrian/Documents/2019/Imperial College/T3/Master Project.nosync/MScProject_OptSensors_GP/Covariance/1bv0Vq-honey.pdf:application/pdf}
+}
+
+@article{ledoit_improved_2003,
+	title = {Improved estimation of the covariance matrix of stock returns with an application to portfolio selection},
+	volume = {10},
+	issn = {09275398},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0927539803000070},
+	doi = {10.1016/S0927-5398(03)00007-0},
+	abstract = {This paper proposes to estimate the covariance matrix of stock returns by an optimally weighted average of two existing estimators: the sample covariance matrix and single-index covariance matrix. This method is generally known as shrinkage, and it is standard in decision theory and in empirical Bayesian statistics. Our shrinkage estimator can be seen as a way to account for extra-market covariance without having to specify an arbitrary multifactor structure. For NYSE and AMEX stock returns from 1972 to 1995, it can be used to select portfolios with significantly lower out-of-sample variance than a set of existing estimators, including multifactor models.},
+	language = {en},
+	number = {5},
+	urldate = {2019-08-16},
+	journal = {Journal of Empirical Finance},
+	author = {Ledoit, Olivier and Wolf, Michael},
+	month = dec,
+	year = {2003},
+	pages = {603--621},
+	file = {Ledoit and Wolf - 2003 - Improved estimation of the covariance matrix of st.pdf:/Users/adrian/Zotero/storage/LURX93XM/Ledoit and Wolf - 2003 - Improved estimation of the covariance matrix of st.pdf:application/pdf}
+}
+
+@article{ledoit_well-conditioned_2004,
+	title = {A well-conditioned estimator for large-dimensional covariance matrices},
+	volume = {88},
+	issn = {0047259X},
+	url = {https://linkinghub.elsevier.com/retrieve/pii/S0047259X03000964},
+	doi = {10.1016/S0047-259X(03)00096-4},
+	abstract = {Many applied problems require a covariance matrix estimator that is not only invertible, but also well-conditioned (that is, inverting it does not amplify estimation error). For largedimensional covariance matrices, the usual estimator{\textemdash}the sample covariance matrix{\textemdash}is typically not well-conditioned and may not even be invertible. This paper introduces an estimator that is both well-conditioned and more accurate than the sample covariance matrix asymptotically. This estimator is distribution-free and has a simple explicit formula that is easy to compute and interpret. It is the asymptotically optimal convex linear combination of the sample covariance matrix with the identity matrix. Optimality is meant with respect to a quadratic loss function, asymptotically as the number of observations and the number of variables go to infinity together. Extensive Monte Carlo confirm that the asymptotic results tend to hold well in finite sample.},
+	language = {en},
+	number = {2},
+	urldate = {2019-08-16},
+	journal = {Journal of Multivariate Analysis},
+	author = {Ledoit, Olivier and Wolf, Michael},
+	month = feb,
+	year = {2004},
+	pages = {365--411},
+	file = {Ledoit and Wolf - 2004 - A well-conditioned estimator for large-dimensional.pdf:/Users/adrian/Zotero/storage/G3DPKT6X/Ledoit and Wolf - 2004 - A well-conditioned estimator for large-dimensional.pdf:application/pdf}
+}
+
+@misc{noauthor_api_nodate,
+	title = {{API} {Reference} {\textemdash} scikit-learn 0.21.3 documentation},
+	url = {https://scikit-learn.org/stable/modules/classes.html#module-sklearn.covariance},
+	urldate = {2019-08-17},
+	file = {API Reference {\textemdash} scikit-learn 0.21.3 documentation:/Users/adrian/Zotero/storage/HUPER9BD/classes.html:text/html}
+}
+
+@article{hansen_truncatedsvd_1987,
+	title = {The {truncatedSVD} as a method for regularization},
+	volume = {27},
+	issn = {0006-3835, 1572-9125},
+	url = {http://link.springer.com/10.1007/BF01937276},
+	doi = {10.1007/BF01937276},
+	abstract = {I{\textquoteright}hc truncated singular value decomposition (SW) is considered as a method for rcgularization of ill-posed linear lcast squares pro\&ins. In particular, the .truncatcd SVl{\textgreater} solution is compared with the u s u a l rcguiarizcd so.lution. Ncccssary conditions arc d\&cd in which the two m\&hods will yield similar results. This investigation suggests the truncated SW as n filvorablc al-. tcrnativc to st;lndard-form rcgularization in cast of ill-conditioned matrices with a well-dctcrmincd rank.},
+	language = {en},
+	number = {4},
+	urldate = {2019-08-17},
+	journal = {BIT},
+	author = {Hansen, Per Christian},
+	month = dec,
+	year = {1987},
+	pages = {534--553},
+	file = {Hansen - 1987 - The truncatedSVD as a method for regularization.pdf:/Users/adrian/Zotero/storage/KDK3I7C9/Hansen - 1987 - The truncatedSVD as a method for regularization.pdf:application/pdf}
 }

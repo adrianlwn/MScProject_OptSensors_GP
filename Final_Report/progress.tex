@@ -122,58 +122,6 @@ I have then explored ways of making GPs more scalable and focused on the VFE spa
 
 I use the sparse GP 
 
-\section{Implementation Details}
-
-\subsection{Environment}
-
-For this project the code was implemented using \textit{python 3.7} and the following list of libraries : 
-
-\begin{itemize}
-	\item numpy
-	\item pandas
-	\item matplotlib
-	\item GPy
-\end{itemize}
-
-\todo{Update the list of packages using conda}
-\todo{Make a table with the version number}
-
-\subsection{Initialisation}
-
-\todo{This is a copy paste of the previous section Initialisation section}
-
-\paragraph{Data Preprocessing}
-
-\todo{Update paragraph with new preprocessing}
-In order to make the data usable for the rest of the project we apply some preprocessing of the previously selected dataset. \\
-
-First we analyse the quantity of zero elements present in the data \textbf{in function of the time}. We count every point of data that has a value over $\tau = 10^{-4}$. This gives us the plot of figure \ref{fig:sumtime}. As we can see, it takes some initial time for the tracer to propagate to some kind of steady state, at around 33\% of the points. This is why we decide to use only the part of the data where the tracer concentration is steady across the space : we choose to cut the first 200 samples of the data (100s). \\
-
-\begin{figure}[]
-\centering
-	\includegraphics[width = 0.7 \textwidth]{figures/DataAnalysis/SumDataTime}
-	\caption{Percentage of significant points in function of the time for $\tau = 10^{-4}$}
-	\label{fig:sumtime}
-\end{figure}
-
-
-Furthermore, we decide to \textbf{round to zero} the values that are smaller than the previous threshold of $\tau = 10^{-4}$. This can be motivated by the fact that it will allow to use the sparsity of the data to make the algorithm faster. This means that we will approximatively set a 66\% of the tracer values to zero.\\
-
-We try to find a trend in the data that we could exploit in the rest of the project. We plot for example the mean tracer value for each location in function to the distance to the origin of the tracer. This scatter plot can be seen on figure \ref{fig:tracerdistance}. 
-
-\begin{figure}[]
-\centering
-	\includegraphics[width = 0.7 \textwidth]{figures/DataAnalysis/TracerMeanDistance}
-	\caption{Mean value for each point in function of the distance to the tracer's origin}
-	\label{fig:tracerdistance}
-\end{figure}
-
-
-As we can see there is no immediate trend that can be detected, so we proceed to a \textbf{centering of the Data} that will enable a faster processing of the covariance matrix. 
-
-
-
-
 
 
 

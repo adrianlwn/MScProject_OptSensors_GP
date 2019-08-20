@@ -1,19 +1,18 @@
-\contentsline {todo}{Explain the steps of the project report}{2}{section*.8}
-\contentsline {todo}{Write a proper Introduction}{2}{section*.9}
-\contentsline {todo}{Mention the main assumption that the data needs to be gaussianly distributed and iid samples (Maybe already explained)}{5}{section*.16}
-\contentsline {todo}{Remove this part on spatial covariance, maybe mention it}{10}{section*.36}
-\contentsline {todo}{Explain the problem with the nature of the covariance and explain shrinkage methods}{10}{section*.37}
-\contentsline {todo}{Introduction to chapter : - Analysis of the Data - Methods developed - Algorithm Implementation - Results Analysis (viz and comparison) }{16}{section*.77}
-\contentsline {todo}{define somewhere the metric we use to see how close are the datasets}{16}{section*.81}
-\contentsline {todo}{rewrite the introduction of this section}{16}{section*.83}
-\contentsline {todo}{make ref to shapely}{19}{section*.91}
-\contentsline {todo}{Important to explain how the gaussian processes were implemented. Challenge of the inversion. Classical approach and TSVD approach and show simple computation times and error results.}{21}{section*.97}
-\contentsline {todo}{Explain every algorithm implemented, their difference. This is important for the result section where sample results for those algorithm will be shown later on }{21}{section*.99}
-\contentsline {todo}{Write this in the end only if the validation works well}{22}{section*.101}
-\contentsline {todo}{Explain better d by referring to the equation}{26}{section*.119}
-\contentsline {todo}{Add section on the abritrary kernels results}{27}{section*.122}
-\contentsline {todo}{Explain that I use the VFE only for predicting the canditate given the whole dataset. The other GP is tracktable because it is conditioned by the number of sensors already placed.}{31}{section*.147}
-\contentsline {todo}{Update the list of packages using conda}{32}{section*.152}
-\contentsline {todo}{Make a table with the version number}{32}{section*.153}
-\contentsline {todo}{This is a copy paste of the previous section Initialisation section}{32}{section*.155}
-\contentsline {todo}{Update paragraph with new preprocessing}{32}{section*.157}
+\contentsline {todo}{Write Intoduction}{2}{section*.5}
+\contentsline {todo}{Write Problem Statement : Why we need that ? What solution ? }{2}{section*.7}
+\contentsline {todo}{Explain the steps of the project r eport}{2}{section*.10}
+\contentsline {todo}{Mention the main assumption that the data needs to be gaussianly distributed and iid samples (Maybe already explained)}{4}{section*.16}
+\contentsline {todo}{Speak of intuition of covariance in function of the distance from center}{10}{section*.49}
+\contentsline {todo}{Explain Data Assimilation}{16}{section*.91}
+\contentsline {todo}{Make sure that the packages are all listed}{17}{section*.97}
+\contentsline {todo}{Important to explain how the gaussian processes were implemented. Challenge of the inversion. Classical approach and TSVD approach and show simple computation times and error results.}{24}{section*.118}
+\contentsline {todo}{Results add discussion on the cost of TSDV refer to the email}{25}{section*.127}
+\contentsline {todo}{check the last paragraph and maybe move it}{26}{section*.129}
+\contentsline {todo}{Explain every algorithm implemented, their difference. This is important for the result section where sample results for those algorithm will be shown later on }{26}{section*.131}
+\contentsline {todo}{Write this in the end only if the validation works well}{28}{section*.139}
+\contentsline {todo}{Explain why only on full set and not on comparison set}{28}{section*.140}
+\contentsline {todo}{Comment and Compare shrinkage versions}{30}{section*.148}
+\contentsline {todo}{Maybe not}{30}{section*.150}
+\contentsline {todo}{Add in literature review // Implementation the Kernels definitions}{34}{section*.164}
+\contentsline {todo}{Add Validation Results}{38}{section*.179}
+\contentsline {todo}{Change Conclusion of the Project}{39}{section*.181}
