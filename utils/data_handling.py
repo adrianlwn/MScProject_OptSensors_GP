@@ -7,7 +7,6 @@ import time
 from tqdm import tqdm
 from shapely.geometry import Polygon, MultiPoint
 
-
 from utils.config import *
 
 sys.path.append('../fluidity-master/python/')
@@ -142,19 +141,24 @@ def crop_data(data_dict, min_x=-50, max_x=50, min_y=-50, max_y=50, min_z=0, max_
                            min_z, max_z)
 
 
-def extract_data_df(data_dict, field_name):
+def extract_data_df(data_dict, parameters):
     # Extracts the time series for the specific field at each position
+    field_name = parameters["field_name"]
 
     print("==> Extracting the field \"{}\" from the vtu files.".format(field_name))
     i_0 = list(data_dict.keys())[0]
     T = len(data_dict)
     N = data_dict[i_0].GetLocations().shape[0]
-
+            
     data_mat = np.zeros((N, T))
 
     for t, ts in enumerate(data_dict):
-        data_mat[:, t] = data_dict[ts].GetField(field_name).T
+        if field_name == "Velocity":
+            data_mat[:, t] = np.linalg.norm(data_dict[ts].GetField('Velocity'),axis=1)
+        else :
+            data_mat[:, t] = data_dict[ts].GetField(field_name).T
     return pd.DataFrame(data_mat)
+
 
 
 def extract_time_df(data_dict):
@@ -170,23 +174,6 @@ def extract_time_df(data_dict):
     for t, ts in enumerate(data_dict):
         time_vec[t] = data_dict[ts].GetField('Time')[0]
     return pd.DataFrame(time_vec)
-
-
-def extract_data_df(data_dict, parameters):
-    # Extracts the time series for the specific field at each position
-    # Returns a pandas DataFrame
-
-    field_name = parameters["field_name"]
-
-    i_0 = list(data_dict.keys())[0]
-    T = len(data_dict)
-    N = data_dict[i_0].GetLocations().shape[0]
-
-    data_mat = np.zeros((N, T))
-
-    for t, ts in enumerate(data_dict):
-        data_mat[:, t] = data_dict[ts].GetField(field_name).T
-    return pd.DataFrame(data_mat)
 
 
 def extract_location_df(data_dict):
@@ -396,3 +383,24 @@ def idx_all_slices(location_df, direction='Z', w_slice=1.0):
         direction).apply(lambda x: x.index.tolist()).to_dict()
 
     return index_slices_dict
+
+def divergence_set(A_1,A_2,loc_df):
+    """ This function defifnes a divergence between each set by taking for each point its closest counterpart. 
+        This is a divergence as it is not symetrical. """
+    S_1 = loc_df.loc[A_1,:].values
+    S_2 = loc_df.loc[A_2,:].values
+    
+    N = S_1.shape[0]
+    
+    idx = np.zeros((N,N)).astype(int)
+    distmat = np.zeros((N,N))
+    for i in range(N):
+        idx[i,:] = np.argsort([np.linalg.norm(S_1[i,:] - S_2[k,:]) for k in range(N)])
+        distmat[i,:] = np.sort([np.linalg.norm(S_1[i,:] - S_2[k,:]) for k in range(N)])
+    return np.sum(distmat[:,0])
+
+def dist_set(S_1,S_2,loc_df):
+    """ This function defines a distance wicht is the average between the divergences between both sets"""
+    div_12 = divergence_set(S_1,S_2,loc_df)
+    div_21 = divergence_set(S_2,S_1,loc_df)
+    return (div_12 + div_21)/2

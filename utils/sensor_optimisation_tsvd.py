@@ -6,6 +6,7 @@ import os
 from os.path import join
 import pandas as pd
 import time
+import pdb
 
 import tqdm
 import heapq
@@ -191,7 +192,7 @@ def approx_local_max_info(k, K, epsilon):
 
 def H_cond(y, X, Z, tau):
     """ Function that returns the conditional Entropy of y knowing X """
-
+    #pdb.set_trace()
     Z_y = Z[y, :].reshape(1, -1)
     if X.shape[0] == 0:
         Z_y_A = Z_y @ Z_y.T
@@ -203,7 +204,7 @@ def H_cond(y, X, Z, tau):
             Z_Atau = tsvd.fit_transform(Z[X.astype(int), :].T).T
 
         Z_y_A = Z_y @ Z_y.T - Z_y @ Z_Atau.T @ np.linalg.inv(Z_Atau @ Z_Atau.T) @ Z_Atau @ Z_y.T
-
+    #pdb.set_trace()
     return Z_y_A
     # return K[y, y] - K[np.ix_([y], X)] @ np.linalg.inv(K[np.ix_(X, X)]) @ K[np.ix_(X, [y])]
     # return K[y,y] - K[np.ix_([y],X)] @ np.linalg.solve(K[np.ix_(X,X)], K[np.ix_(X,[y])])

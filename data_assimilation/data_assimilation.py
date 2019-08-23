@@ -25,9 +25,14 @@ import vtktools
 ntime = 988
 ntimelocal = 988
 
+subset = np.loadtxt('subset.txt')
 
 
-indLoc = np.loadtxt('localpoints.txt')
+indLoc = np.loadtxt('localpoints_optimal_eps10-6.txt')
+#indLoc = np.random.choice(100040,10,replace=False)
+#indLoc = np.random.choice(subset,10,replace=False)
+
+
 
 NindLoc = len(indLoc)
 
@@ -36,7 +41,7 @@ for i in range(ntimelocal):
     filename = '../../data/small3DLSBU/LSBU_'+str(i+1)+'.vtu'
     ug=vtktools.vtu(filename)
     ug.GetFieldNames()
-    xFluidity = ug.GetScalarField('Tracer1')
+    xFluidity = ug.GetScalarField('Tracer')
     xMLocal = np.array([])
     for j in range(NindLoc):
         indexLocal = indLoc[j]
@@ -51,7 +56,7 @@ n = NindLoc
 dimuvwTot = len(uvwTot)
 
 m = np.array([])
-m = np.zeros(dimuvwTot/ntime)
+m = np.zeros(int(dimuvwTot/ntime))
 for j in range(n):
         for i in range(1,ntime+1):
                 m[j] = np.copy(m[j] + uvwTot[j+(i-1)*n])
@@ -96,7 +101,7 @@ for i in range(NindLoc):
 
 nstobs = len(uvwVecobs)
 #ug=vtktools.vtu('./WindTunnel/Projected_Normal_400.vtu')
-ugg=vtktools.vtu('../../data/small3DLSBU/LSBU_100.vtu')
+ug=vtktools.vtu('../../data/small3DLSBU/LSBU_100.vtu')
 
 ug.GetFieldNames()
 uvwVectot = ug.GetScalarField('Tracer')
@@ -175,6 +180,12 @@ print('L2 norm of the background error' , MSExb )
 errxDA = y - xDA
 MSExDA = LA.norm(errxDA, 2)/LA.norm(y, 2)
 print('L2 norm of the error in DA solution' , MSExDA)
+
+
+print('L2 norm of the true state y ', LA.norm(y, 2))
+print('L2 norm of the DA xDA ', LA.norm(xDA, 2))
+print('L2 norm of the Background xB ', LA.norm(xB, 2))
+
 
 errxBtot = np.array([])
 errxBtot = np.zeros(nRec)

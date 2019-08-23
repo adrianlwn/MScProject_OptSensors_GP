@@ -67,13 +67,13 @@ def sensor_loc_optimisation_naive(k, K, sets):
 
     # Main Loop of the Algorithm : Iterating over the number of sensors to place
 
-    for j in tqdm.tqdm_notebook(range(k)):
+    for j in tqdm.tqdm(range(k), desc="Main Loop"):
         # Get the Indexes of the Points
         
         S_A = np.setdiff1d(S, A).astype(int)
                 
         ## Inner Loop : Iterating over the potential sensor places
-        for i, y in enumerate(S_A):
+        for y in tqdm.tqdm(S_A ,desc="Inner Loop : placing sensor "+str(j+1) ):
             A_ = np.setdiff1d(V, np.append(A, [y]))
             
             # Mutual Information Gain
@@ -124,9 +124,10 @@ def sensor_loc_optimisation_lazy(k, K, sets):
 
     # MAIN LOOP of the Algorithm : Iterating over the number of sensors to place
     for j in tqdm.tqdm(range(k),desc="Main Loop : Sensor Placement"):
-        
-        ## INNER LOOP : Iterating over the potential sensor places
+        p_bar = tqdm.tqdm(range(n_S), desc="Inner Loop")
+        # INNER LOOP : Iterating over the potential sensor places
         while True:
+            p_bar.update(1)
             delta, y_opt, count = heapq.heappop(delta_heap)
             if count == j:
                 break
@@ -174,6 +175,7 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
 
     n_A = 0
     A = np.array([])
+    d_opt = []
 
     # Initialisation Loop : 
     delta_y = dict(zip(S.flatten().tolist(), np.zeros(n_S).tolist()))
@@ -196,6 +198,8 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
         # Greedily selection the best point to add to A
         y_opt = max(delta_y, key=delta_y.get)
         delta_y.pop(y_opt)
+        print(y_opt)
+
 
         # Add the selected point to A
         n_A += 1
@@ -209,6 +213,10 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
 
         elif method == "fixed":
             N_yopt_espilon = local_set_fixed(y_opt, S_A, K, d, p2i ,i2p)
+        
+        d_opt.append(len(N_yopt_espilon))
+        print(d_opt)
+
 
         ## Inner Loop : Iterating over the potential sensor places
         for y in tqdm.tqdm(S_A,desc="Inner Loop : placing sensor " + str(j+1)):
@@ -219,7 +227,11 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
 
                 elif method == "fixed":
                     delta_y[y] = H_cond_fixed(y, A, K, d, p2i, i2p) / H_cond_fixed(y, A_, K, d, p2i, i2p)
-    return A
+    print(d_opt)
+    print(np.mean(d_opt))
+    print(np.std(d_opt))
+
+    return A, d_opt
 
 
 def delta_MI(y, A, K):
@@ -233,6 +245,7 @@ def H_cond(y, X, K, p2i, i2p):
     """ Function that returns the conditional Entropy of y knowing X """
     iX = list(map(p2i.__getitem__, X))
     iy = p2i[y]
+    #pdb.set_trace()
     return K[iy, iy] - K[np.ix_([iy], iX)] @ np.linalg.inv(K[np.ix_(iX, iX)]) @ K[np.ix_(iX, [iy])]
 
 
@@ -265,7 +278,7 @@ def local_set(y, X, K, epsilon, p2i, i2p):
 
     iX_trunc = np.array(iX)[i_trunc]
     X_trunc = list(map(i2p.__getitem__, iX_trunc))
-    print('Length of local covariance set : d = ', len(X_trunc))
+    #print('Length of local covariance set : d = ', len(X_trunc))
 
     return X_trunc
 
@@ -281,7 +294,7 @@ def local_set_fixed(y, X, K, d, p2i, i2p):
     i_trunc = np.argsort(K[np.ix_([iy], iX)].flatten())[::-1][:d].tolist()
     iX_trunc = np.array(iX)[i_trunc]
     X_trunc = list(map(i2p.__getitem__, iX_trunc))
-    print('Length of local covariance set : d = ', len(X_trunc), ", largest = ", K[np.ix_([iy], [np.array(iX)[i_trunc[0]]])]," smallest =", K[np.ix_([iy], [np.array(iX)[i_trunc[-1]]])])        
+    #print('Length of local covariance set : d = ', len(X_trunc), ", largest = ", K[np.ix_([iy], [np.array(iX)[i_trunc[0]]])]," smallest =", K[np.ix_([iy], [np.array(iX)[i_trunc[-1]]])])        
     #pdb.set_trace()
 
 
