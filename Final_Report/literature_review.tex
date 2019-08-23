@@ -236,14 +236,10 @@ Additionally, it is shown that in cases where $p$ in much larger that $n$, the O
 \subsection{Kernel Functions}
 
 
+One other alternative for estimating a covariance matrix it the choice of an arbitrary kernel function such as it is often the case in classical GP regressions. The kernel functions are often parametric and can therefore be adapted to the data, and optimised using the the Maximal Likelihood of the GP regression.  \\ 
 
-Role of parametric kernel function in gaussian processes. learning the parameter on real data and predicting in between.  Smoothness of the prediction,Likelyhood. learned at one specific time sample, loosing information on eht propagation ! Covariance . \\
+Here, we display some classical kernel functions which are isotropic and have for parameter the lengthscale $l$. We present the squared \textbf{exponential kernel} and the \textbf{Matèrn 3/2} and \textbf{5/2} taken from \cite{rasmussen_gaussian_2006}. \\
 
-
-
-No chosen because krause said it was bad. 
-
-\todo{Speak of intuition of covariance in function of the distance from center}
 
 \begin{equation}
 	 K_{SE}(d) = \exp \Big(-\frac{|d|^2}{2\ell^2} \Big)
@@ -256,6 +252,9 @@ No chosen because krause said it was bad.
 \begin{equation}
 	K_{5/2}(d) = \sigma^2\left(1+\frac{\sqrt{5}d}{\rho}+\frac{5d^2}{3\rho^2}\right)\exp\left(-\frac{\sqrt{5}d}{\rho}\right)
 \end{equation}
+
+As we have data for every point we wish to predict, it is better to use some data driven technique rather than using some of those arbitrary covariance functions. Furthermore the true covariance of the space is likely to be non-stationary as \citet{krause_near-optimal_2008} explains. 
+
 
 \section{Sensor Position Optimisation}\label{sec:theory:opt}
 
@@ -457,6 +456,13 @@ This two strategies can be combined in order to make the problem even more scala
 \section{Variational Data Assimilation}
 
 \todo{Explain Data Assimilation}
+
+Data Assimilation (DA) is a method widely used in the Geostatistics and Meteorology. Its purpose is to incorporate real observations in the simulation of a complex physical phenomenon. In the MAGIC project Data Assimilation is a way of improving the simulation of the tracer concentration propagation through space. For this purpose points to be assimilated have to be selected. It is therefore interesting to apply the optimal sensor positioning algorithm of the simulatio n dataset in order to select a limited number of points for the DA. In this section we review the DA and Variational DA techniques based on the work of \citet{arcucci_optimal_2019}.  \\
+
+
+
+
+
 
 
 

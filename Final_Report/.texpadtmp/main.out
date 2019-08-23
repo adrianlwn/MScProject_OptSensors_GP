@@ -1,55 +1,57 @@
 \BOOKMARK [0][]{chapter.3}{1 Introduction}{}% 1
-\BOOKMARK [1][]{section.4}{1.1 Introduction}{chapter.3}% 2
-\BOOKMARK [1][]{section.6}{1.2 Problem Statement}{chapter.3}% 3
-\BOOKMARK [1][]{section.8}{1.3 Aim of the project }{chapter.3}% 4
-\BOOKMARK [0][]{chapter.13}{2 Literature Review}{}% 5
-\BOOKMARK [1][]{section.14}{2.1 The MAGIC Project}{chapter.13}% 6
-\BOOKMARK [1][]{section.15}{2.2 Gaussian Processes}{chapter.13}% 7
-\BOOKMARK [2][]{subsection.17}{2.2.1 Multivariate Gaussian Distribution}{section.15}% 8
-\BOOKMARK [2][]{subsection.19}{2.2.2 Prediction with Gaussian Processes}{section.15}% 9
-\BOOKMARK [2][]{subsection.23}{2.2.3 Scalable Gaussian Processes}{section.15}% 10
-\BOOKMARK [1][]{section.32}{2.3 Covariance Matrix}{chapter.13}% 11
-\BOOKMARK [2][]{subsection.33}{2.3.1 Properties of Covariance}{section.32}% 12
-\BOOKMARK [2][]{subsection.34}{2.3.2 Covariance Estimation}{section.32}% 13
-\BOOKMARK [2][]{subsection.48}{2.3.3 Kernel Functions}{section.32}% 14
-\BOOKMARK [1][]{section.53}{2.4 Sensor Position Optimisation}{chapter.13}% 15
-\BOOKMARK [2][]{subsection.54}{2.4.1 Placement Criterion}{section.53}% 16
-\BOOKMARK [2][]{subsection.68}{2.4.2 Approximation Algorithm}{section.53}% 17
-\BOOKMARK [2][]{subsection.78}{2.4.3 Improvements over the Algorithm}{section.53}% 18
-\BOOKMARK [1][]{section.90}{2.5 Variational Data Assimilation}{chapter.13}% 19
-\BOOKMARK [0][]{chapter.92}{3 Implementation}{}% 20
-\BOOKMARK [1][]{section.93}{3.1 Practical Informations}{chapter.92}% 21
-\BOOKMARK [2][]{subsection.94}{3.1.1 Availability of the code}{section.93}% 22
-\BOOKMARK [2][]{subsection.95}{3.1.2 Environment}{section.93}% 23
-\BOOKMARK [2][]{subsection.98}{3.1.3 Experimental Conditions}{section.93}% 24
-\BOOKMARK [1][]{section.100}{3.2 Data Analysis}{chapter.92}% 25
-\BOOKMARK [1][]{section.104}{3.3 Preselection of the Data}{chapter.92}% 26
-\BOOKMARK [2][]{subsection.105}{3.3.1 Selection of a working subset of the data}{section.104}% 27
-\BOOKMARK [2][]{subsection.109}{3.3.2 Selection of a subset at human level}{section.104}% 28
-\BOOKMARK [2][]{subsection.114}{3.3.3 Combined Selection}{section.104}% 29
-\BOOKMARK [1][]{section.116}{3.4 Implementation of Covariance Matrix}{chapter.92}% 30
-\BOOKMARK [1][]{section.117}{3.5 Implementation of Gaussian Processes}{chapter.92}% 31
-\BOOKMARK [2][]{subsection.119}{3.5.1 Classical GPs}{section.117}% 32
-\BOOKMARK [2][]{subsection.121}{3.5.2 GPs Approximation with TSVD}{section.117}% 33
-\BOOKMARK [2][]{subsection.128}{3.5.3 Other Approaches}{section.117}% 34
-\BOOKMARK [1][]{section.130}{3.6 Implementation of the Optimisation}{chapter.92}% 35
-\BOOKMARK [2][]{subsection.132}{3.6.1 }{section.130}% 36
-\BOOKMARK [2][]{subsection.134}{3.6.2 Comparison tools : Distance Between Sets}{section.130}% 37
-\BOOKMARK [1][]{section.138}{3.7 Implementation of VarDA}{chapter.92}% 38
-\BOOKMARK [0][]{chapter.141}{4 Results and Analysis}{}% 39
-\BOOKMARK [1][]{section.142}{4.1 Covariance}{chapter.141}% 40
-\BOOKMARK [2][]{subsection.143}{4.1.1 Sample Covariance}{section.142}% 41
-\BOOKMARK [2][]{subsection.145}{4.1.2 Shrinkage Covariance}{section.142}% 42
-\BOOKMARK [2][]{subsection.149}{4.1.3 Arbitrary Covariance Function}{section.142}% 43
-\BOOKMARK [1][]{section.151}{4.2 Comparison Optimisation Algorithms}{chapter.141}% 44
-\BOOKMARK [2][]{subsection.152}{4.2.1 Conditions of the Experiment}{section.151}% 45
-\BOOKMARK [2][]{subsection.155}{4.2.2 Greedy and Lazy Optimisation}{section.151}% 46
-\BOOKMARK [2][]{subsection.158}{4.2.3 Local Kernels Optimisation}{section.151}% 47
-\BOOKMARK [2][]{subsection.161}{4.2.4 Approximated Gaussian Processes}{section.151}% 48
-\BOOKMARK [2][]{subsection.163}{4.2.5 Arbitrary Covariance}{section.151}% 49
-\BOOKMARK [1][]{section.165}{4.3 Optimisation Results}{chapter.141}% 50
-\BOOKMARK [2][]{subsection.166}{4.3.1 Local Kernel Algorithm}{section.165}% 51
-\BOOKMARK [2][]{subsection.173}{4.3.2 Lazy Algorithm with TSVD}{section.165}% 52
-\BOOKMARK [1][]{section.178}{4.4 Validation with VarDA}{chapter.141}% 53
-\BOOKMARK [0][]{chapter.180}{5 Conclusion}{}% 54
-\BOOKMARK [0][]{appendix.182}{A Description of the Code}{}% 55
+\BOOKMARK [1][]{section.4}{1.1 Introduction \046 Motivation }{chapter.3}% 2
+\BOOKMARK [1][]{section.7}{1.2 Aim of the project }{chapter.3}% 3
+\BOOKMARK [0][]{chapter.12}{2 Literature Review}{}% 4
+\BOOKMARK [1][]{section.13}{2.1 The MAGIC Project}{chapter.12}% 5
+\BOOKMARK [1][]{section.14}{2.2 Gaussian Processes}{chapter.12}% 6
+\BOOKMARK [2][]{subsection.16}{2.2.1 Multivariate Gaussian Distribution}{section.14}% 7
+\BOOKMARK [2][]{subsection.18}{2.2.2 Prediction with Gaussian Processes}{section.14}% 8
+\BOOKMARK [2][]{subsection.22}{2.2.3 Scalable Gaussian Processes}{section.14}% 9
+\BOOKMARK [1][]{section.31}{2.3 Covariance Matrix}{chapter.12}% 10
+\BOOKMARK [2][]{subsection.32}{2.3.1 Properties of Covariance}{section.31}% 11
+\BOOKMARK [2][]{subsection.33}{2.3.2 Covariance Estimation}{section.31}% 12
+\BOOKMARK [2][]{subsection.47}{2.3.3 Kernel Functions}{section.31}% 13
+\BOOKMARK [1][]{section.51}{2.4 Sensor Position Optimisation}{chapter.12}% 14
+\BOOKMARK [2][]{subsection.52}{2.4.1 Placement Criterion}{section.51}% 15
+\BOOKMARK [2][]{subsection.66}{2.4.2 Approximation Algorithm}{section.51}% 16
+\BOOKMARK [2][]{subsection.76}{2.4.3 Improvements over the Algorithm}{section.51}% 17
+\BOOKMARK [1][]{section.88}{2.5 Variational Data Assimilation}{chapter.12}% 18
+\BOOKMARK [0][]{chapter.90}{3 Implementation}{}% 19
+\BOOKMARK [1][]{section.91}{3.1 Practical Informations}{chapter.90}% 20
+\BOOKMARK [2][]{subsection.92}{3.1.1 Availability of the code}{section.91}% 21
+\BOOKMARK [2][]{subsection.93}{3.1.2 Environment}{section.91}% 22
+\BOOKMARK [2][]{subsection.95}{3.1.3 Experimental Conditions}{section.91}% 23
+\BOOKMARK [1][]{section.97}{3.2 Data Analysis}{chapter.90}% 24
+\BOOKMARK [1][]{section.101}{3.3 Preselection of the Data}{chapter.90}% 25
+\BOOKMARK [2][]{subsection.102}{3.3.1 Selection of a working subset of the data}{section.101}% 26
+\BOOKMARK [2][]{subsection.106}{3.3.2 Selection of a subset at human level}{section.101}% 27
+\BOOKMARK [2][]{subsection.111}{3.3.3 Combined Selection}{section.101}% 28
+\BOOKMARK [1][]{section.113}{3.4 Implementation of Covariance Matrix}{chapter.90}% 29
+\BOOKMARK [1][]{section.114}{3.5 Implementation of Gaussian Processes}{chapter.90}% 30
+\BOOKMARK [2][]{subsection.115}{3.5.1 Classical GPs}{section.114}% 31
+\BOOKMARK [2][]{subsection.117}{3.5.2 GPs Approximation with TSVD}{section.114}% 32
+\BOOKMARK [2][]{subsection.123}{3.5.3 Limitations of Other Approaches}{section.114}% 33
+\BOOKMARK [1][]{section.124}{3.6 Implementation of the Optimisation}{chapter.90}% 34
+\BOOKMARK [2][]{subsection.125}{3.6.1 Optimisation Algorithms}{section.124}% 35
+\BOOKMARK [2][]{subsection.130}{3.6.2 Comparison Tool: Distance Between Sets}{section.124}% 36
+\BOOKMARK [1][]{section.134}{3.7 Implementation of VarDA}{chapter.90}% 37
+\BOOKMARK [0][]{chapter.137}{4 Results and Analysis}{}% 38
+\BOOKMARK [1][]{section.138}{4.1 Covariance}{chapter.137}% 39
+\BOOKMARK [2][]{subsection.139}{4.1.1 Sample Covariance}{section.138}% 40
+\BOOKMARK [2][]{subsection.141}{4.1.2 Shrinkage Covariance}{section.138}% 41
+\BOOKMARK [2][]{subsection.144}{4.1.3 Arbitrary Covariance Function}{section.138}% 42
+\BOOKMARK [1][]{section.146}{4.2 Comparison Optimisation Algorithms}{chapter.137}% 43
+\BOOKMARK [2][]{subsection.147}{4.2.1 Conditions of the Experiment}{section.146}% 44
+\BOOKMARK [2][]{subsection.150}{4.2.2 Greedy and Lazy Optimisation}{section.146}% 45
+\BOOKMARK [2][]{subsection.153}{4.2.3 Local Kernels Optimisation}{section.146}% 46
+\BOOKMARK [2][]{subsection.156}{4.2.4 Approximated Gaussian Processes}{section.146}% 47
+\BOOKMARK [1][]{section.158}{4.3 Optimisation Results}{chapter.137}% 48
+\BOOKMARK [2][]{subsection.159}{4.3.1 Local Kernel Algorithm}{section.158}% 49
+\BOOKMARK [2][]{subsection.166}{4.3.2 Lazy Algorithm with TSVD}{section.158}% 50
+\BOOKMARK [1][]{section.171}{4.4 Application to Variational DA}{chapter.137}% 51
+\BOOKMARK [2][]{subsection.172}{4.4.1 Parameters of the Experiment}{section.171}% 52
+\BOOKMARK [2][]{subsection.174}{4.4.2 VarDA on Local Kernel Results}{section.171}% 53
+\BOOKMARK [2][]{subsection.180}{4.4.3 VarDA on Lazy Algorithm with TSVD Results}{section.171}% 54
+\BOOKMARK [2][]{subsection.187}{4.4.4 Limitations of the Application}{section.171}% 55
+\BOOKMARK [0][]{chapter.189}{5 Conclusion}{}% 56
+\BOOKMARK [0][]{appendix.191}{A Description of the Code}{}% 57

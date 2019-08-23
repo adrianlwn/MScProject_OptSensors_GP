@@ -1,18 +1,14 @@
 \contentsline {todo}{Write Intoduction}{2}{section*.5}
-\contentsline {todo}{Write Problem Statement : Why we need that ? What solution ? }{2}{section*.7}
-\contentsline {todo}{Explain the steps of the project r eport}{2}{section*.10}
-\contentsline {todo}{Mention the main assumption that the data needs to be gaussianly distributed and iid samples (Maybe already explained)}{4}{section*.16}
-\contentsline {todo}{Speak of intuition of covariance in function of the distance from center}{10}{section*.49}
-\contentsline {todo}{Explain Data Assimilation}{16}{section*.91}
-\contentsline {todo}{Make sure that the packages are all listed}{17}{section*.97}
-\contentsline {todo}{Important to explain how the gaussian processes were implemented. Challenge of the inversion. Classical approach and TSVD approach and show simple computation times and error results.}{24}{section*.118}
-\contentsline {todo}{Results add discussion on the cost of TSDV refer to the email}{25}{section*.127}
-\contentsline {todo}{check the last paragraph and maybe move it}{26}{section*.129}
-\contentsline {todo}{Explain every algorithm implemented, their difference. This is important for the result section where sample results for those algorithm will be shown later on }{26}{section*.131}
-\contentsline {todo}{Write this in the end only if the validation works well}{28}{section*.139}
-\contentsline {todo}{Explain why only on full set and not on comparison set}{28}{section*.140}
-\contentsline {todo}{Comment and Compare shrinkage versions}{30}{section*.148}
-\contentsline {todo}{Maybe not}{30}{section*.150}
-\contentsline {todo}{Add in literature review // Implementation the Kernels definitions}{34}{section*.164}
-\contentsline {todo}{Add Validation Results}{38}{section*.179}
-\contentsline {todo}{Change Conclusion of the Project}{39}{section*.181}
+\contentsline {todo}{Write Problem Statement : Why we need that ? What solution ? }{2}{section*.6}
+\contentsline {todo}{Explain the steps of the project report}{2}{section*.9}
+\contentsline {todo}{Mention the main assumption that the data needs to be gaussianly distributed and iid samples (Maybe already explained)}{5}{section*.15}
+\contentsline {todo}{Explain Data Assimilation}{17}{section*.89}
+\contentsline {todo}{Write this in the end only if the validation works well}{30}{section*.135}
+\contentsline {todo}{Explain why only on full set and not on comparison set}{30}{section*.136}
+\contentsline {todo}{Maybe Remove subsection}{33}{section*.145}
+\contentsline {todo}{mention those in the implementation section}{41}{section*.173}
+\contentsline {todo}{Finish Analysis}{42}{section*.179}
+\contentsline {todo}{Maybe Update Results}{42}{section*.184}
+\contentsline {todo}{Finish Analysis}{42}{section*.186}
+\contentsline {todo}{Finish limitation subsection}{43}{section*.188}
+\contentsline {todo}{Change Conclusion of the Project}{44}{section*.190}

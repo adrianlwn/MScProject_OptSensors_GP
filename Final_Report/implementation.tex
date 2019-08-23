@@ -19,8 +19,8 @@ For this project the code was implemented using \textit{python 3.7} and the foll
 \begin{table}[h!]
 \centering
 \begin{tabular}{l|c}
-\hline
-Library & Version \\ \hline
+\toprule
+Library & Version \\ \midrule
 numpy & 1.16.2 \\
 scipy & 1.2.1\\
 scikit-learn & 0.20.3 \\
@@ -28,13 +28,11 @@ pandas & 0.24.2 \\
 shapely & 1.6.4 \\
 matplotlib & 3.0.3\\ 
 fluidity &  \\
-\hline
+\bottomrule
 
 \end{tabular}
 \caption{Library Informations}
 \end{table}
-
-\todo{Make sure that the packages are all listed}
 
 \subsection{Experimental Conditions}
 
@@ -43,14 +41,14 @@ All the implementation and the results obtained, especially the timings, have be
 \begin{table}[h!]
 \centering
 \begin{tabular}{l|c}
-\hline
+\toprule
 
-OS & Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-46-generic ) \\ \hline
-Architecture    &    x86\_64 \\ \hline
+OS & Ubuntu 18.04.2 LTS (GNU/Linux 4.15.0-46-generic ) \\ 
+Architecture    &    x86\_64 \\ 
 
-Number of CPUs          &    48\\ \hline
+Number of CPUs          &    48\\ 
 
-CPU     &    Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz \\ \hline
+CPU     &    Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz \\ \bottomrule
 
 \end{tabular}
 \caption{Hardware and Software Informations}
@@ -154,7 +152,7 @@ We define for each building $i \in \{1, \dots, B\}$ an altitude $H_i$, and for $
 	\label{fig:humanchart}
 \end{figure}
 
-In order to proceed to this selection, I had to overcome the absence of defined building profile and I had to manually define the shapes of the buildings (as you can see on figure \ref{fig:buildingshapes}) by taking the empirically the coordinates of the buildings in the small LSBU dataset, considering a XY projection of the 3D space. \\
+In order to proceed to this selection, I had to overcome the absence of defined building profile and I had to manually define the shapes of the buildings (as you can see on figure \ref{fig:buildingshapes}) by measuring empirically the coordinates of the buildings in the small LSBU dataset, considering a XY projection of the 3D space. \\
 
 \begin{figure}[h]
 \centering
@@ -163,7 +161,7 @@ In order to proceed to this selection, I had to overcome the absence of defined 
 	\label{fig:buildingshapes}
 \end{figure}
 
-Once those coordinates acquired, I used the \textbf{shapely} library  \citep{noauthor_shapely_2019} in order to define the polygones associated to the buildings. In order to define the height $H_i$ of each building I had to define a set of points overhanging it and find the minimal altitude of this point.  To define the set of points I took the inner part of the surface of the building (cut by 1m) in order to avoid any edge point. This can be seen on the figure \ref{fig:inner_outer_building}). The points which have XY coordinates within this shape are then selected and the minimal Z coordinate is taken as the definition of the roof level $H_i$ \\
+Once those coordinates acquired, I used the \textbf{shapely} library  \citep{noauthor_shapely_2019} in order to define the polygones associated to the buildings. In order to define the height $H_i$ of each building I had to define a set of points overhanging it and find the minimal altitude of those points.  To define the set of points I took the inner part of the surface of the building (cut by 1m) in order to avoid any edge point. This can be seen on the figure \ref{fig:inner_outer_building}). The points which have XY coordinates within this shape are then selected and the minimal Z coordinate is taken as the definition of the roof level $H_i$ \\
 
 
 \begin{figure}[h]
@@ -209,10 +207,8 @@ We take advantage of the \textit{sklearn} library that contains a number of usef
 
 \section{Implementation of Gaussian Processes}
 
-GPs are in fact the main concept used in this project. We will cover here how they were implemented and what king of approximation is was made to make them more scalable. 
+GPs are in fact the central concept used in this project. We will cover here how they were implemented and what kind of approximation was implemented in order to make them more scalable. 
 
-
-\todo{Important to explain how the gaussian processes were implemented. Challenge of the inversion. Classical approach and TSVD approach and show simple computation times and error results.} 
 
 \subsection{Classical GPs}
 
@@ -256,23 +252,19 @@ We also replace the vector of covariance $\vec{K}_{y\A}$ by :
 We end up with an expression of TSVD approximate GP variance : 
 
 \begin{equation}
-	\tilde{\vec{K}}_{y | \A} =  \frac{1}{n} \left( \vec{X}_{y}\vec{X}_{y}^T - \vec{X}_{y} \vec{\tilde{X}}_{\A,\tau}^T (\vec{\tilde{X}}_{\A,\tau}  \vec{\tilde{X}}_{\A,\tau}^T)^{-1}  \vec{\tilde{X}}_{\A,\tau} \vec{X}_{y}^T \right)
+	\tilde{\vec{K}}_{y | \A} =  \frac{1}{n} \left( \vec{X}_{y}\vec{X}_{y}^T - \vec{X}_{y} \vec{\tilde{X}}_{\A,\tau}^T \left(\vec{\tilde{X}}_{\A,\tau}  \vec{\tilde{X}}_{\A,\tau}^T \right)^{-1}  \vec{\tilde{X}}_{\A,\tau} \vec{X}_{y}^T \right)
 \end{equation}
 
 With this approximation the inversion has a complexity reduced to $\mathcal{O}(\tau^3)$, which is a great improvement. \\
 
  However, this method requires the computation of a new TSVD at each iteration of the algorithm as the indexes in $\A$ are constantly changing. 
  
- \todo{Results add discussion on the cost of TSDV refer to the email}
 
+\subsection{Limitations of Other Approaches}
 
-\subsection{Other Approaches}
+A lot of literature has been studied on how GPs could be made more scalable : approaches relying on very elegant solutions, such as sparse GPs and VFE. After implementing them using specialised GP library (such as \textit{GPy}), we discovered that they could not be applied to our optimisation problem. Sparse GPs are in fact optimisation problems that allow to select a reduced number of positions to represent a large set of observations. But in our algorithm the observation set changes at every step of the of the loop and we therefore need a new approximation for predicting at only one single point. This makes this approach computationally inefficient for the algorithms of \citet{krause_near-optimal_2008}. \\
 
-A lot of literature was found on how GPs could be made more scalable : approaches relying on very elegant solutions, such as sparse GPs and VFE. After implementing them using specialised GP library (such as \textit{GPy}), I discovered that they could not be applied to our optimisation problem. Sparse GPs are in fact optimisation problems that allow to select a reduced number of positions to represent a large set of observations. But in our algorithm the observation set changes at every step of the of the loop and we need a new approximation for predicting at only one single point. This makes this approach computationally inefficient for the algorithms of \citet{krause_near-optimal_2008}. \\
-
-
-
-If we analyse the algorithm \ref{alg:greedy} in more details, we see that it is difficult to implement any sophisitcated method to approximate the GP at each step. \\
+If we analyse the algorithm \ref{alg:greedy} in more details, we see that it is difficult to implement a method to approximate the GP at each step. \\
 
 We have defined $\A$ as the set of already placed sensors, and $\bar{\A}$ the set of other locations : $\bar{\A} = \mathcal{V} \backslash \{\A \cup y\} $ and $y$ is the candidate point changing at each step. We then have the full set of locations that is cut in 3 parts : $ \mathcal{V} = \A \cup \bar{\A} \cup \{y\} $ \\
 
@@ -280,31 +272,44 @@ At each iteration we need to compute two different GPs. The first one is computi
 
 The second GP is computing the conditional variance for the point y knowing the set of points $\bar{\A}$ : $\vec{K}_{y | \bar{\A}} =  \vec{K}_{yy} - \vec{K}_{y\bar{\A}} \vec{K}_{\bar{\A}\bar{\A}}^{-1} \vec{K}_{\bar{\bar{\A}} y} $. This is much more difficult to estimate when the number of points in $\bar{\A}$ is of the order of 100’000. Not only it is difficult to estimate once, but be have to to it for every step of the second loop as the set $\bar{\A}$ changes constantly as we move the candidate point $y$. We then have a covariance matrix $\vec{K}_{\bar{\A}\bar{\A}}$ that is fundamentally different between each step. \\
 
-Because of this, if we want to use a method that allows to remove the bottleneck at the covariance matrix inversion, we need to avoid creating another bottleneck to approximate the GP. The TSVD approach is sufficiently light not to increase too much the computational cost. 
-
-\todo{check the last paragraph and maybe move it}
-
-
+Because of this, if we want to use a method that allows to remove the bottleneck at the covariance matrix inversion, we need to avoid creating another bottleneck to approximate the GP. The TSVD approach is sufficiently light not to increase too much the computational cost. But other methods, such as sparse GPs are not usable. 
 
 
 
 \section{Implementation of the Optimisation}
 
-\todo{Explain every algorithm implemented, their difference. This is important for the result section where sample results for those algorithm will be shown later on }
-
-\subsection{}
+Here we review the implementation details of the optimisation algorithm itself and its variations. We cover then the tools used to compare the results of the different versions.  
 
 
-The methods developed by \citet{krause_near-optimal_2008} are using the full Gaussian process in to greedily place sensors. The algorithm consists in the estimation of the best “new” sensor to add the set of existing sensor based on a mutual information gain criterion. This criterion can be computed with two Gaussian processes. One that estimates the covariance of the sensor candidate $y$ given the set of previously selected sensors $\A$ : $K_{y | \A}$. The other GP allows the computation of the covariance of the candidate $y$ given the rest of the locations in the space $\bar{\A} = \V \backslash ( \A \cup y )$ : $K_{y | \bar{\A}}$. We recall the problem that is to be solved is :
+\subsection{Optimisation Algorithms}
+
+\paragraph{Greedy Algorithm}
+
+The methods developed by \citet{krause_near-optimal_2008} are using the full Gaussian process in to greedily place sensors. The algorithm consists in the estimation of the best “new” sensor to add the set of existing sensor based on a mutual information gain criterion. This criterion can be computed with two Gaussian processes. One that estimates the covariance of the sensor candidate $y$ given the set of previously selected sensors $\A$: $K_{y | \A}$. The other GP allows the computation of the covariance of the candidate $y$ given the rest of the locations in the space $\bar{\A} = \V \backslash ( \A \cup y )$ : $K_{y | \bar{\A}}$. We recall the problem that is to be solved is :
 
 \begin{equation}
     y^* = {\arg \max}_{y \in \S \backslash A } \: \frac{K_{y | \A}}{K_{y | \bar{\A}}}
 \end{equation}
 
-This has to be computed theoretically for every candidate point of the dataset, and this for every sensor we add to A. The naive version is described in \ref{alg:greedy} and a lazy version of the algorithm is available at algorithm \ref{alg:lazy}.
+This has to be computed theoretically for every candidate point of the dataset, and this for every sensor we add to A. 
+
+The naive version is described in \ref{alg:greedy}. In this version is directly implemented using a double for loop. The first is iterating on the sensors to place, and the inner loop in iterating through all the candidates versions. 
+
+\paragraph{Lazy Algorithm}
+
+The Lazy version of the algorithm (Algorithm \ref{alg:lazy}) uses the mathematical concept of sub-modularity. This allows to reduce drastically the number of candidate points to update. By using the python \texttt{heapq}, a \textit{min-heap} binary structure, to store the mutual information improvements, we are able to maintain the results sorted as we update each candidate. By definition this structure sorts the elements from the smallest to the largest, we store the results we have added a minus sign, making this equivalent to a \textit{max-heap}. This structure is highly efficient and allows to find the maximum in $\mathcal{O}(1)$ and to update a value in $\mathcal{O}(\log n)$. 
 
 
-\subsection{Comparison tools : Distance Between Sets}
+\paragraph{Local Kernel Algorithm}
+
+The Local Kernel version of the algorithm (Algorithm \ref{alg:local}) relies on the same greedy approach than the first algorithm. Therefore the implementation is very similar. The main difference rely in the use of a reduced set for the computation of the GPs and the the set on which there is no update of the candidate points. \\
+
+The number of points involved in the GPs $|N(y,\epsilon)| \leq d $  depends on the threshold on the covariance $\epsilon$. This is a parameter to optimise in order to make the computational time acceptable while retaining accuracy. It highly depends on the data and the covariance matrix entries. 
+
+ 
+
+
+\subsection{Comparison Tool: Distance Between Sets}
 
 In order to be able to compare the results of optimisations, we define a metric that can be used to see how close are two optimal sets. \\
 

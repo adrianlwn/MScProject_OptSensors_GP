@@ -19,7 +19,7 @@ We plot in figure \ref{fig:cov:emp:eigs} the eigen-decomposition of this sample 
 
 \begin{figure}[h!]
 \centering
-    \includegraphics[width=0.8\linewidth]{figures/Covariance/Tracer_23643/cov_emp_eigenval_loglog}
+    \includegraphics[width=0.7\linewidth]{figures/Covariance/Tracer_23643/cov_emp_eigenval_loglog}
     \caption{Empirical Covariance : Eigenvalues}
     \label{fig:cov:emp:eigs}
 \end{figure}
@@ -28,18 +28,19 @@ So the sample covariance matrix can't be directly used for our optimisation.
 
 \subsection{Shrinkage Covariance}
 
-In this section we show the results of the class of shrinkage covariance estimators. We use a simple \textbf{shrinkage} with shrinkage constant $\rho = 0.1$ and $\rho = 0.5$,  the \textbf{Ledoit-Wolf} Shrinkage and the \textbf{OAS} Shrinkage. 
+In this section we show the results of the class of shrinkage covariance estimators. We use a simple \textbf{shrinkage} with shrinkage constant $\rho = 0.1$,  $\rho = 0.5$ and $\rho = 0.8$,  the \textbf{Ledoit-Wolf} Shrinkage and the \textbf{OAS} Shrinkage. 
 
 \begin{table}[h]
 \centering
-    \begin{tabular}{|l|ccccc|}
-     \hline
-        & SignDet & LogDet & $\lambda_1$ & $\lambda_p$ & $\rho$ \\ \hline
+    \begin{tabular}{l|ccccc}
+     \toprule
+        & SignDet & LogDet & $\lambda_1$ & $\lambda_p$ & $\rho$ \\ \midrule
         Empirical & ($-$) & $-1'399'936.28$ &  $0.0219$ & $-6.8929 \cdot 10^{-18}$ & -\\
-        Shrinkage $\rho=0.1$ & ($+$) & $-351'807.64$ &  $0.0219$ &$3.3603\cdot 10^{-7}$ & $0.1$\\
-        Shrinkage $\rho=0.5$ & ($+$) & $-314'035.58$ &  $0.0219$  &$1.6801 \cdot 10^{-6}$ & $0.5$\\
-        Ledoit-Wolf & ($+$) & $-406'320.19$&  $0.0219$ & $3.2867\cdot 10^{-8}$ & $0.0097811$\\
-        OAS & ($+$) & $-408'903.33$ & $0.0219$ & $2.9435\cdot 10^{-8}$ & $0.0087595$ \\  \hline
+        Shrinkage $\rho=0.1$ & ($+$) & $-351'807.64$ &  $0.0197$ &$3.3603\cdot 10^{-7}$ & $0.1$\\
+        Shrinkage $\rho=0.5$ & ($+$) & $-314'035.58$ &  $0.0109$  &$1.6801 \cdot 10^{-6}$ & $0.5$\\
+        Shrinkage $\rho=0.8$ & ($+$) & $-303'046.20$ &  $0.00438$  &$2.6882 \cdot 10^{-6}$ & $0.8$\\
+        Ledoit-Wolf & ($+$) & $-406'320.19$&  $0.0217$ & $3.2867\cdot 10^{-8}$ & $0.0097811$\\
+        OAS & ($+$) & $-408'903.33$ & $0.0217$ & $2.9435\cdot 10^{-8}$ & $0.0087595$ \\  \bottomrule
     \end{tabular}
     \caption{Shrinkage Comparison}
 \end{table}
@@ -51,13 +52,15 @@ In this section we show the results of the class of shrinkage covariance estimat
     \label{fig:cov:comparison:eigs}
 \end{figure}
 
-\todo{Comment and Compare shrinkage versions}
+As we can see the shrinkage algorithm allows to have a positive definite definite matrix that is very close the the original covariance matrix. It shares a lot a eigenvalues with the sample covariance matrix. This varies in function of the shrinkage constant $\rho$. For arbitrary values, $\rho = 0.1$,  $\rho= 0.5$ and  $\rho= 0.8$ we see that the smaller the shrinkage constant is, the closer we get to the sample covariance. For large constant value, we see that the upper part of the spectrum deteriorates completely, meaning that we don't have a good estimation anymore.  \\
+
+For LW and OAS, the shrinkage variable computed is actually close to $0.1$. The spectrum are very close and the resulting in very close covariances matrixes. We see that the upper part is almost identical to the sample covariance matrix, but the lower part is truncated. As OAS gives us theoretically an optimal $\rho$ with very small error, we decide to use the \textbf{OAS estimation} of the covariance matrix for the optimisation procedure to follow.
 
 %\subsection{Covariance on other fields}
 
 \subsection{Arbitrary Covariance Function}
 
-\todo{Maybe not}
+\todo{Maybe Remove subsection}
 
 
 
@@ -67,22 +70,26 @@ In this section we show the results of the class of shrinkage covariance estimat
 
 \section{Comparison Optimisation Algorithms}
 
-We have defined the three algorithms allowing for a near-optimal placement of the sensors. In order to compare their performance and measure their limitation, we have run them on a small dataset, a subset of our main one. 
+We have defined the three algorithms allowing for a near-optimal placement of the sensors. We have also defined an approximation of the GPs. In order to compare their performance and measure their limitation, we have run them on a small dataset, a subset of our main one. 
 \subsection{Conditions of the Experiment}
 
-We have defined a sphere of radius $25$m, centred close to the centre, in the middle of the propagation beam, at position $[60,35,0]$ in which are contained $3'130$ points of the mesh. By taking the intersection between those points and our selection defined in \ref{sec:preselection} , we can reduce the number of points $|S|$ to $1'295$.  The candidates are presented in figure  XX \\
+We have defined a sphere of radius $25$m, centred close to the centre, in the middle of the propagation beam, at position $[60,35,0]$ in which are contained $3'130$ points of the mesh. By taking the intersection between those points and our selection defined in \ref{sec:preselection} , we can reduce the number of points $|S|$ to $1'295$.  The candidates are presented in figure      \ref{fig:smallset:position}.
+ \\
 
 \begin{figure}[h!]
 \centering
     \includegraphics[width=0.8\linewidth]{figures/CompAlg/3rd/non_centered_60.35.0/candidates_screenshot}
     \caption{Small Subset Candidates}
+    \label{fig:smallset:position}
 \end{figure}
 
-We compute the OAS covariance for this dataset and we will use in in the rest of the experience. The eigenvalues decomposition is shown for both the empirical covariance and the OAS estimate in figure \ref{fig:small_cov_eig}. \\
+We compute the OAS covariance for this dataset and we will use in in the rest of the experience. The eigenvalues decomposition is shown for both the empirical covariance and the OAS estimate in figure \ref{fig:small_cov_eig}. As shown previously we have a spectrum that is close to the original sample covariance, but with a truncated lower part. \\
+
+We had a sample covariance that was \textbf{negative definite} with \textit{logDet} of $-39'755.06$ This allows to get a \textbf{positive definite} covariance matrix with \textit{logDet} of $-19'447.95$.  \\
 
 \begin{figure}[h!]
 \centering
-    \includegraphics[width=0.7\linewidth]{figures/CompAlg/covarianceEmpOAS}
+    \includegraphics[width=0.8\linewidth]{figures/CompAlg/covarianceEmpOAS}
     \caption{Spectrum of Empirical and OAS covariances for small dataset}
     \label{fig:small_cov_eig}
 \end{figure}
@@ -108,14 +115,14 @@ The location of those points optimal points $\A^*$ is shown in green in the figu
 \begin{table}[h]
 \centering
 \footnotesize
-\begin{tabular}{|l|rrrrrrrrrr|}
-\hline
+\begin{tabular}{l|rrrrrrrrrr}
+\toprule
 $\A^*$ &  52731 &  47876 &  3078  &  19782 &  26045 &  30511 &  26754 &  81507 &  11608 &  3903  \\
-\hline
+\midrule
 X &  61.31 &  43.55 &  77.31 &  38.75 &  48.23 &  50.48 &  52.36 &  43.10 &  82.40 &  62.01 \\
 Y &  40.06 &  27.62 &  35.55 &  35.26 &  29.38 &  30.04 &  44.37 &  27.52 &  44.48 &  32.39 \\
 Z &   1.52 &  16.40 &   1.45 &   1.80 &  19.53 &  11.79 &   1.62 &  10.23 &   1.96 &   0.20 \\
-\hline
+\bottomrule
 \end{tabular}
 \caption{Optimal Points Locations : Data}
 \label{tab:opt_small}
@@ -132,14 +139,14 @@ This is why the threshold $\epsilon$ has to be chosen carefully. We are going to
 \begin{table}[h!]
 \centering
 \scriptsize
-\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|}
-  \hline
+\begin{tabular}{l|c|c|c|c|c|c|c|c|c|c}
+  \toprule
   Threshold $\epsilon$ & $10^{-10} $ &  $10^{-9}$ & $10^{-8}$ & $10^{-7}$ & $10^{-6}$ & $10^{-5}$ & $10^{-4}$ & $10^{-3}$ & $10^{-2}$ & $10^{-1}$ \\
-    \hline
+    \midrule
   Distance [m]       &    0.00 &    0.00 &    0.00 &    0.00 &   1.248 &  2.783 & 4.693 & 11.058 & 11.058 & 11.058 \\
 Time [s]       & 1660.85 & 1617.92 & 1500.63 & 1151.68 &  520.36 &  60.88 &  2.44 &   1.74 &   3.25 &   2.13 \\
 Average d & 1289.40 & 1288.20 & 1284.80 & 1245.60 & 1029.60 & 510.50 & 15.20 &   0.00 &   0.00 &   0.00 \\
-  \hline
+  \bottomrule
 \end{tabular}
 \caption{Local Kernel Results}
 \label{tab:comp:results}
@@ -196,13 +203,13 @@ As we can see the computation time increases exponentially with $\tau$ and it is
 %\end{tabular}
 %\end{table}
 
-
-\subsection{Arbitrary Covariance}
-
-Alternatively, we define the covariance using an \textit{isotropic} and \textit{stationary} kernel function with arbitrary parameters. We chose for this experiment the 5/2 Matérn kernel. Unrelated to the data !!
-
-\todo{Add in literature review // Implementation the Kernels definitions}
-
+%
+%\subsection{Arbitrary Covariance}
+%
+%Alternatively, we define the covariance using an \textit{isotropic} and \textit{stationary} kernel function with arbitrary parameters. We chose for this experiment the 5/2 Matérn kernel. Unrelated to the data !!
+%
+%\todo{Add in literature review // Implementation the Kernels definitions}
+%
 
 
 
@@ -222,7 +229,7 @@ After the analysis of different algorithm results on a small sample dataset, we 
 
 In this section, we will present the results of two optimisations, compare them in term of computation speed and proximity. 
 
-\subsection{Local Kernel Algorithm}
+\subsection{Local Kernel Algorithm} \label{sec:res:localK}
 
 We first use the Local Kernel Algorithm \ref{alg:local}. The covariance between the points is computed using the OAS estimator. \\
 
@@ -235,10 +242,10 @@ We are computing for each iteration the size of this set. This number is directl
 
 \begin{table}[h]
     \centering
-    \begin{tabular}{|l|cccccccccc|}
-    \hline
-    Sensor & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\     \hline
-        $|N(y_{opt},\epsilon)|$ & 4338 & 4938 & 5066 & 5362 & 4239 & 4164 & 3377 & 4632 & 3511 & 4120 \\     \hline
+    \begin{tabular}{l|cccccccccc}
+    \toprule
+    Sensor & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 \\     \midrule
+        $|N(y_{opt},\epsilon)|$ & 4338 & 4938 & 5066 & 5362 & 4239 & 4164 & 3377 & 4632 & 3511 & 4120 \\     \bottomrule
 
     \end{tabular}
     \caption{Number of highly correlated points at each iteration}
@@ -252,13 +259,13 @@ We visualise the position of the optimal set of sensor points $\A^*$ at differen
 \begin{table}[h]
 \centering
 \footnotesize
-\begin{tabular}{|l|rrrrrrrrrr|}
-\hline
-$\A^*$ &  56588 &  52731 &  73959 &  43278 &  3078  &  19782 &  56257 &  55640 &  10357 &  54786 \\ \hline
+\begin{tabular}{l|rrrrrrrrrr}
+\toprule
+$\A^*$ &  56588 &  52731 &  73959 &  43278 &  3078  &  19782 &  56257 &  55640 &  10357 &  54786 \\ \midrule
 X &  41.61 &  61.31 &  30.32 &  22.79 &  77.31 &  38.75 &  91.19 &  50.10 &  62.13 &   1.62 \\
 Y &  27.21 &  40.06 &  26.06 &  25.81 &  35.55 &  35.26 &  35.16 &  29.00 &  45.23 &  19.99 \\
 Z &  16.73 &   1.52 &  11.19 &  11.79 &   1.45 &   1.80 &   1.82 &  16.41 &   1.64 &  13.81 \\
-\hline
+\bottomrule
 \end{tabular}
 \caption{Optimal Points Locations : Data}
 \label{tab:full:data}
@@ -297,28 +304,29 @@ The location of our optimal set of points is split between points situated on th
 The points are roughly aligned in the wind direction, which seems to be a good thing because we have a propagation originating at the centre and with wind in the east direction. 
 
 
-\subsection{Lazy Algorithm with TSVD}
+\subsection{Lazy Algorithm with TSVD} \label{sec:res:TSVD}
 
-We apply on the same dataset the 2nd Algorithm with the approximated GP that we defined earlier. We use the truncation parameter $\tau_{opt} = 25$. The results we obtain are displayed in table \ref{tab:tsvd:data}
- and figures \ref{fig:full_set_tsvd:position:top} and \ref{fig:full_set_tsvd:position:zoom} along with the previous optimal results. 
+We apply on the same dataset the 2nd Algorithm with the approximated GP that we defined earlier. We use the truncation parameter $\tau_{opt} = 25$. The results we obtain are displayed in table \ref{tab:tsvd:data} and figures \ref{fig:full_set_tsvd:position:top} and \ref{fig:full_set_tsvd:position:zoom} along with the previous optimal results. \\ 
+ 
+This algorithm computes the following results in $18083.87$ seconds or $5.02$ hours. 
  
  \paragraph{Description}
 
-Here again the location of our optimal set of points is split between points situated on the buildings (3 points) and around the ground level (7 points). The locations are more spread than the other set of points. Two locations are at the border the the pre-selected dataset. The distance between this set and the previous one is of : $13.84$m which is quite important.  \\ 
+Here again the location of our optimal set of points is split between points situated on the buildings (3 points) and around the ground level (7 points). The locations are more spread than the other set of points. Two locations are at the border the the pre-selected dataset. The distance between this set and the previous one is : $13.84$m which is quite important.  \\ 
 
 
 
 \begin{table}[h]
 \centering
 \footnotesize
-\begin{tabular}{|l|rrrrrrrrrr|}
-\hline
+\begin{tabular}{l|rrrrrrrrrr}
+\toprule
 $\A^*$ &  38726 &  14276 &  91348 &  5338  &  40994 &  29626 &  65851 &  65734 &  851   &  2293  \\
-\hline
+\midrule
 X & -50.50 &  35.63 &  43.05 & 137.58 &  80.34 &  27.79 &  49.54 &  54.59 &  77.54 &  62.03 \\
 Y &  48.85 &  58.69 &  27.51 &  55.78 &  76.20 &  26.24 &  28.88 &  25.42 &  34.82 &  41.92 \\
 Z &  14.84 &   0.20 &   7.76 &   0.20 &   0.20 &  12.06 &  17.65 &   3.80 &   0.20 &   0.20 \\
-\hline
+\bottomrule
 \end{tabular}
 \caption{Optimal Points Locations TSVD : Data}
 \label{tab:tsvd:data}
@@ -347,6 +355,100 @@ Z &  14.84 &   0.20 &   7.76 &   0.20 &   0.20 &  12.06 &  17.65 &   3.80 &   0.
 
 %%%%%%%%% OPTIMISATION %%%%%%%%
 
-\section{Validation with VarDA}
+\section{Application to Variational DA}
 
-\todo{Add Validation Results}
+
+As we have seen, one way of applying the results to a real situation is to proceed to a Variational Data Assimilation of the points selected. By taking results of a simulation and applying DA on our selected points we can try to see if the results are usable in the context of the MAGIC project. 
+
+\subsection{Parameters of the Experiment} 
+
+For this experiment we chose to consider the same simulation data than previously: the 3D smallLSBU.  We choose as the observation state, the step $988$ of the simulation, and as background state, the step $100$ of the simulation. \\
+
+We compute the Variational DA on the 10 optimal points selected by the algorithms and compute with those a background MSE and a DA MSE. \todo{mention those in the implementation section}
+
+\subsection{VarDA on Local Kernel Results}
+
+First, we run the VarDa Algorithm and obtain the following. 
+\begin{table}[h]
+\centering
+	\begin{tabular}{c|c|c}
+	\toprule
+		  MSE [xDA] & MSE [xB] &  Imp. [xB - xDA] \\ \midrule
+		 $7.7375 \cdot 10^{-17}$ &  $0.9923$ & $0.9923$ \\ \bottomrule
+	\end{tabular}
+	\caption{VarDA on Local Kernel Results. }
+\end{table}
+
+\paragraph{Comparison to Random}
+
+In order to compare those results to an other set of points we proceed as follows. Around each single point of $\A^*$, we select randomly (uniformly) a point located within a radius of $R=5m$. This allows us to compare the results to some random set that is close to the optimum. We proceed to $1'000$ different random selection and compute the average errors and their standard deviations, stated in table \ref{tab:varDa:random}. \\
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|cc}
+\toprule
+               & Average & Std Dev \\ \midrule
+MSE [xDA]      & $6.1008 \cdot 10^{-17}$  & $4.1680 \cdot 10^{-17}$  \\
+MSE [xB]       & $0.6538$  & $0.1718$  \\
+Imp. [xB - xDA]  &  $0.6538$  & $0.1718$ \\ \bottomrule
+\end{tabular}
+	\caption{VarDA on $1'000$ Near Random Points : Local Kernel Results}
+	\label{tab:varDa:random}
+\end{table}
+
+\paragraph{Analysis}
+
+As we see it seems that the random points, even if they are close the optimal seem to be giving better results than our optimal set of points $\A^*$. 
+\todo{Finish Analysis}
+
+
+
+\subsection{VarDA on Lazy Algorithm with TSVD Results}
+
+We then run the same algorithm on the optimal set found with the lazy algorithm combined with TSVD GP approximation. 
+
+\begin{table}[h]
+\centering
+	\begin{tabular}{c|c|c}
+	\toprule
+		  MSE DA & MSE Background & Improvement \\ \midrule
+		$9.8945 \cdot 10^{-17}$  &  $1.1354$ & $1.1354$ \\ \bottomrule
+	\end{tabular}
+	\caption{VarDA on TSVD Results. }
+\end{table}
+
+\paragraph{Comparison to Random}
+
+In order to compare those results to an other set of points we proceed as previously. The results for $1'000$ random sets sampled at a $10$m radius from each optimal points are given in table 	\ref{tab:TSVD:random}. 
+ \\
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{l|cc}
+\toprule
+               & Average & Std Dev \\ \midrule
+MSE VarDA      & $6.6843 \cdot 10^{-17}$  & $4.9458 \cdot 10^{-17}$  \\
+MSE Background & $0.6725$  & $0.2148$  \\
+Improvement    & $0.6725$  & $0.2148$ \\ \bottomrule
+\end{tabular}
+	\caption{VarDA on 500 Random Points : TSVD Results}
+	\label{tab:TSVD:random}
+\end{table}
+\todo{Maybe Update Results}
+\paragraph{Analysis}
+
+As we see it seems that the random points, even if they are close the optimal seem to be giving better results than our optimal set of points $\A^*$. 
+\todo{Finish Analysis}
+
+
+
+\subsection{Limitations of the Application}
+
+As we have seen the results given by this simple VarDA application are not very satisfying. We observe clearly that the randomly selected points give in average better results for DA than our optimal points. \\
+
+We have to keep in mind the the DA Algorithm used is computing the MSE only on the 10 points of interest. We do not study here the propagation after the DA, so we are not really able to see the impact of our selected set on the rest of the locations of the space. \\
+Furthermore, we have consider the DA as an application of our near-optimal sensor positioning algorithm. The criterion we have optimised to find the optimal points has no proven link with the DA. Not taking into account the dynamics of the space. Assumption of samples are independant and identically distributed and samples of the sample gaussian probability distribution. 
+
+\todo{Finish limitation subsection} 
