@@ -1,12 +1,28 @@
 \chapter{Description of the Code} \label{appendix:code}
 
-The codes created for this project are available in the \textbf{GitHub} repository of the project at the following address : \url{https://github.com/adrianlwn/MScProject\_OptSensors\_GP}. This repository contains a library named \texttt{utils} containing a several python files : 
+The codes created for this project are available in the \textbf{GitHub} repository of the project at the following address : \url{https://github.com/adrianlwn/MScProject\_OptSensors\_GP}. \\
+
+This repository contains a library named \texttt{utils} containing a several python files: 
 
 \begin{itemize}
 	\item \texttt{data\_handling.py}: All the functions used to handle the vtk files, extract the subsets for the optimisation. It also allows to save the results in the VTK files for the purpose of visualisation. 
-	\item \texttt{sensor\_optimisation.py}: 
-	\item \texttt{sensor\_optimisation\_tsvd.py}:  
-	\item \texttt{config.py}:
-	\item \texttt{data\_assimilation.py}: 
-	\item  
+	\item \texttt{sensor\_optimisation.py}: All the functions needed to run the standard version of the Optimisation algorithms. Those functions take the covariance matrix in parameter.  
+	\item \texttt{sensor\_optimisation\_tsvd.py}:  All the functions needed to run the modified versions of the Optimisation algorithms. Those functions take the data in parameter. 
+	\item \texttt{config.py}: This script containts some usefull paths to find the data and save the temporary files and results. 
+	\item \texttt{data\_assimilation.py}: This file contains functions to realise the data assimilation. 
 \end{itemize}
+
+
+We list also the \textit{Jupyter Notebooks} and python scripts used  to run and produce all the results of our project:
+\begin{itemize}
+	\item \texttt{parameters.py}: File containing the parameters such as the time interval times to import, the crop of the vtk files, the shape of the buildings. 
+	\item \texttt{Sensor Optimisation 3rd Algorithm.ipynb}
+	\item \texttt{Sensor Optimisation Comparison 1-2-3.ipynb}
+	\item \texttt{Sensor Optimisation TSVD.ipynb}
+	\item \texttt{Sensor Optimisation Comparison 1-2-3.ipynb}
+	\item Notebooks on Covariance 
+	\item Notebooks on DA
+\end{itemize}
+
+\todo{Mention the location of the data files vtk}
+

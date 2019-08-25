@@ -27,7 +27,7 @@ scikit-learn & 0.20.3 \\
 pandas & 0.24.2 \\
 shapely & 1.6.4 \\
 matplotlib & 3.0.3\\ 
-fluidity &  \\
+fluidity & 4.1.15 \\
 \bottomrule
 
 \end{tabular}
@@ -57,51 +57,70 @@ CPU     &    Intel(R) Xeon(R) CPU E5-2680 v3 @ 2.50GHz \\ \bottomrule
 
 
 \section{Data Analysis}
-The main dataset we are using for this project comes from the air pollution simulations at the London South Bank University (LSBU) that was used by \citet{arcucci_optimal_2019}.\\ 
+The main dataset we are using for this project comes from the air pollution simulations at the London South Bank University (LSBU) that was used by \citet{arcucci_optimal_2019}. Those simulations were performed using the fluid dynamics model \textbf{Fluidity}. \\ 
 
 
-The simulation results used are stored in Visualization Toolkit (VTK) files, and extracted using the python framework of \textbf{fluidity}. We specifically use the data from the three-dimensional \texttt{small3DLSBU} simulation. We have developed a series of functions for reading, processing, and saving the raw simulations files in the project. 
+The simulation results used are stored in Visualization Toolkit (VTK) files, and extracted using the python framework of \textbf{Fluidity}. We specifically use the data from the three-dimensional \texttt{small3DLSBU} simulation. We have developed a series of functions for reading, processing, and saving the raw simulations files in the project. 
 
 The simulated fields are the \textbf{tracer} concentration, \textbf{tracer background} concentration, wind \textbf{velocity} and \textbf{pressure}. \\
 
 
 The simulation is done on a discreet set points, each having a 3D coordinate and organised as an unstructured mesh. At the low center of the space the points density is very high compared to the rest of the space. Furthermore, the simulation is realised at time resolution of $\Delta t = 0.5s$ for $988$ time steps or samples. \\
  
-\begin{figure}[h!]
-\centering
-  \includegraphics[width=0.8\linewidth]{figures/Analysis/tracer050cutZ1}
-  \caption{Tracer Field : Horizontal cut at $z=1m$ and $t=50$  }
-  \label{fig:view:tracerstart}
-\end{figure}
 
 \begin{figure}[h!]
 \centering
-  \includegraphics[width=0.8\linewidth]{figures/Analysis/tracer988cutZ1}
-  \caption{Tracer Field : Horizontal cut at $z=1m$ and $t=988$}
+  \includegraphics[height=0.4\linewidth]{figures/Analysis/tracer050cutZ1}
+~
+  \includegraphics[height=0.4\linewidth]{figures/Analysis/tracer988cutZ1}
+  \caption{Tracer Field : Horizontal cut at $z=1m$ and  $t=50$ / $t=988$}
   \label{fig:view:tracerend}
 \end{figure}
 
+ \subsection{Tracer Concentration Data}
 
 
-
-The \textbf{tracer} represents the propagation of a pollutant generated from the centre of the domain at ground level. It aims a representing a busy intersection. We represent two horizontal cuts of the tracer field at $z=1m$ and at $t=50$ and $t=988$ in the figures \ref{fig:view:tracerstart} and \ref{fig:view:tracerend}\\
-
-
+The \textbf{tracer} represents the propagation of a pollutant generated from the centre of the domain at ground level. It aims a representing a busy intersection. We represent two horizontal cuts of the tracer field at $z=1m$ and at $t=50$ and $t=988$ in figure \ref{fig:view:tracerend}\\
 
 
 As we can see by observing the time propagation of those fields,  the wind is pushing the pollutants in a certain direction. Because of this, be observe that the \textbf{tracer} concentration is mainly visible downwind. \\
 
 
-We can also visualise the quantity of zero elements present in the data \textit{in function of the time}. We count every point of data that has a value over $\tau = 10^{-12}$. This gives us the plot of figure \ref{fig:sumtime}. As we can see, it takes some initial time for the tracer to propagate to some kind of steady state, at around 60\% of the points.
+We can also visualise the quantity of zero elements present in the data \textit{in function of the time}. We count every point of data that has a value over $\tau = 10^{-12}$. This gives us the plot of figure \ref{fig:sumtime}. As we can see, it takes some initial time for the tracer to propagate to some kind of steady state, at around 60\% of the points. \\
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width = 0.6 \textwidth]{figures/DataAnalysis/SumDataTime}
-	\caption{Percentage of significant points in function of the time for $\tau = 10^{-12}$}
+	\includegraphics[width = 0.45 \textwidth]{figures/DataAnalysis/SumDataTime}
+	~
+	\includegraphics[width = 0.45 \textwidth]{figures/DataAnalysis/HistoGramTracerSTD}
+	\caption{Percentage of significant points in function of the time for $\tau = 10^{-12}$ \& Histogram of the Standardised Tracer Data}
 	\label{fig:sumtime}
 \end{figure}
 
+Finally we visualise the histogram distribution of all the \textit{Tracer} values (time and space) in the figure \ref{fig:sumtime}. We have \textbf{standardised} the data at each location in order to verify if the distributions is gaussian. As we can see the distribution seems to be close to gaussian and therefore fulfils the conditions of application of the algorithm. 
 
+\subsection{Pressure Data}
+
+We then focus on the Pressure Data present in our simulation. \\ 
+
+We plot the field at times $t=50 $ and $t= 988$ in the figure \ref{fig:pressure:viz988}. There is no obvious trend linked to the propagation of the fluid. We also decide to make an histogram of the data (without standardisation) and obtain the figure \ref{fig:pressure:hist}. Similarly we can say that the \textit{Pressure} data seems to have a gaussian distribution. 
+
+
+\begin{figure}[h]
+\centering
+\includegraphics[height = 0.4 \textwidth]{figures/Analysis/pressure050cutZ1}
+~
+	\includegraphics[height = 0.4 \textwidth]{figures/Analysis/pressure988cutZ1}
+	\caption{Pressure Field : Horizontal cut at $z=1m$ and $t=50$ / $t=988$ }
+	\label{fig:pressure:viz988}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+	\includegraphics[width = 0.6 \textwidth]{figures/DataAnalysis/HistoGramPressure}
+	\caption{Histogram of Pressure Values}
+	\label{fig:pressure:hist}
+\end{figure}
 
 
 \section{Preselection of the Data} \label{sec:preselection}
@@ -201,14 +220,13 @@ By combining the two selection approaches and by taking the intersection of the 
 
 After the pre-selection of the data, we proceed to the computation of the covariance matrix needed for the optimisation process. This covariance links each point of the space with each other, having the size $23'643 \times 23'643 $.\\
 
-We take advantage of the \textit{sklearn} library that contains a number of useful methods including one computing the Sample Covariance, the LW and the OAS shrinkage estimators. Any parameters used are explained in the chapter \ref{chap:results}. \\
+We take advantage of the \textit{sklearn} library that contains a number of useful methods including one computing the Sample Covariance, the LW and the OAS shrinkage estimators. \\
 
 
 
 \section{Implementation of Gaussian Processes}
 
 GPs are in fact the central concept used in this project. We will cover here how they were implemented and what kind of approximation was implemented in order to make them more scalable. 
-
 
 \subsection{Classical GPs}
 
@@ -218,19 +236,19 @@ As we have seen in section \ref{sec:theory:gp}, the gaussian process conditional
 	\vec{K}_{y | \A} &=  \vec{K}_{yy} - \vec{K}_{y\A} \vec{K}_{\A\A}^{-1} \vec{K}_{\A y} 
 \end{align}
 
-The first approach is simply to implement this equation using the \textit{numpy} library. It has the advantage to use parralel processing that exploits the multiple cpus of the computer in order to speed up linear algebra computations, such as this one. 
+The first approach is simply to implement this equation using the \textit{numpy} library. It has the advantage to use parallel processing that exploits the multiple cpus of the server in order to speed up linear algebra computations, such as this one. 
 
 \subsection{GPs Approximation with TSVD}
 
 In GPs, the inversion of the matrix $\K_{\A\A}$ is the most expensive operation, as it has a complexity of $\mathcal{O}(n^3)$. In to reduce the computational cost of the Gaussian Process, we propose a method that allows to approximate the covariance by reducing the dimension of the data, using the \textbf{truncated singular values decomposition} (TSVD). The idea has been developed by \citep{hansen_truncatedsvd_1987} as it allows to regularise matrix in ill-posed problems.  \\
 
-We recall, the centred data $\vec{X}$ and the sample covariance matrix $\vec{\hat{S}}$. The data $\vec{X}$ has for size $p\times n$ and we would like to approximate it by a matrix of size $\tau \times n $. The singular value decomposition (SVD) allows to express the data matrix as a product of a rectangular diagonal matrix $\vec{\Theta} = \text{diag}(\sigma_1, \dots, \sigma_n ) \in \mathbb{R}^{p \times n} $ containing the singular values, and two orthogonal singular vectors matrices $\vec{V} \in \mathbb{R}^{n \times n} $ and $\vec{U} \in \mathbb{R}^{p \times p} $, such as : 
+As defined previously, the centred data is $\vec{X}$ and the sample covariance matrix is $\vec{\hat{S}}$. The data $\vec{X}$ has for size $p\times n$ and we would like to approximate it by a matrix of size $\tau \times n $. The singular value decomposition (SVD) allows to express the data matrix as a product of a rectangular diagonal matrix $\vec{\Theta} = \text{diag}(\sigma_1, \dots, \sigma_n ) \in \mathbb{R}^{p \times n} $ containing the singular values, and two orthogonal singular vectors matrices $\vec{V} \in \mathbb{R}^{n \times n} $ and $\vec{U} \in \mathbb{R}^{p \times p} $, such as : 
 
 \begin{equation}
 	\vec{X} = \vec{U} \vec{\Theta} \vec{V}^T
 \end{equation}
 
-We truncate the SVD from $p$ to $\tau$ by keeping only $\tau$ singular values. We have the singular matrix $\vec{\Theta}_\tau = \text{diag}(\sigma_1, \dots, \sigma_\tau, 0, \dots, 0 ) \in \mathbb{R}^{p \times n} $. We are then able to express an approximation of the data $\vec{\tilde{X}}$ : 
+We truncate the SVD from $p$ to $\tau$ by keeping only the $\tau$ largest singular values. We have the diagonal matrix $\vec{\Theta}_\tau = \text{diag}(\sigma_1, \dots, \sigma_\tau, 0, \dots, 0 ) \in \mathbb{R}^{p \times n} $. We are then able to express an approximation of the data $\vec{\tilde{X}}$ : 
 
 \begin{equation}
 	\vec{\tilde{X}}_\tau = \vec{U} \vec{\Theta}_\tau \vec{V}^T
@@ -255,7 +273,7 @@ We end up with an expression of TSVD approximate GP variance :
 	\tilde{\vec{K}}_{y | \A} =  \frac{1}{n} \left( \vec{X}_{y}\vec{X}_{y}^T - \vec{X}_{y} \vec{\tilde{X}}_{\A,\tau}^T \left(\vec{\tilde{X}}_{\A,\tau}  \vec{\tilde{X}}_{\A,\tau}^T \right)^{-1}  \vec{\tilde{X}}_{\A,\tau} \vec{X}_{y}^T \right)
 \end{equation}
 
-With this approximation the inversion has a complexity reduced to $\mathcal{O}(\tau^3)$, which is a great improvement. \\
+With this approximation the inversion has a complexity reduced to $\mathcal{O}(\tau^3)$, which is a great improvement. It has the advantage not to require any estimation of the true covariance matrix. The TSVD acts as a regulariser and the sample covariance taken on the reduced data is symmetric and positive definite. \\
 
  However, this method requires the computation of a new TSVD at each iteration of the algorithm as the indexes in $\A$ are constantly changing. 
  
@@ -311,7 +329,7 @@ The number of points involved in the GPs $|N(y,\epsilon)| \leq d $  depends on t
 
 \subsection{Comparison Tool: Distance Between Sets}
 
-In order to be able to compare the results of optimisations, we define a metric that can be used to see how close are two optimal sets. \\
+In order to be able to compare the results of optimisations, we define a metric that can be used to measure how close are two optimal sets. \\
 
 The output of our optimisation problem is a set of points $\A$ of size $k$, indexed such as $\A = \{a_1, \dots, a_k\}$. We consider two optimal sets given by two versions of our algorithm : $\A_1$ and $\A_2$. We would to define a metric that measures the distance between those two sets. As we will see several options are possible. \\
 
@@ -345,10 +363,14 @@ This metric has the advantage of being symmetric, taking into account the distan
 
 
 
-\section{Implementation of VarDA}
+\section{Data Assimilation}
 
-\todo{Write this in the end only if the validation works well}
-\todo{Explain why only on full set and not on comparison set}
+Data Assimilation (DA) is a method widely used in the Geostatistics and Meteorology. Its purpose is to incorporate real observations in the simulation of a complex physical phenomenon. VARDA\\
+
+In the MAGIC project Data Assimilation is a way of improving the simulation of the tracer concentration propagation through space. For this purpose points to be assimilated have to be selected. It is therefore interesting to apply the optimal sensor positioning algorithm to this simulated dataset, in order to select a limited  number of points before applying the DA. For the implementation of this application, we rely mainly on the work of \citet{arcucci_optimal_2019}. We use a code solving the VarDA problem with the L-BFGS (Limited – Broyden Fletcher Goldfarb Shanno) Algorithm. \\
+
+The only modifications that were done to the DA implementation was the removal of the TSVD of the Deviation Matrix. We don't need  any space-reduction method as we have a small number of points to assimilate ($k=10$).  \\
 
 
+In order to verify the accuracy of the DA procedure, we compute the Mean Square Error (MSE) between the actual state $y$ and the state following the assimilation $x_{DA}$. And we compare it to the background MSE between $y$ and the background state $x_{B}$. We will compare the results for the optimal sets to a series of randomised points. 
 

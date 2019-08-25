@@ -85,10 +85,11 @@ The \textbf{sparse approximation} methods are very diverse and are allowed by di
  
  \textit{Subset of Regressor} (SoR) fixes both covariances to $0$, forcing a deterministic view. 
  
- In the \textit{Deterministic Training Conditional} (DTC), imposes a deterministic training $\tilde{\vec{Q}}_{nn} = 0$ but keeps the exact test conditional $p(\mathit{f}_* | \mathit{f}_m)$. 
+ In the \textit{Deterministic Training Conditional} (DTC), imposes a deterministic training $\tilde{\vec{Q}}_{nn} = 0$ but keeps the exact test conditional $p(\mathit{f}_* | \mathit{f}_m)$.  \\
  
- Another approach is the \textit{Fully Independent Training Conditional} (FITC). Here we keep exact the test conditional but we approximate the training by considering that each realisation is independent from each other : the $\{\mathit{f}_i\}^n_{i=1}$ are fully independent, and we take the covariance to be $\tilde{\vec{Q}}_{nn} = diag(\vec{K}_{nn} - \vec{Q}_{nn} ) $. This leads to better results than the two previous methods. 
- In order to further improve this method the idea of \textit{Partially Independent Training Conditional} (PITC) was introduced. Here we consider that not all the training points are independent, but only some of them. This leads to an independence by blocks, and an block-diagonal covariance approximation : $\tilde{\vec{Q}}_{nn} = blkdiag(\vec{K}_{nn} - \vec{Q}_{nn} ) $. 
+ Another approach is the \textit{Fully Independent Training Conditional} (FITC). Here we keep exact the test conditional but we approximate the training by considering that each realisation is independent from each other : the $\{\mathit{f}_i\}^n_{i=1}$ are fully independent, and we take the covariance to be $\tilde{\vec{Q}}_{nn} = diag(\vec{K}_{nn} - \vec{Q}_{nn} ) $. This leads to better results than the two previous methods. \\
+ 
+ In order to further improve this method the idea of \textit{Partially Independent Training Conditional} (PITC) was introduced. Here we consider that not all the training points are independent, but only some of them. This leads to an independence by blocks, and an block-diagonal covariance approximation : $\tilde{\vec{Q}}_{nn} = blkdiag(\vec{K}_{nn} - \vec{Q}_{nn} ) $. \\ 
  
 In those methods, the choice of the $m$ \textit{inducing points} is crucial to enable a good approximation. \\
 
@@ -453,11 +454,34 @@ Furthermore, we also decide to update only the points that a not very correlated
 
 This two strategies can be combined in order to make the problem even more scalable. 
 
-\section{Variational Data Assimilation}
+%\section{Variational Data Assimilation}
+%
+%Data Assimilation (DA) is a method widely used in the Geostatistics and Meteorology. Its purpose is to incorporate real observations in the simulation of a complex physical phenomenon. In the MAGIC project Data Assimilation is a way of improving the simulation of the tracer concentration propagation through space. For this purpose points to be assimilated have to be selected. It is therefore interesting to apply the optimal sensor positioning algorithm to the simulation dataset for the selection of a reduced number of points for the DA. In this section we review briefly the DA and Variational DA techniques based on the work of \citet{arcucci_optimal_2019}.  \\
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%We give directly the discretised DA formulation : \\
+%
+%1. $\{x_j\}_{j= 1 \dots NP} \in \Omega $ : NP points of the space,  \\
+%2. $\{y_j\}_{j= 1 \dots nobs} \in \Omega $ : $nobs$ observation points of the space, \\
+%3. $\{t_j\}_{j= 0 \dots N-1} \in [0,T] $ : $N$ time points. \\
+%4. $\vec{u_0} = \{u(t_0,x_j)\}_{j= 1 \dots NP}$ : the background estimate, equivalent to the state at $t_0$. \\
+%5. $\vec{M}_{k-1,k} \in \R^{NP \times NP} $ : the model discretized at first order : $\vec{u}_k = \vec{M}_{k-1,k} \vec{u}_{k-1}$. \\
+%6. $\vec{v}_k = \{u(t_k,y_j)\}_{j= 1 \dots nobs} $ the observation vector at $t_k$, \\
+%7. $\vec{H}_{k} \in \R^{nobs \times NP} $ The jacobian of the observation mapping between the true state $\vec{v}_k$ and the observation vector $\vec{u}_k$. 
+%
+%
+%
+%
+%
 
-\todo{Explain Data Assimilation}
-
-Data Assimilation (DA) is a method widely used in the Geostatistics and Meteorology. Its purpose is to incorporate real observations in the simulation of a complex physical phenomenon. In the MAGIC project Data Assimilation is a way of improving the simulation of the tracer concentration propagation through space. For this purpose points to be assimilated have to be selected. It is therefore interesting to apply the optimal sensor positioning algorithm of the simulatio n dataset in order to select a limited number of points for the DA. In this section we review the DA and Variational DA techniques based on the work of \citet{arcucci_optimal_2019}.  \\
 
 
 
