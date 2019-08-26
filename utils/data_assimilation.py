@@ -66,8 +66,8 @@ def data_assimilation(indLoc, Z):
     #Utrunc, strunc, Wtrunc = svds(W, k=trnc)
     #X = Utrunc.dot(np.diag(np.sqrt(strunc)))
     #np.savetxt("./matrixVpreclocal"+str(trnc)+".txt", X)
-    
     #V = X.copy()
+    
     V = W.copy()
     #V = np.loadtxt('Optimal Points/V_oas')
 

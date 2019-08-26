@@ -62,6 +62,7 @@ def sensor_loc_optimisation_naive(k, K, sets):
 
     n_A = 0
     A = np.array([])
+    delta_y_opt = dict()
     
     delta_y = dict(zip(S.flatten().tolist(), np.zeros(n_S).tolist()))
 
@@ -81,13 +82,14 @@ def sensor_loc_optimisation_naive(k, K, sets):
 
         # Greedily selection the best point to add to A
         y_opt = max(delta_y, key=delta_y.get)
+        delta_y_opt[y_opt] = delta_y[y_opt]
         delta_y.pop(y_opt)
 
         # Add the selected point to A
         n_A += 1
         A = np.append(A, y_opt).astype(int)
 
-    return A
+    return A, delta_y_opt
 
 
 def sensor_loc_optimisation_lazy(k, K, sets):
@@ -114,6 +116,8 @@ def sensor_loc_optimisation_lazy(k, K, sets):
     # INIT :
     n_A = 0
     A = np.array([])
+    save_delta_y_opt = dict()
+
 
     delta_y = -1 * np.inf * np.ones((n_S, 1))
     counter_y = -1 * np.ones((n_S, 1))
@@ -140,8 +144,9 @@ def sensor_loc_optimisation_lazy(k, K, sets):
 
         # Add the selected point to A
         n_A += 1
+        save_delta_y_opt[y_opt] = delta
         A = np.append(A, y_opt).astype(int)
-    return A
+    return A, save_delta_y_opt
 
 
 def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
@@ -176,6 +181,8 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
     n_A = 0
     A = np.array([])
     d_opt = []
+    delta_y_opt = dict()
+
 
     # Initialisation Loop : 
     delta_y = dict(zip(S.flatten().tolist(), np.zeros(n_S).tolist()))
@@ -197,6 +204,7 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
 
         # Greedily selection the best point to add to A
         y_opt = max(delta_y, key=delta_y.get)
+        delta_y_opt[y_opt] = delta_y[y_opt]
         delta_y.pop(y_opt)
         print(y_opt)
 
@@ -231,7 +239,7 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
     print(np.mean(d_opt))
     print(np.std(d_opt))
 
-    return A, d_opt
+    return A, delta_y_opt, d_opt
 
 
 def delta_MI(y, A, K):
