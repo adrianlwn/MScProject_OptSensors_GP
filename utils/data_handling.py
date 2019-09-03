@@ -22,14 +22,18 @@ def initial_load_data(parameters, recompute=False):
         It crops the data if required. It extracts the field required in parameters.
         
         Inputs : 
-        --- ts_0 : initial time stamp, must be in [0 -> 988] 
-        --- ts_end : final time stamp, must be in [0 -> 988] and ts_end > ts_0
-        --- crop : No cropping of the space : None
-                   Cropping of the space : ((min_x , max_x),(min_y, max_y),(min_z, max_z))
+        --- parameters: dict containing
+            - i_start : initial time stamp, must be in [0 -> 988] 
+            - i_end : final time stamp, must be in [0 -> 988] and ts_end > ts_0
+            - crop : No cropping of the space : None
+                     Cropping of the space : ((min_x , max_x),(min_y, max_y),(min_z, max_z))
+            - field_name : name of the selected field
         Returns :
-        --- data_dict : dictionary indexed by time stamp of all the loaded VTK files (all fields)
-        --- location_df : a pandas DataFrame of the location of space
-        --- time_vec : a numpy array containg the real time stamps of the simulation 
+        , , , 
+        --- ref_vtu: returns the first vtk file. Usefull for saving the data afterwards
+        --- data_df: a pandas DataFrame containing all the data contained in the VTU for the specified field
+        --- loc_df : a pandas DataFrame of the location of space
+        --- time_df : a pandas DataFrame containing the real time stamps of the simulation 
     
     """
     ts_0 = parameters["i_start"]
@@ -67,10 +71,10 @@ def initial_load_data(parameters, recompute=False):
 def load_vtu(ts_0, ts_end, crop):
     """ Function that loads the vtu data in a dictionary
 
-    :param ts_0:
-    :param ts_end:
-    :param crop:
-    :return:
+    :param ts_0: Initial TimeStamp
+    :param ts_end: Final TimeStamp
+    :param crop: Crop Indication (VTK crop tool)
+    :return: dictionar containing all the data index by the timestamp
     """
     # If we already have the files, we import the content from the vtu files
     print("==> Import vtu files from {} to {}".format(ts_0, ts_end))
@@ -98,7 +102,7 @@ def load_vtu(ts_0, ts_end, crop):
 def save_vtu(ref_vtu, field_name, field_data):
     """ Function that saves all the fields specified in the list
         Input : 
-        --- data_dict : dictionary indexed by time stamp of all the loaded VTK files (all fields)
+        --- ref_vtu : reference vtu file (initial one)
         --- field_name : string or list of strings of the field names
         --- field_data : np.array of the fields to save - shape : (n_locations, n_fields)
         
@@ -131,8 +135,8 @@ def save_vtu(ref_vtu, field_name, field_data):
 
 
 def crop_data(data_dict, min_x=-50, max_x=50, min_y=-50, max_y=50, min_z=0, max_z=50):
-    """ Crops the space of the positions for each timestamp
-
+    """ Crops the space of the positions for each timestamp, uses the VTK timestamp 
+    
     """
 
     for t, ts in tqdm(enumerate(data_dict)):
@@ -162,8 +166,9 @@ def extract_data_df(data_dict, parameters):
 
 
 def extract_time_df(data_dict):
-    # Extracts the time vector of the simulation
-    # Returns a numpy array
+    """ Function that extracts the time vector of the simulation
+        Returns a numpy array
+    """
 
     i_0 = list(data_dict.keys())[0]
     T = len(data_dict)
@@ -189,6 +194,8 @@ def extract_location_df(data_dict):
 
 
 def save_data_df(data_df: pd.DataFrame, parameters):
+    """ Function that saves the data dataframe to pickle file
+    """
     field_name = parameters["field_name"]
 
     folder_path = create_temp_folder(parameters)
@@ -199,6 +206,8 @@ def save_data_df(data_df: pd.DataFrame, parameters):
 
 
 def load_data_df(parameters) -> pd.DataFrame:
+    """ Function that loads the data dataframe from pickle file
+    """
     field_name = parameters["field_name"]
 
     folder_path = create_temp_folder(parameters)
