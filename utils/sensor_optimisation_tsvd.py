@@ -42,18 +42,20 @@ def define_sets(V, n_S=None, seed=42):
 
 
 def sensor_loc_optimisation_naive(k, Z, sets, tau):
-    """ This function implements the Algorithm 1: Approximation algorithm
+     """ This function implements the Algorithm 1: Approximation algorithm
     for maximizing mutual information.
 
-    Input Arguments :
+    Input Arguments:
     --- k : number of Sensors to place in S ( k <= n_S )
-    --- sets : the ensemble of sets
+    --- Z : array containing all the data
+    --- sets : the ensemble of sets defined by the function "define_sets"
+    --- tau: truncation parameter for TSVD
 
-    Needed global variables :
-    --- Z
-    --- V : Set of all points
-    --- S : Set of potential sensor points
-    --- n_S : number of such points
+    Output Arguments:
+    
+    --- A: list of optimal selected points
+    --- delta_y_opt: Mutual Information Gain for each positioned sensor 
+    
     """
 
     n_V, V, n_S, S, n_U, U = sets
@@ -92,16 +94,18 @@ def sensor_loc_optimisation_lazy(k, Z, sets, tau):
     """ This function implements the Algorithm 2: Approximation algorithm for
     maximizing mutual information efficiently using lazy evaluation.
 
-    Input Arguments :
-    --- k : number of Sensors to place
-    --- sets : the ensemble of sets
+    Input Arguments:
+    --- k : number of Sensors to place in S ( k <= n_S )
+    --- Z : array containing all the data
+    --- sets : the ensemble of sets defined by the function "define_sets"
+    --- tau: truncation parameter for TSVD
 
-    Needed global variables :
-    --- Z : 
-    --- V : Set of all points
-    --- S : Set of potential sensor points
-    --- n_S : number of such points
 
+    Output Arguments:
+    
+    --- A: list of optimal selected points
+    --- save_delta_y_opt: Mutual Information Gain for each positioned sensor 
+    
     """
     n_V, V, n_S, S, n_U, U = sets
 
@@ -141,63 +145,18 @@ def sensor_loc_optimisation_lazy(k, Z, sets, tau):
     return A, save_delta_y_opt
 
 
-def approx_local_max_info(k, K, epsilon):
-    """ NOT FININISHED : This function implements the Algorithm 3: Approximation algorithm for
-    maximizing mutual information efficiently using local kernels.
-
-    Input Arguments :
-    --- k : number of Sensors to place
-    --- epsilon : threshold for local kernel
-
-    Needed global variables :
-    --- K : Covariance Matrix between all points
-    --- V : Set of all points
-    --- S : Set of potential sensor points
-    --- n_S : number of such points
-
-    """
-
-    # INIT :
-    n_A = 0
-    A = np.array([])
-
-    delta_y = -1 * np.inf * np.ones((n_S, 1))
-
-    for i, y in enumerate(S):
-        delta_y[i] = -1 * delta_MI(y, A)
-
-    counter_y = -1 * np.ones((n_S, 1))
-
-    # Each Node of the Heap contains a tupple : (-delta_y, index of point, count_y)
-    delta_heap = list(zip(delta_y, S, counter_y))
-    heapq.heapify(delta_heap)
-
-    # MAIN LOOP of the Algorithm : Iterating over the number of sensors to place
-    for j in tqdm.tqdm(range(k)):
-
-        delta, y_opt, count = heapq.heappop(delta_heap)
-
-        # Add the selected point to A
-        n_A += 1
-        A = np.append(A, y_opt).astype(int)
-        A_ = np.setdiff1d(V, np.append(A, [y]))
-
-        loc_A = local_set(y, A, epsilon)
-        loc_A_ = local_set(y, A_, epsilon)
-
-        ## INNER LOOP : Iterating over the potential sensor places
-        for i in A:
-            # Mutual Information Gain
-            delta_y = H_cond(y, loc_A, K) / H_cond(y, loc_A_, K)
-
-            heapq.heappush(delta_heap, (-1 * delta_y, y, j))
-
-    return A
-
 
 def H_cond(y, X, Z, tau):
-    """ Function that returns the conditional Entropy of y knowing X """
-    #pdb.set_trace()
+    """ Function that returns the conditional Entropy of y knowing X 
+        Inputs:
+        --- y: Point to Predict
+        --- X: Set of Observed Points 
+        --- Z: array containing all the data
+        --- tau: truncation parameter fro TSVD
+        Outputs:
+        --- conditional entropy of y knowing X
+    
+    """    #pdb.set_trace()
     Z_y = Z[y, :].reshape(1, -1)
     if X.shape[0] == 0:
         Z_y_A = Z_y @ Z_y.T
@@ -215,13 +174,4 @@ def H_cond(y, X, Z, tau):
     # return K[y,y] - K[np.ix_([y],X)] @ np.linalg.solve(K[np.ix_(X,X)], K[np.ix_(X,[y])])
 
 
-def local_set(y, X, K, epsilon):
-    """ Function that returns a set of points X_trunc for which K[y,X_trunc] > epsilon
-        X being the input set
-        Implementing the idea of local Kernels.
 
-    """
-    i_trunc = (np.abs(K[np.ix_([y], X)]) > epsilon).flatten()
-    X_trunc = X[i_trunc]
-
-    return X_trunc

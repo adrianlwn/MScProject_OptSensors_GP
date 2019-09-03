@@ -13,7 +13,7 @@ import pdb
 
 
 def define_sets(V, n_S=None, seed=42):
-    """ Function that defines the sets used in the optimsation problem. S is randomly selected in V.
+    """ Function that defines the sets used in the optimsation problem. S is randomly selected in V is S is not of the size of V.
         Inputs :
         --- V : idx of the set of selected points of the dataset
         --- n_S : number of sensor to randomly selected in V (if None, S = V )
@@ -44,16 +44,16 @@ def sensor_loc_optimisation_naive(k, K, sets):
     """ This function implements the Algorithm 1: Approximation algorithm
     for maximizing mutual information.
 
-    Input Arguments :
+    Input Arguments:
     --- k : number of Sensors to place in S ( k <= n_S )
-    --- sets : the ensemble of sets
+    --- K : covariance matrix
+    --- sets : the ensemble of sets defined by the function "define_sets"
 
-    Needed global variables :
-    --- K : Covariance Matrix between all points
-    --- V : Set of all points
-    --- S : Set of potential sensor points
-    --- n_S : number of such points
-
+    Output Arguments:
+    
+    --- A: list of optimal selected points
+    --- delta_y_opt: Mutual Information Gain for each positioned sensor 
+    
     """
     n_V, V, n_S, S, n_U, U = sets
     
@@ -96,16 +96,16 @@ def sensor_loc_optimisation_lazy(k, K, sets):
     """ This function implements the Algorithm 2: Approximation algorithm for
     maximizing mutual information efficiently using lazy evaluation.
 
-    Input Arguments :
-    --- k : number of Sensors to place
-    --- sets : the ensemble of sets
+    Input Arguments:
+    --- k : number of Sensors to place in S ( k <= n_S )
+    --- K : covariance matrix
+    --- sets : the ensemble of sets defined by the function "define_sets"
 
-    Needed global variables :
-    --- K : Covariance Matrix between all points
-    --- V : Set of all points
-    --- S : Set of potential sensor points
-    --- n_S : number of such points
-
+    Output Arguments:
+    
+    --- A: list of optimal selected points
+    --- save_delta_y_opt: Mutual Information Gain for each positioned sensor 
+    
     """
     n_V, V, n_S, S, n_U, U = sets
     
@@ -150,19 +150,19 @@ def sensor_loc_optimisation_lazy(k, K, sets):
 
 
 def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
-    """ NOT FININISHED : This function implements the Algorithm 3: Approximation algorithm for
+    """ This function implements the Algorithm 3: Approximation algorithm for
     maximizing mutual information efficiently using local kernels.
 
-    Input Arguments :
-    --- k : number of Sensors to place
-    --- epsilon : threshold for local kernel
+   Input Arguments:
+    --- k : number of Sensors to place in S ( k <= n_S )
+    --- K : covariance matrix
+    --- sets : the ensemble of sets defined by the function "define_sets"
 
-    Needed global variables :
-    --- K : Covariance Matrix between all points
-    --- V : Set of all points
-    --- S : Set of potential sensor points
-    --- n_S : number of such points
-
+    Output Arguments:
+    
+    --- A: list of optimal selected points
+    --- delta_y_opt: Mutual Information Gain for each positioned sensor 
+    
     """
 
     if method == "threshold":
@@ -175,8 +175,8 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
 
     n_V, V, n_S, S, n_U, U = sets
     
-    p2i = dict(zip(S.tolist(),range(0,len(S))))
-    i2p = dict(zip(range(0,len(S)),S.tolist()))
+    p2i = dict(zip(S.tolist(),range(0,len(S)))) # position to index dict
+    i2p = dict(zip(range(0,len(S)),S.tolist())) # index to  position dict
 
     n_A = 0
     A = np.array([])
@@ -242,15 +242,18 @@ def sensor_loc_optimisation_naive_local(k, K, method, param, sets):
     return A, delta_y_opt, d_opt
 
 
-def delta_MI(y, A, K):
-    """ Function that computes the Mutual Entropy Difference """
-    A_ = np.setdiff1d(V, np.append(A, [y]))
-
-    return H_cond(y, A, K) / H_cond(y, A_, K)
-
 
 def H_cond(y, X, K, p2i, i2p):
-    """ Function that returns the conditional Entropy of y knowing X """
+    """ Function that returns the conditional Entropy of y knowing X 
+        Inputs:
+        --- y: Point to Predict
+        --- X: Set of Observed Points 
+        --- K: Covariance Matrix 
+        --- p2i, i2p : position to index dict and index to  position dict
+        Outputs:
+        --- conditional entropy of y knowing X
+    
+    """
     iX = list(map(p2i.__getitem__, X))
     iy = p2i[y]
     #pdb.set_trace()
@@ -258,7 +261,17 @@ def H_cond(y, X, K, p2i, i2p):
 
 
 def H_cond_epsilon(y, X, K, epsilon, p2i, i2p):
-    """ Function that returns the conditional Entropy of y knowing X """
+    """ Function that returns the conditional Entropy of y knowing X, using local kernel approximation
+        Inputs:
+        --- y: Point to Predict
+        --- X: Set of Observed Points 
+        --- K: Covariance Matrix 
+        --- epsilon: local kernel truncation parameter
+        --- p2i, i2p : position to index dict and index to  position dict
+        Outputs:
+        --- conditional entropy of y knowing X
+    
+    """
     iy = p2i[y]
     X_trunc = local_set(y, X, K, epsilon,p2i,i2p)
     iX_trunc = list(map(p2i.__getitem__, X_trunc))
@@ -266,7 +279,17 @@ def H_cond_epsilon(y, X, K, epsilon, p2i, i2p):
         np.ix_(iX_trunc, [iy])]
 
 def H_cond_fixed(y, X, K, d, p2i, i2p):
-    """ Function that returns the conditional Entropy of y knowing X """
+    """ Function that returns the conditional Entropy of y knowing X, using local kernel approximation
+        Inputs:
+        --- y: Point to Predict
+        --- X: Set of Observed Points 
+        --- K: Covariance Matrix 
+        --- d: parameter of points to keep
+        --- p2i, i2p : position to index dict and index to  position dict
+        Outputs:
+        --- conditional entropy of y knowing X
+    
+    """    
     iy = p2i[y]
     X_trunc = local_set_fixed(y, X, K, d,p2i,i2p)
     iX_trunc = list(map(p2i.__getitem__, X_trunc))
@@ -278,6 +301,14 @@ def local_set(y, X, K, epsilon, p2i, i2p):
     """ Function that returns a set of points X_trunc for which K[y,X_trunc] > epsilon
         X being the input set
         Implementing the idea of local Kernels.
+        Inputs:
+        --- y: Point to Predict
+        --- X: Set of Observed Points 
+        --- K: Covariance Matrix 
+        --- epsilon: local kernel truncation parameter
+        --- p2i, i2p : position to index dict and index to  position dict
+        Outputs:
+        --- X_trunc: set of truncated points strongly correlated to y. 
 
     """
     iX = list(map(p2i.__getitem__, X))
@@ -294,6 +325,14 @@ def local_set(y, X, K, epsilon, p2i, i2p):
 def local_set_fixed(y, X, K, d, p2i, i2p):
     """ Function that returns a set of d points X_trunc for which only the d most correlated points are taken.
         Implementing the idea of local Kernels.
+        Inputs:
+        --- y: Point to Predict
+        --- X: Set of Observed Points 
+        --- K: Covariance Matrix 
+        --- d: parameter of points to keep
+        --- p2i, i2p : position to index dict and index to  position dict
+        Outputs:
+        --- X_trunc: set of truncated points strongly correlated to y. 
 
     """
     iX = list(map(p2i.__getitem__, X))
