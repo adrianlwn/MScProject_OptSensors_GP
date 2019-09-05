@@ -191,18 +191,16 @@ def data_assimilation(indLoc, Z):
     return MSExb, MSExDA
 
 def data_assimilation_full_set(indLoc, Z):
-     """ Function that proceeds to DA for the full set but with a limited number of points observed
+    """ Function that proceeds to DA for the full set but with a limited number of points observed
         Inputs :
         --- indLoc : indexes of local points for DA
         --- Z : np.array containing all the states and all samples
         Outputs :
         --- MSExb: Background Error
         --- MSExDA: DA Error
-    
+
     """
-
     ntime = 989
-
     print(indLoc)
     NindLoc = len(indLoc)
     n = Z.shape[0]
@@ -409,7 +407,7 @@ def data_assimilation_full_set(indLoc, Z):
 
 
 def ball_set(A,loc_df,radius):
-     """ Function that computes the selection of points in a ball arround each element of A, within a radius of "radius"
+    """ Function that computes the selection of points in a ball arround each element of A, within a radius of "radius"
         Inputs :
         --- A: set of indexes of points
         --- loc_df: pandas dataframe containing the locations of every point of the space
@@ -427,7 +425,7 @@ def ball_set(A,loc_df,radius):
     return A_ball
 
 def randomise_set(A_ball):
-     """ Function that selects randomly a point in each ball arround the set of points A. (see function ball_set)
+    """ Function that selects randomly a point in each ball arround the set of points A. (see function ball_set)
         Inputs :
         --- A_ball: dictionnary indexed by A and containing lists of indexed points of each ball.
         Outputs :
