@@ -1,20 +1,20 @@
 \chapter{Implementation}
 
-%\todo{Introduction to chapter : - Analysis of the Data - Methods developed - Algorithm Implementation - Results Analysis (viz and comparison) }
+%\todo{Introduction to chapter: - Analysis of the Data - Methods developed - Algorithm Implementation - Results Analysis (viz and comparison) }
 
-In this chapter we are going to show details of the implementation. First, we give some practical details on the code and the tools used to create it.  We will then proceed to the analysis of the data used in this project. We will explain the important role of data preselection, before showing details of the optimisation implementation. Finally we will explain our choices for the validation involving Data Assimilation. 
+In this chapter, we are going to show details of the implementation. First, we give some practical details on the code and the tools used to create it.  We will then proceed to the analysis of the data used in this project. We will explain the important role of data preselection, before showing details of the optimisation implementation. Finally, we will explain our choices for the application involving Data Assimilation. 
 
 \section{Practical Informations}
 
 
 \subsection{Availability of the code}
 
-All the codes developed during this project are available on \textbf{GitHub} at the following address : \url{https://github.com/adrianlwn/MScProject\_OptSensors\_GP}. A Description of the code and explanation on how to use it is available in appendix \ref{appendix:code}. 
+All the codes developed during this project are available on \textbf{GitHub} at the following address: \url{https://github.com/adrianlwn/MScProject\_OptSensors\_GP}. A Description of the code and explanation on how to use it is available in appendix \ref{appendix:code}. 
 
 
 \subsection{Environment}
 
-For this project the code was implemented using \textit{python 3.7} and the following list of external libraries : 
+For this project the code was implemented using \textit{python 3.7} and the following list of external libraries: 
 
 \begin{table}[h!]
 \centering
@@ -36,7 +36,7 @@ fluidity & 4.1.15 \\
 
 \subsection{Experimental Conditions}
 
-All the implementation and the results obtained, especially the timings, have been computed on the same hardware and in the same conditions. The specifications of the machine are as follows :
+All the implementation and the results obtained, especially the timings, have been computed on the same hardware and in the same conditions. The specifications of the machine are as follows:
 
 \begin{table}[h!]
 \centering
@@ -65,7 +65,7 @@ The simulation results used are stored in Visualization Toolkit (VTK) files, and
 The simulated fields are the \textbf{tracer} concentration, \textbf{tracer background} concentration, wind \textbf{velocity} and \textbf{pressure}. \\
 
 
-The simulation is done on a discreet set points, each having a 3D coordinate and organised as an unstructured mesh. At the low center of the space the points density is very high compared to the rest of the space. Furthermore, the simulation is realised at time resolution of $\Delta t = 0.5s$ for $988$ time steps or samples. \\
+The simulation is done on a discrete set of points, each having a 3D coordinate and organised as an unstructured mesh. In this mesh there is a total of $100'040$ locations, covering a volume of $720m \times 680m \times 250m$.  At the low centre of the space, the density of the points is very high compared to the rest of the space. Furthermore, the simulation is realised at a time resolution of $\Delta t = 0.5s$ for $988$ time steps or samples. \\
  
 
 \begin{figure}[h!]
@@ -73,130 +73,130 @@ The simulation is done on a discreet set points, each having a 3D coordinate and
   \includegraphics[height=0.4\linewidth]{figures/Analysis/tracer050cutZ1}
 ~
   \includegraphics[height=0.4\linewidth]{figures/Analysis/tracer988cutZ1}
-  \caption{Tracer Field : Horizontal cut at $z=1m$ and  $t=50$ / $t=988$}
+  \caption{Tracer Field: Horizontal cut at $z=1m$ and  $t=50$ / $t=988$}
   \label{fig:view:tracerend}
 \end{figure}
 
  \subsection{Tracer Concentration Data}
 
 
-The \textbf{tracer} represents the propagation of a pollutant generated from the centre of the domain at ground level. It aims a representing a busy intersection. We represent two horizontal cuts of the tracer field at $z=1m$ and at $t=50$ and $t=988$ in figure \ref{fig:view:tracerend}\\
+The \textbf{tracer} represents the propagation of a pollutant generated from the centre of the domain at ground level. It aims a representing a busy intersection. We represent two horizontal cuts of the tracer field at $z=1m$ and at $t=50$ and $t=988$ in Figure \ref{fig:view:tracerend}\\
 
 
-As we can see by observing the time propagation of those fields,  the wind is pushing the pollutants in a certain direction. Because of this, be observe that the \textbf{tracer} concentration is mainly visible downwind. \\
+As we can see by observing the time propagation of those fields,  the wind is pushing the pollutants in the east direction. Because of this, we observe that the \textbf{tracer} concentration is mainly visible downwind. \\
 
 
-We can also visualise the quantity of zero elements present in the data \textit{in function of the time}. We count every point of data that has a value over $\tau = 10^{-12}$. This gives us the plot of figure \ref{fig:sumtime}. As we can see, it takes some initial time for the tracer to propagate to some kind of steady state, at around 60\% of the points. \\
+We can also visualise the number of zero elements present in the data \textit{in function of the time}. We count every point of data that has a value superior $\tau = 10^{-12}$. This gives us the plot of Figure \ref{fig:sumtime}. As we can see, it takes some initial time for the tracer to propagate to some kind of steady-state, at around 60\% of the points. \\
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width = 0.45 \textwidth]{figures/DataAnalysis/SumDataTime}
-	~
-	\includegraphics[width = 0.45 \textwidth]{figures/DataAnalysis/HistoGramTracerSTD}
-	\caption{Percentage of significant points in function of the time for $\tau = 10^{-12}$ \& Histogram of the Standardised Tracer Data}
-	\label{fig:sumtime}
+    \includegraphics[width = 0.45 \textwidth]{figures/DataAnalysis/SumDataTime}
+    ~
+    \includegraphics[width = 0.45 \textwidth]{figures/DataAnalysis/HistoGramTracerSTD}
+    \caption{Percentage of significant points in function of the time for $\tau = 10^{-12}$ \& Histogram of the Standardised Tracer Data}
+    \label{fig:sumtime}
 \end{figure}
 
-Finally we visualise the histogram distribution of all the \textit{Tracer} values (time and space) in the figure \ref{fig:sumtime}. We have \textbf{standardised} the data at each location in order to verify if the distributions is gaussian. As we can see the distribution seems to be close to gaussian and therefore fulfils the conditions of application of the algorithm. 
+Finally we visualise the histogram distribution of all the \textit{Tracer} values (time and space) in the Figure \ref{fig:sumtime}. We have \textbf{standardised} the data at each location to verify if the distributions are Gaussian. As we can see the distribution seems to be close to gaussian and therefore fulfils the conditions of application of the algorithm. 
 
 \subsection{Pressure Data}
 
 We then focus on the Pressure Data present in our simulation. \\ 
 
-We plot the field at times $t=50 $ and $t= 988$ in the figure \ref{fig:pressure:viz988}. There is no obvious trend linked to the propagation of the fluid. We also decide to make an histogram of the data (without standardisation) and obtain the figure \ref{fig:pressure:hist}. Similarly we can say that the \textit{Pressure} data seems to have a gaussian distribution. 
+We plot the field at times $t=50 $ and $t= 988$ in the Figure \ref{fig:pressure:viz988}. There is no obvious trend linked to the propagation of the fluid. We also decide to make a histogram of the data (without standardisation) and obtain the Figure \ref{fig:pressure:hist}. Similarly, we can say that the \textit{Pressure} data seems to have a Gaussian distribution. 
 
 
 \begin{figure}[h]
 \centering
 \includegraphics[height = 0.4 \textwidth]{figures/Analysis/pressure050cutZ1}
 ~
-	\includegraphics[height = 0.4 \textwidth]{figures/Analysis/pressure988cutZ1}
-	\caption{Pressure Field : Horizontal cut at $z=1m$ and $t=50$ / $t=988$ }
-	\label{fig:pressure:viz988}
+    \includegraphics[height = 0.4 \textwidth]{figures/Analysis/pressure988cutZ1}
+    \caption{Pressure Field: Horizontal cut at $z=1m$ and $t=50$ / $t=988$ }
+    \label{fig:pressure:viz988}
 \end{figure}
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width = 0.6 \textwidth]{figures/DataAnalysis/HistoGramPressure}
-	\caption{Histogram of Pressure Values}
-	\label{fig:pressure:hist}
+    \includegraphics[width = 0.6 \textwidth]{figures/DataAnalysis/HistoGramPressure}
+    \caption{Histogram of Pressure Values}
+    \label{fig:pressure:hist}
 \end{figure}
 
 
 \section{Preselection of the Data} \label{sec:preselection}
 %
-%For the purpose of testing our codes and algorithms,  we are going to use a subset of the whole dataset containing a few hundreds to a few thousands of points. 
+% To test our codes and algorithms,  we are going to use a subset of the whole dataset containing a few hundred to a few thousands of points. 
 %
 %\todo{rewrite the introduction of this section}
 %
 %The raw data is contained in VTK files. I have implemented functions in python that allows the importation, the cropping of the space, the extraction of the fields and interest and the location of the points and the saving in files for making quicker the loading procedure. 
 
-As we have seen previously there is a large amount of irrelevant data points inside the original dataset. A lot of points have a tracer concentration close to $0$ and most of relevant points are found downwind of the origin. In this section we are going to see how to remove irrelevant points and in the same time make the dataset smaller and therefore reduce the computational cost of the main optimisation problem. 
+As we have seen previously there is a large number of irrelevant data points inside the original dataset. A lot of points have a tracer concentration close to $0$ and most of the relevant points are found downwind of the origin. In this section, we are going to see how to remove irrelevant points and at the same time make the dataset smaller and therefore reduce the computational cost of the main optimisation problem. 
 
 \subsection{Selection of a working subset of the data}
-The first approach that we have in order to reduce the number of the potential sensor locations, is the reduction of the space in which  we run our optimisation problem. We are focusing on the \textit{tracer} field of the simulation data. This field contains the propagation of a pollutant originating at the \textbf{center of the space} and under wind conditions blowing in the \textit{east direction} (see figure \ref{fig:view:tracer} ). The resulting data shows that most of the space is unaffected by this pollutant and so we wish to select only the space in which the pollutant concentration is non negligible. For that we develop the following procedure. \\
+The first approach that we take to reduce the number of potential sensor locations, is the reduction of the space in which we run our optimisation problem. We are focusing on the \textit{tracer} field of the simulation data. This field contains the propagation of a pollutant originating at the \textbf{center of the space} and under wind conditions blowing in the \textit{east direction} (see Figure \ref{fig:view:tracerend} ). The resulting data shows that most of the space is unaffected by this pollutant and we, therefore, wish to select only the space in which the pollutant concentration is non-negligible. For that, we develop the following procedure. \\
 
-First we cut our 3D space into cuboids. For that we fix a number of bins per dimension and we obtained $R$ subsets $\{\mathcal{D}_k\}_{k=0}^R $. For each subspace we compute the sum over time and space of the tracer values $Y_t^i$  : 
+First, we cut our 3D space into cuboids. For that we fix a number of bins per dimension and we obtained $R$ subsets $\{\mathcal{D}_k\}_{k=1 \dots R} $. For each subspace we compute the sum over time and space of the tracer values $Y_t^i$ : 
 
 \begin{equation}
-	C(\mathcal{D}_i) = \sum_{k \in \mathcal{D}_i} \sum_{t = 0}^T Y_t^k
+    C(\mathcal{D}_i) = \sum_{k \in \mathcal{D}_i} \sum_{t = 0}^T Y_t^k
 \end{equation}
 
-We apply then a selection of the subsets based on the value of $C(\mathcal{D}_i)$ and a  threshold $\tau$. We keep then every subset $\mathcal{D}_i$ that respects the condition : $C(\mathcal{D}_i) > \tau$. This condition but guarantees that the points kept in the new working subset $S$ have a sufficient importance in the physical world. The new working subset for our optimisation problem would then be : 
+We apply then a selection of the subsets based on the value of $C(\mathcal{D}_i)$ and a  threshold $\tau$. We keep then every subset $\mathcal{D}_i$ that respects the condition: $C(\mathcal{D}_i) > \tau$. This condition guarantees that the points kept in the new working subset $S$ have sufficient importance in the physical space. The new working subset for our optimisation problem would then be: 
 
 \begin{equation}
-	S = \bigcup_{C(\mathcal{D}_i) > \tau} \mathcal{D}_i
+    S = \bigcup_{C(\mathcal{D}_i) > \tau} \mathcal{D}_i
 \end{equation} 
 
-An example of this algorithm is now explained. For a number of bins of 25 in each dimension and threshold of $\tau = 10^{-2}$ we obtain a new working set size $|S| = 57'725$ instead of an original number of $100'040$. It is displayed on the figure \ref{fig:working_subset}
+An illustration of this algorithm is now detailed. For a number of bins of $25$ per dimension and a threshold of $\tau = 10^{-2}$, we obtain a new working set size $|S| = 57'725$ instead of an original number of $100'040$. It is displayed on the Figure \ref{fig:working_subset}
 
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width = 0.8 \textwidth]{figures/Subset/working_subset_10^-2}
-	\caption{New working subset $S$ for $\tau = 10^{-2}$}
-	\label{fig:working_subset}
+    \includegraphics[width = 0.8 \textwidth]{figures/Subset/working_subset_10^-2}
+    \caption{New working subset $S$ for $\tau = 10^{-2}$}
+    \label{fig:working_subset}
 \end{figure}
 
 \subsection{Selection of a subset at human level}
 
-In order to further reduce the number of points involved in the optimisation problem, we can also consider taking points that are only \textbf{accessible by a human from the ground level or the buildings}. This makes sense in the way that sensors needs to be reached from the ground and the  building top and sides for their initial placement and maintenance. \\
+To further reduce the number of points involved in the optimisation problem, we can also consider taking points that are only \textbf{accessible by a human from the ground level or the buildings}. This makes sense in the way that sensors need to be reached from the ground and the building tops and sides for their initial placement and maintenance. \\
 
-We define for each building $i \in \{1, \dots, B\}$ an altitude $H_i$, and for $i = 0$ we consider the rest of the unoccupied space, so $H_0 = 0$. This allows us to define an altitude under which we will select the points : $H_i + h$. The area covered by the buildings is enlarged by the value $w$, so that is covers also the sides of the buildings. See the illustration provided in figure \ref{fig:humanchart}. \\
-
-\begin{figure}[h]
-\centering
-	\includegraphics[width = 0.6 \textwidth]{figures/Subset/HumanSelection_chart}
-	\caption{Chart Presenting the Building Profile in Human Level Selection}
-	\label{fig:humanchart}
-\end{figure}
-
-In order to proceed to this selection, I had to overcome the absence of defined building profile and I had to manually define the shapes of the buildings (as you can see on figure \ref{fig:buildingshapes}) by measuring empirically the coordinates of the buildings in the small LSBU dataset, considering a XY projection of the 3D space. \\
+We define for each building $i \in \{1, \dots, B\}$ an altitude $H_i$, and for $i = 0$ we consider the rest of the unoccupied space, so $H_0 = 0$. This allows us to define an altitude under which we will select the points: $H_i + h$. The area covered by the buildings is enlarged by the value $w$, so that is covers also the sides of the buildings. See the illustration provided in Figure \ref{fig:humanchart}. \\
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width = 0.25 \textwidth]{figures/Subset/buildingShapes_13}
-	\caption{Empirical Building Shapes}
-	\label{fig:buildingshapes}
+    \includegraphics[width = 0.6 \textwidth]{figures/Subset/HumanSelection_chart}
+    \caption{Chart Presenting the Building Profile in Human Level Selection}
+    \label{fig:humanchart}
 \end{figure}
 
-Once those coordinates acquired, I used the \textbf{shapely} library  \citep{noauthor_shapely_2019} in order to define the polygones associated to the buildings. In order to define the height $H_i$ of each building I had to define a set of points overhanging it and find the minimal altitude of those points.  To define the set of points I took the inner part of the surface of the building (cut by 1m) in order to avoid any edge point. This can be seen on the figure \ref{fig:inner_outer_building}). The points which have XY coordinates within this shape are then selected and the minimal Z coordinate is taken as the definition of the roof level $H_i$ \\
+In order to proceed to this selection, I had to overcome the absence of defined building profile and I had to manually define the shapes of the buildings (as you can see on Figure \ref{fig:buildingshapes}) by measuring empirically the coordinates of the buildings in the small LSBU dataset, considering an XY projection of the 3D space. \\
+
+\begin{figure}[h]
+\centering
+    \includegraphics[width = 0.25 \textwidth]{figures/Subset/buildingShapes_13}
+    \caption{Empirical Building Shapes}
+    \label{fig:buildingshapes}
+\end{figure}
+
+Once those coordinates acquired, we used the \textbf{shapely} library, to define the polygons associated with the buildings. To define the height $H_i$ of each building, we had to define a set of points overhanging it and find the minimal altitude of those points.  To define the set of points I took the inner part of the surface of the building (cut by 1m) to avoid any edge point. This can be seen in the Figure \ref{fig:inner_outer_building}). The points which have XY coordinates within this shape are then selected and the minimal Z coordinate is taken as the definition of the roof level $H_i$ \\
 
 
 \begin{figure}[h]
 \centering
-	\includegraphics[width = 0.7 \textwidth]{figures/Subset/BuildingSurfaceBuffer}
-	\caption{Extended an Inner building surface}
-	\label{fig:inner_outer_building}
+    \includegraphics[width = 0.7 \textwidth]{figures/Subset/BuildingSurfaceBuffer}
+    \caption{Extended an Inner building surface}
+    \label{fig:inner_outer_building}
 \end{figure}
 
-Once the roof level defined we come back to the original shape of the building and enlarge it of $w$ such as showed in figure \ref{fig:inner_outer_building}. We then select every point of the main dataset that have XY coordinates in this extended rooftop and   choose only the ones which have Z bellow the threshold $H_i + h$. This constitutes our human level data selection. An illustration can be found on figure \ref{fig:human_selection}. \\
+Once the roof level defined we come back to the original shape of the building and enlarge it of $w$ such as shown in Figure \ref{fig:inner_outer_building}. We then select every point of the main dataset that has XY coordinates in this extended rooftop and choose only the ones which have altitude Z bellow the threshold $H_i + h$. This constitutes our human level data selection. An illustration can be found on Figure \ref{fig:human_selection}. \\
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[width = 0.8 \linewidth]{figures/Subset/HumanSelectionH2W1_zoom}
-	\caption{Human Level Selection}
-	\label{fig:human_selection}
+    \includegraphics[width = 0.8 \linewidth]{figures/Subset/HumanSelectionH2W1_zoom}
+    \caption{Human Level Selection}
+    \label{fig:human_selection}
 \end{figure}
 
 This method can be seen as quite empirical, but it enables a precise dataset selection with no outlying irrelevant point. \\
@@ -206,13 +206,13 @@ With the parameters $h = 2$m and $w = 1$m we reduce the size of the dataset to $
 
 \subsection{Combined Selection}
 
-By combining the two selection approaches and by taking the intersection of the two previously defined datasets : the working subset based on the values of the tracer and the human level selection. We are able to reduce the number of points in the dataset to $|S| = 23'643$, instead of an original number of $100'040$, which is a reduction of $76.36\%$ of the original size. In the figure \ref{fig:combined_selection} we see an illustration of the selected dataset that will be used in the rest of the project. 
+By combining the two selection approaches and by taking the intersection of the two previously defined datasets: the working subset based on the values of the tracer and the human level selection. We can reduce the number of points in the dataset to $|S| = 23'643$, instead of an original number of $100'040$, which is a reduction of $76.36\%$ of the original size. In Figure \ref{fig:combined_selection} we see an illustration of the selected dataset that will be used in the rest of the project. 
 
 \begin{figure}[h!]
 \centering
-	\includegraphics[width = 0.8 \linewidth]{figures/Subset/FinalSelection_zoom}
-	\caption{Combined Selection : Working Subset and Human Level Selection}
-	\label{fig:combined_selection}
+    \includegraphics[width = 0.8 \linewidth]{figures/Subset/FinalSelection_zoom}
+    \caption{Combined Selection: Working Subset and Human Level Selection}
+    \label{fig:combined_selection}
 \end{figure}
 
 
@@ -226,84 +226,85 @@ We take advantage of the \textit{sklearn} library that contains a number of usef
 
 \section{Implementation of Gaussian Processes}
 
-GPs are in fact the central concept used in this project. We will cover here how they were implemented and what kind of approximation was implemented in order to make them more scalable. 
+The GPs are a central concept used in this project. We will cover here how they were implemented and what kind of approximation was implemented in order to make them more scalable. 
 
 \subsection{Classical GPs}
 
-As we have seen in section \ref{sec:theory:gp}, the gaussian process conditional covariance estimation requires only the knowledge of the covariance matrix $\K$. 
+As we have seen in section \ref{sec:theory:gp}, the Gaussian Process conditional covariance estimation requires only the knowledge of the covariance matrix $\K$. 
 
 \begin{align}
-	\vec{K}_{y | \A} &=  \vec{K}_{yy} - \vec{K}_{y\A} \vec{K}_{\A\A}^{-1} \vec{K}_{\A y} 
+    \vec{K}_{y | \A} &=  \vec{K}_{yy} - \vec{K}_{y\A} \vec{K}_{\A\A}^{-1} \vec{K}_{\A y} 
 \end{align}
 
-The first approach is simply to implement this equation using the \textit{numpy} library. It has the advantage to use parallel processing that exploits the multiple cpus of the server in order to speed up linear algebra computations, such as this one. 
+The first approach is simply to implement this equation using the \textit{numpy} library. It has the advantage to use parallel processing that exploits the multiple CPUs of our server, to speed up any linear algebra computation, such as this one. 
 
 \subsection{GPs Approximation with TSVD}
 
-In GPs, the inversion of the matrix $\K_{\A\A}$ is the most expensive operation, as it has a complexity of $\mathcal{O}(n^3)$. In to reduce the computational cost of the Gaussian Process, we propose a method that allows to approximate the covariance by reducing the dimension of the data, using the \textbf{truncated singular values decomposition} (TSVD). The idea has been developed by \citep{hansen_truncatedsvd_1987} as it allows to regularise matrix in ill-posed problems.  \\
+In GPs, the inversion of the matrix $\K_{\A\A}$ is the most expensive operation, as it has a complexity of $\mathcal{O}(n^3)$. In to reduce the computational cost of the Gaussian Process, we propose a method that allows the approximation of the covariance by reducing the dimension of the data, using the \textbf{Truncated Singular Values Decomposition} (TSVD). The idea has been developed by \citep{hansen_truncatedsvd_1987} as it allows to regularise matrix in ill-posed problems.  \\
 
-As defined previously, the centred data is $\vec{X}$ and the sample covariance matrix is $\vec{\hat{S}}$. The data $\vec{X}$ has for size $p\times n$ and we would like to approximate it by a matrix of size $\tau \times n $. The singular value decomposition (SVD) allows to express the data matrix as a product of a rectangular diagonal matrix $\vec{\Theta} = \text{diag}(\sigma_1, \dots, \sigma_n ) \in \mathbb{R}^{p \times n} $ containing the singular values, and two orthogonal singular vectors matrices $\vec{V} \in \mathbb{R}^{n \times n} $ and $\vec{U} \in \mathbb{R}^{p \times p} $, such as : 
-
-\begin{equation}
-	\vec{X} = \vec{U} \vec{\Theta} \vec{V}^T
-\end{equation}
-
-We truncate the SVD from $p$ to $\tau$ by keeping only the $\tau$ largest singular values. We have the diagonal matrix $\vec{\Theta}_\tau = \text{diag}(\sigma_1, \dots, \sigma_\tau, 0, \dots, 0 ) \in \mathbb{R}^{p \times n} $. We are then able to express an approximation of the data $\vec{\tilde{X}}$ : 
+As defined previously, the centred data is $\vec{X}$ and the sample covariance matrix is $\vec{\hat{S}}$. The data $\vec{X}$ has for size $p\times n$ and we would like to approximate it by a matrix of size $\tau \times n $. The singular value decomposition (SVD) allows to express the data matrix as a product of a rectangular diagonal matrix $\vec{\Theta} = \text{diag}(\sigma_1, \dots, \sigma_n ) \in \mathbb{R}^{p \times n} $ containing the singular values, and two orthogonal singular vectors matrices $\vec{V} \in \mathbb{R}^{n \times n} $ and $\vec{U} \in \mathbb{R}^{p \times p} $, such as: 
 
 \begin{equation}
-	\vec{\tilde{X}}_\tau = \vec{U} \vec{\Theta}_\tau \vec{V}^T
+    \vec{X} = \vec{U} \vec{\Theta} \vec{V}^T
 \end{equation}
 
-
-We apply this approach to the set of points $\A$ with the data $\vec{X}_{\A}$. We get the resulting TSVD for this data : $\vec{\tilde{X}}_{\A,\tau} \in \mathbb{R}^{\tau \times n}$ we can compute with it an approximation of the sample covariance that can be easily inverted and used in our GP based optimisation.
+We truncate the SVD from $p$ to $\tau$ by keeping only the $\tau$ largest singular values. We have the diagonal matrix $\vec{\Theta}_\tau = \text{diag}(\sigma_1, \dots, \sigma_\tau, 0, \dots, 0 ) \in \mathbb{R}^{p \times n} $. We are then able to express an approximation of the data $\vec{\tilde{X}}$: 
 
 \begin{equation}
-	\vec{\tilde{K}}_{\A\A} = \frac{1}{n}\vec{\tilde{X}}_{\A,\tau}  \vec{\tilde{X}}_{\A,\tau}^T
+    \vec{\tilde{X}}_\tau = \vec{U} \vec{\Theta}_\tau \vec{V}^T
 \end{equation}
 
-We also replace the vector of covariance $\vec{K}_{y\A}$ by : 
+
+We apply this approach to the set of points $\A$ with the data $\vec{X}_{\A}$. We get the resulting TSVD for this data: $\vec{\tilde{X}}_{\A,\tau} \in \mathbb{R}^{\tau \times n}$ we can compute with it an approximation of the sample covariance that can be easily inverted and used in our GP based optimisation.
 
 \begin{equation}
-	\vec{\tilde{K}}_{y\A} =  \frac{1}{n}\vec{X}_{y} \vec{\tilde{X}}_{\A,\tau}^T
+    \vec{\tilde{K}}_{\A\A} = \frac{1}{n}\vec{\tilde{X}}_{\A,\tau}  \vec{\tilde{X}}_{\A,\tau}^T
 \end{equation}
 
-We end up with an expression of TSVD approximate GP variance : 
+
+We also replace the vector of covariance $\vec{K}_{y\A}$ by: 
 
 \begin{equation}
-	\tilde{\vec{K}}_{y | \A} =  \frac{1}{n} \left( \vec{X}_{y}\vec{X}_{y}^T - \vec{X}_{y} \vec{\tilde{X}}_{\A,\tau}^T \left(\vec{\tilde{X}}_{\A,\tau}  \vec{\tilde{X}}_{\A,\tau}^T \right)^{-1}  \vec{\tilde{X}}_{\A,\tau} \vec{X}_{y}^T \right)
+    \vec{\tilde{K}}_{y\A} =  \frac{1}{n}\vec{X}_{y} \vec{\tilde{X}}_{\A,\tau}^T
 \end{equation}
 
-With this approximation the inversion has a complexity reduced to $\mathcal{O}(\tau^3)$, which is a great improvement. It has the advantage not to require any estimation of the true covariance matrix. The TSVD acts as a regulariser and the sample covariance taken on the reduced data is symmetric and positive definite. \\
+We end up with an expression of TSVD approximate GP variance: 
 
- However, this method requires the computation of a new TSVD at each iteration of the algorithm as the indexes in $\A$ are constantly changing. 
+\begin{equation}
+    \tilde{\vec{K}}_{y | \A} =  \frac{1}{n} \left( \vec{X}_{y}\vec{X}_{y}^T - \vec{X}_{y} \vec{\tilde{X}}_{\A,\tau}^T \left(\vec{\tilde{X}}_{\A,\tau}  \vec{\tilde{X}}_{\A,\tau}^T \right)^{-1}  \vec{\tilde{X}}_{\A,\tau} \vec{X}_{y}^T \right)
+\end{equation}
+
+With this approximation, the inversion has a complexity reduced to $\mathcal{O}(\tau^3)$, which is a great improvement. It has the advantage not to require any estimation of the true covariance matrix. The TSVD acts as a regulariser and the sample covariance taken on the reduced data is symmetric and positive definite. \\
+
+ However, this method requires the computation of a new TSVD at each iteration of the algorithm as the indexes in $\A$ are constantly changing. This has a cost but it is much faster than applying any other GP approximation method. 
  
 
 \subsection{Limitations of Other Approaches}
 
-A lot of literature has been studied on how GPs could be made more scalable : approaches relying on very elegant solutions, such as sparse GPs and VFE. After implementing them using specialised GP library (such as \textit{GPy}), we discovered that they could not be applied to our optimisation problem. Sparse GPs are in fact optimisation problems that allow to select a reduced number of positions to represent a large set of observations. But in our algorithm the observation set changes at every step of the of the loop and we therefore need a new approximation for predicting at only one single point. This makes this approach computationally inefficient for the algorithms of \citet{krause_near-optimal_2008}. \\
+A lot of literature has been studied on how GPs could be made more scalable: approaches relying on very elegant solutions, such as sparse GPs and VFE. After implementing them using specialised GP library (such as \textit{GPy}), we discovered that they could not be applied to our optimisation problem. Sparse GPs are in fact optimisation problems that allow the selection of a reduced number of positions to represent a large set of observations. But in our algorithm, the observation set changes at every step of the loop and we, therefore, need a new approximation for predicting at only one single point. This makes this approach computationally inefficient for the algorithms of \citet{krause_near-optimal_2008}. \\
 
 If we analyse the algorithm \ref{alg:greedy} in more details, we see that it is difficult to implement a method to approximate the GP at each step. \\
 
-We have defined $\A$ as the set of already placed sensors, and $\bar{\A}$ the set of other locations : $\bar{\A} = \mathcal{V} \backslash \{\A \cup y\} $ and $y$ is the candidate point changing at each step. We then have the full set of locations that is cut in 3 parts : $ \mathcal{V} = \A \cup \bar{\A} \cup \{y\} $ \\
+We have defined $\A$ as the set of already placed sensors, and $\bar{\A}$ the set of other locations: $\bar{\A} = \mathcal{V} \backslash \{\A \cup y\} $ and $y$ is the candidate point changing at each step. We then have the full set of locations that is cut in 3 parts: $ \mathcal{V} = \A \cup \bar{\A} \cup \{y\} $ \\
 
-At each iteration we need to compute two different GPs. The first one is computing the conditional variance for the point $y$ knowing the set of points $\A$ :   $\vec{K}_{y | \A} =  \vec{K}_{yy} - \vec{K}_{y\A} \vec{K}_{\A\A}^{-1} \vec{K}_{\A y} $. This GP is quite simple to compute as our cardinality of $\A$ is small. Moreover, the covariance matrix  $\vec{K}_{\A\A}$is not changing through the 2nd loop as $\A$ stays the same, so the inversion needs only to be done once. 
+At each iteration, we need to compute two different GPs. The first one is computing the conditional variance for the point $y$ knowing the set of points $\A$:   $\vec{K}_{y | \A} =  \vec{K}_{yy} - \vec{K}_{y\A} \vec{K}_{\A\A}^{-1} \vec{K}_{\A y} $. This GP is quite simple to compute as our cardinality of $\A$ is small. Moreover, the covariance matrix  $\vec{K}_{\A\A}$is not changing through the 2nd loop as $\A$ stays the same, so the inversion needs only to be done once. \\
 
-The second GP is computing the conditional variance for the point y knowing the set of points $\bar{\A}$ : $\vec{K}_{y | \bar{\A}} =  \vec{K}_{yy} - \vec{K}_{y\bar{\A}} \vec{K}_{\bar{\A}\bar{\A}}^{-1} \vec{K}_{\bar{\bar{\A}} y} $. This is much more difficult to estimate when the number of points in $\bar{\A}$ is of the order of 100’000. Not only it is difficult to estimate once, but be have to to it for every step of the second loop as the set $\bar{\A}$ changes constantly as we move the candidate point $y$. We then have a covariance matrix $\vec{K}_{\bar{\A}\bar{\A}}$ that is fundamentally different between each step. \\
+The second GP is computing the conditional variance for the point y knowing the set of points $\bar{\A}$: $\vec{K}_{y | \bar{\A}} =  \vec{K}_{yy} - \vec{K}_{y\bar{\A}} \vec{K}_{\bar{\A}\bar{\A}}^{-1} \vec{K}_{\bar{\bar{\A}} y} $. This is much more difficult to estimate when the number of points in $\bar{\A}$ is of the order of $100’000$. Not only it is difficult to estimate once, but be have to to it for every step of the second loop as the set $\bar{\A}$ changes constantly as we move the candidate point $y$. We then have a covariance matrix $\vec{K}_{\bar{\A}\bar{\A}}$ that is fundamentally different between each step. \\
 
-Because of this, if we want to use a method that allows to remove the bottleneck at the covariance matrix inversion, we need to avoid creating another bottleneck to approximate the GP. The TSVD approach is sufficiently light not to increase too much the computational cost. But other methods, such as sparse GPs are not usable. 
+Because of this, if we want to use a method that allows the removal of the bottleneck at the covariance matrix inversion, we need to avoid creating another bottleneck to approximate the GP. The TSVD approach is sufficiently light not to increase too much the computational cost. But other methods, such as sparse GPs are not usable with this algorithm. 
 
 
 
 \section{Implementation of the Optimisation}
 
-Here we review the implementation details of the optimisation algorithm itself and its variations. We cover then the tools used to compare the results of the different versions.  
+Here we review the implementation details of the optimisation algorithm itself and its variations. We are going to optimally find a number of $k=10$ sensors in the LSBU dataset.  
 
 
 \subsection{Optimisation Algorithms}
 
 \paragraph{Greedy Algorithm}
 
-The methods developed by \citet{krause_near-optimal_2008} are using the full Gaussian process in to greedily place sensors. The algorithm consists in the estimation of the best “new” sensor to add the set of existing sensor based on a mutual information gain criterion. This criterion can be computed with two Gaussian processes. One that estimates the covariance of the sensor candidate $y$ given the set of previously selected sensors $\A$: $K_{y | \A}$. The other GP allows the computation of the covariance of the candidate $y$ given the rest of the locations in the space $\bar{\A} = \V \backslash ( \A \cup y )$ : $K_{y | \bar{\A}}$. We recall the problem that is to be solved is :
+The methods developed by \citet{krause_near-optimal_2008} are using the full Gaussian process in to greedily place sensors. The algorithm consists in the estimation of the best “new” sensor to add the set of existing sensor based on a mutual information gain criterion. This criterion can be computed with two Gaussian processes. One that estimates the covariance of the sensor candidate $y$ given the set of previously selected sensors $\A$: $K_{y | \A}$. The other GP allows the computation of the covariance of the candidate $y$ given the rest of the locations in the space $\bar{\A} = \V \backslash ( \A \cup y )$: $K_{y | \bar{\A}}$. We recall the problem that is to be solved is:
 
 \begin{equation}
     y^* = {\arg \max}_{y \in \S \backslash A } \: \frac{K_{y | \A}}{K_{y | \bar{\A}}}
@@ -311,66 +312,56 @@ The methods developed by \citet{krause_near-optimal_2008} are using the full Gau
 
 This has to be computed theoretically for every candidate point of the dataset, and this for every sensor we add to A. 
 
-The naive version is described in \ref{alg:greedy}. In this version is directly implemented using a double for loop. The first is iterating on the sensors to place, and the inner loop in iterating through all the candidates versions. 
+The naive version is described in \ref{alg:greedy}. In this version is directly implemented using a double for loop. The first loop is iterating on the $k$ sensors to place, and the inner loop in iterating through all the candidates. 
 
 \paragraph{Lazy Algorithm}
 
-The Lazy version of the algorithm (Algorithm \ref{alg:lazy}) uses the mathematical concept of sub-modularity. This allows to reduce drastically the number of candidate points to update. By using the python \texttt{heapq}, a \textit{min-heap} binary structure, to store the mutual information improvements, we are able to maintain the results sorted as we update each candidate. By definition this structure sorts the elements from the smallest to the largest, we store the results we have added a minus sign, making this equivalent to a \textit{max-heap}. This structure is highly efficient and allows to find the maximum in $\mathcal{O}(1)$ and to update a value in $\mathcal{O}(\log n)$. 
+The Lazy version of the algorithm (Algorithm \ref{alg:lazy}) uses the mathematical concept of sub-modularity. This allows for reducing drastically the number of candidate points to update. By using the python \texttt{heapq}, a \textit{min-heap} binary structure, to store the mutual information improvements, we can maintain the results sorted as we update each candidate. By definition this structure sorts the elements from the smallest to the largest, we store the results we have added a minus sign, making this equivalent to a \textit{max-heap}. This structure is highly efficient and allows to find the maximum in $\mathcal{O}(1)$ and to update a value in $\mathcal{O}(\log n)$. 
 
 
 \paragraph{Local Kernel Algorithm}
 
-The Local Kernel version of the algorithm (Algorithm \ref{alg:local}) relies on the same greedy approach than the first algorithm. Therefore the implementation is very similar. The main difference rely in the use of a reduced set for the computation of the GPs and the the set on which there is no update of the candidate points. \\
+The Local Kernel version of the algorithm (Algorithm \ref{alg:local}) relies on the same greedy approach than the first algorithm. Therefore the implementation is very similar. The main difference relies on the use of a reduced set for the computation of the GPs and the set on which there is no update of the candidate points. \\
 
-The number of points involved in the GPs $|N(y,\epsilon)| \leq d $  depends on the threshold on the covariance $\epsilon$. This is a parameter to optimise in order to make the computational time acceptable while retaining accuracy. It highly depends on the data and the covariance matrix entries. 
-
- 
-
+The number of points involved in the GPs $|N(y,\epsilon)| \leq d $  depends on the threshold on the covariance $\epsilon$. This is a parameter to optimise to make the computational time acceptable while retaining accuracy. It highly depends on the data and the covariance matrix entries. 
 
 \subsection{Comparison Tool: Distance Between Sets}
 
-In order to be able to compare the results of optimisations, we define a metric that can be used to measure how close are two optimal sets. \\
+To be able to compare the results of optimisations, we define a useful metric that can be used to measure how similar are two optimal sets. \\
 
-The output of our optimisation problem is a set of points $\A$ of size $k$, indexed such as $\A = \{a_1, \dots, a_k\}$. We consider two optimal sets given by two versions of our algorithm : $\A_1$ and $\A_2$. We would to define a metric that measures the distance between those two sets. As we will see several options are possible. \\
+The output of our optimisation problem is a set of points $\A$ of size $k$, indexed such as $\A = \{a_1, \dots, a_k\}$. We consider two optimal sets given by two versions of our algorithm: $\A_1$ and $\A_2$. We would like to define a metric that measures the distance between those two sets. As we will see several options are possible. \\
 
-We could average the coordinates of the set points and take the $l2$ distance between the averages ($\vec{x}(\cdot)$ being the coordinate of of a point and $\bar{\vec{x}}(\A)$ the average on a set $\A$  ):
-
-\begin{equation}
-	d_{av}(\A_1,\A_2) =  \left\lVert \,\bar{\vec{x}}(\A_1)] - \bar{\vec{x}}(\A_1)\, \right\rVert_2
-\end{equation}
-
-This is unlikely to measure the spread of the points and how each points is actually close to the other set. This is why we propose to create  a \textbf{nearest neighbour} distance between the points of the sets. \\
-
-First we define a divergence between the sets $\A_1$ and $\A_2$, which takes for each points of $\A_1$ its closest neighbour in $\A_2$, takes the distance between them, and average it across the set. We define a nearest neighbour function $NN(\cdot,\cdot)$ which, given an index $a_i$ in the set $\A_1$ and the set $\A_2$, finds the index in the set $\A_2$ of closest points to $a_i$. This mapping is not bijective and therefore leads to asymmetrical results. 
+We could average the coordinates of the set's points and take the $l2$ distance between the averages ($\vec{x}(\cdot)$ being the coordinate of a point and $\bar{\vec{x}}(\A)$ the average on a set $\A$  ):
 
 \begin{equation}
-	div_{NN}(\A_1,\A_2) = \frac{1}{k}\sum_{i=1}^k \left \lVert \,\vec{x}(a_i) - \vec{x}(NN(a_i,\A_2))\, \right \rVert_2
+    d_{av}(\A_1,\A_2) =  \left\lVert \,\bar{\vec{x}}(\A_1)] - \bar{\vec{x}}(\A_1)\, \right\rVert_2
 \end{equation}
 
-This metric has for unit the meter $[m]$. We also call this metric a \textbf{divergence} as it not \textit{symmetric}. In order to define a distance that is symmetric, we define as follows the \textbf{nearest neighbour distance} :
+This is unlikely to measure the spread of the points and how each point is close to the other set. This is why we propose to create a \textbf{nearest neighbour} distance between the points of the sets. \\
+
+First, we define a divergence between the sets $\A_1$ and $\A_2$, which takes for each point of $\A_1$ its closest neighbour in $\A_2$, takes the distance between them, and average it across the set. We define a nearest neighbour function $NN(\cdot,\cdot)$ which, given an index $a_i$ in the set $\A_1$ and the set $\A_2$, finds the index in the set $\A_2$ of closest points to $a_i$. This mapping is not bijective and therefore leads to asymmetrical results. 
 
 \begin{equation}
-	d_{NN}(\A_1,\A_2) = \frac{1}{2} (div_{NN}(\A_1,\A_2) + div_{NN}(\A_2,\A_1))
-	\label{equ:distNN}
+    div_{NN}(\A_1,\A_2) = \frac{1}{k}\sum_{i=1}^k \left \lVert \,\vec{x}(a_i) - \vec{x}(NN(a_i,\A_2))\, \right \rVert_2
 \end{equation}
 
-This metric has the advantage of being symmetric, taking into account the distance from each point of the dataset and therefore give a meaningful interpretation of how close are spatially the sets from each other. 
-%\paragraph{Computational Time}
-%
-%An other tool that is going to be used in order to compare the algorithm is the measurement of the computation time for each resolution of the optimisation problem. 
+This metric has for unit the meter $[m]$. We also call this metric a \textbf{divergence} as it not \textit{symmetric}. In order to define a distance that is symmetric, we define as follows the \textbf{nearest neighbour distance}:
 
+\begin{equation}
+    d_{NN}(\A_1,\A_2) = \frac{1}{2} (div_{NN}(\A_1,\A_2) + div_{NN}(\A_2,\A_1))
+    \label{equ:distNN}
+\end{equation}
 
-
-
+This metric has the advantage of being \textit{symmetric}, taking into account the distance from each point of the dataset and therefore give a meaningful interpretation of how close are spatially the sets from each other. 
 
 \section{Data Assimilation}
 
-Data Assimilation (DA) is a method widely used in the Geostatistics and Meteorology. Its purpose is to incorporate real observations in the simulation of a complex physical phenomenon. VARDA\\
+Data Assimilation (DA) is a method widely used in the Fluid Simulations and Meteorology. Its purpose is to incorporate real observations in the simulation of a complex physical phenomenon. Variational Data Assimilation is an optimisation problem that allows an optimal assimilation of measurements to a simulation.  \\
 
-In the MAGIC project Data Assimilation is a way of improving the simulation of the tracer concentration propagation through space. For this purpose points to be assimilated have to be selected. It is therefore interesting to apply the optimal sensor positioning algorithm to this simulated dataset, in order to select a limited  number of points before applying the DA. For the implementation of this application, we rely mainly on the work of \citet{arcucci_optimal_2019}. We use a code solving the VarDA problem with the L-BFGS (Limited – Broyden Fletcher Goldfarb Shanno) Algorithm. \\
+In the MAGIC project VarDA is a way of improving the light-simulation of the tracer concentration propagation through space. For this purpose points to be assimilated have to be selected. It is therefore interesting to apply the optimal sensor positioning algorithm to this simulated dataset, in order to select a limited number of points before applying the DA. For the implementation of this application, we rely mainly on the work of \citet{arcucci_optimal_2019}. We use a code solving the VarDA problem with the L-BFGS (Limited – Broyden Fletcher Goldfarb Shanno) Algorithm. \\
 
-The only modifications that were done to the DA implementation was the removal of the TSVD of the Deviation Matrix. We don't need  any space-reduction method as we have a small number of points to assimilate ($k=10$).  \\
+The only modification that was done to the DA implementation was the removal of the TSVD of the Deviation Matrix. We don't need any space-reduction method as we have a small number of points to assimilate ($k=10$).  \\
 
 
-In order to verify the accuracy of the DA procedure, we compute the Mean Square Error (MSE) between the actual state $y$ and the state following the assimilation $x_{DA}$. And we compare it to the background MSE between $y$ and the background state $x_{B}$. We will compare the results for the optimal sets to a series of randomised points. 
+To verify the accuracy of the DA procedure, we compute the Mean Square Error (MSE) between the actual state $y$ and the state following the assimilation $x_{DA}$. And we compare it to the background MSE between $y$ and the background state $x_{B}$. We will compare the results for the optimal sets to a series of randomised points. 
 

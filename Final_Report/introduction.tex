@@ -2,33 +2,40 @@
 
 
 
-The optimisation of sensor position is a very common problem in many applications. The reliability of very complex systems often depend on the choice sensor position. The cost induced by the incorrect placement or un-necessary sensor placement could be very important. There is therefore a real need for optimal sensor placement in the industry and in research applications. \\
+The optimisation of sensor position is a very common problem in many domains. The reliability of very complex systems often depends on the choice of sensor position. The cost induced by an incorrect or supernumerary sensor placement can be very important. There is, therefore, a real need for an optimal sensor placement methodology in the industry and research applications. \\
 
-Main Problem \\
-Optimise sensor positions. Common Problem. \\
+An approach that has been proven to give a near-optimal solution to this complicated issue, is the one developed by \citet{krause_near-optimal_2008}. It relies on the mathematical concept of the Gaussian Process (GP), a very powerful machine-learning tool. Based on the assumption that the observation data can be described as a Multivariate Gaussian Distribution, we can predict for any point a value and a confidence interval. Since the '70s, Gaussian Processes have been applied successfully to the Geostatistical and Meteorology fields for prediction, and the idea of using them to place sensors was very novel. \\
 
+For this project, we aim at applying this methodology to air pollution measurement and simulation, coming from the MAGIC (Managing Air for Green Inner Cities) project. We would like to optimise the position of a small number of sensors that will optimally represent the physical phenomenon. We will take the discrete set of locations on which the pollution has been simulated and will select optimally a small number of sensors in this set. \\
 
+In this application, we will meet several challenges that need to be addressed. The main one is the scalability of the methodology. The algorithm has been proven to be near-optimal when the set of sensor candidates is of the order to $1'000$ points. In our case, we will work on a set $100$ times larger than this. The bottleneck of the algorithm is the computational cost of the Gaussian Processes, thus we are going to explore solutions improving its scalability. The other challenge is to represent accurately the data, and most importantly the covariance, as the GP relies on it for the prediction. We will explore some solutions that will make the optimisation problem computable in our application. \\
 
-Solution to the Problem
-Investigate and Explore the solution proposed by \citet{krause_near-optimal_2008} on near-optimal optimisation \\
-\\ > Details on the Process
-Gaussian Processes \\
+Once the optimal set of locations is found, we could use it for the purpose of Data Assimilation (DA). This algorithm allows to enhance the precision of a simulation by taking into consideration real observations. We could observe the effect of the points chosen on a DA simulation. \\
 
 
-Applications : \\
-Application to the Problem of Data Assimilation. Assimilate data on a limited number of points. Use the optimal sensors for the Data Assimilation and see if the results are better than random.  Can be used on other sets.  \\
+The methods developed in the project are completely general, even if we are using them in the specific context of Tracers in MAGIC. They can be used for any type of  data and for various configurations. The algorithms that are available are not directly usable in the context of big cities. We are therefore providing several contributions to make the algorithms usable. Our contributions are listed as follows:
+\begin{itemize}
+	\item Implementation in Python 3.7 of several near-optimal algorithms for positioning sensors. 
+	\item Implementation of Shrinkage Algorithms for the computation of a Valid Covariance Matrix. 
+	\item Methodology for the pre-selection of locations based on field values and human reachability. 
+	\item Methodology based on the approximation of GPs using Truncated Singular Values Decomposition (TSVD). 
+	\item Experimentation with real case scenarios taken from the MAGIC research project. 
+\end{itemize}
 
-Challenge is the size of of the candidate set. \\
+
+In this project, we will first review all the background information and the literature necessary. We will then develop the details of our implementation, before detailing and analysing the results of our optimisation. Finally we will apply our results to the field of Data Assimilation. 
+
+
+
+
+
+
+
+
+
+
+
+
 
 
  
-
-
-
-\todo{Write Intoduction}
-
-
-\todo{Write Problem Statement : Why we need that ? What solution ?
-}
-
-

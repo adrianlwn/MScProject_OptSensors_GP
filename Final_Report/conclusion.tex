@@ -1,10 +1,34 @@
-\chapter{Conclusion}
+\chapter{Conclusion and Future Works}
 
 
-\todo{Change Conclusion of the Project}
+%\todo{Change Conclusion of the Project}
+%
+%In this report, we have stated some of the research that was done to solve the sensor position optimisation problem. \\ 
+%
+%The biggest challenge here is to make the algorithm scalable for optimising over $100'000$ sensor locations. It requires to develop strategies to make the GPs scalable. The main other challenge is to find a method to accurately estimate the covariance matrix. \\
+%
+%I have implemented some of the optimisation algorithm proposed on a smaller dataset and with a poor estimation of the covariance function. It has given consistent results and has proven that once the main challenges, described earlier are solved, we will have a good optimisation algorithm for that kind of setups. 
 
-In this report, we have stated some of the research that was done in order to solve the sensor position optimisation problem. \\ 
+The objectives of the project were to explore, implement and analyse the near-optimal sensor-positioning in an environmental context. We used data from an airflow simulation of pollution in a London neighbourhood as a basis for our study. We were able to extract and analyse several states present in the simulation. We have implemented the algorithms proposed by \citet{krause_near-optimal_2008}. We have discovered those limitations and have overcome them. \\
 
-The biggest challenge here is to make the algorithm scalable for optimising over $100'000$ sensor locations. It requires to develop strategies to make the GPs scalable. The main other challenge is to find a method to accurately estimate the covariance matrix. \\
+At first, we have explored the ways of reducing the size of the dataset. We have selected locations based on the value of the pollution tracer and the shape the physical space. We have analysed the ways of modelling the data available by estimating its covariance matrix. We have found that the sample covariance was not a good estimator, and used the shrinkage method to have a valid covariance matrix. Finally, we have implemented methods to reduce the computational cost of the Gaussian Process based optimisation. An approach relying on the usage of only highly correlated locations, and another approach using dimensionality-reduction techniques. \\
 
-I have implemented some of the optimisation algorithm proposed on a smaller dataset and with a poor estimation of the covariance function. It has given consistent results and has proven that once the main challenges, described earlier are solved, we will have a good optimisation algorithm for that kind of setups. 
+In order to compare all the methods available, we have tested them on a small subset of the data and verified their consistency. After selecting the optimal parameters for the algorithms, we have applied the scalable ones to the full dataset and obtained a set of optimal points. \\
+
+As an application, we have finally used those optimal points with a Data Assimilation algorithm. We have found out that those were optimally assimilated to the simulation.  \\
+
+
+We could think of several improvements and further developments that could be undertaken in this project. \\
+
+The estimation of a better covariance matrix for modelling the data is certainly a good approach. There exist alternatives to the methods used in the project that could lead to more accurate data modelling. \\
+
+The application to the DA could be also further improved by continuing the simulation after the assimilation step. We would be able to compare the error on the whole dataset between post-DA simulation with different sets of DA points. \\
+
+Finally, one other idea for handling the near-optimal sensor optimisation would be to take a different approach and leave aside the methods based on Mutual Information criterion. We could keep the idea of using GPs to model the data and keep for example the \textit{inducing points} defined in sparse GP methods as the optimal set of sensors. As it is a crucial subject for the research, there is a lot more to improve and discover in the field. \\
+
+
+
+
+
+
+

@@ -1,46 +1,56 @@
 \BOOKMARK [0][]{chapter.4}{1 Introduction}{}% 1
-\BOOKMARK [0][]{chapter.7}{2 Literature Review}{}% 2
-\BOOKMARK [1][]{section.8}{2.1 The MAGIC Project}{chapter.7}% 3
-\BOOKMARK [1][]{section.9}{2.2 Gaussian Processes}{chapter.7}% 4
-\BOOKMARK [2][]{subsection.11}{2.2.1 Multivariate Gaussian Distribution}{section.9}% 5
-\BOOKMARK [2][]{subsection.13}{2.2.2 Prediction with Gaussian Processes}{section.9}% 6
-\BOOKMARK [2][]{subsection.17}{2.2.3 Scalable Gaussian Processes}{section.9}% 7
-\BOOKMARK [1][]{section.26}{2.3 Covariance Matrix}{chapter.7}% 8
-\BOOKMARK [2][]{subsection.27}{2.3.1 Properties of Covariance}{section.26}% 9
-\BOOKMARK [2][]{subsection.28}{2.3.2 Covariance Estimation}{section.26}% 10
-\BOOKMARK [2][]{subsection.42}{2.3.3 Kernel Functions}{section.26}% 11
-\BOOKMARK [1][]{section.46}{2.4 Sensor Position Optimisation}{chapter.7}% 12
-\BOOKMARK [2][]{subsection.47}{2.4.1 Placement Criterion}{section.46}% 13
-\BOOKMARK [2][]{subsection.61}{2.4.2 Approximation Algorithm}{section.46}% 14
-\BOOKMARK [2][]{subsection.71}{2.4.3 Improvements over the Algorithm}{section.46}% 15
-\BOOKMARK [0][]{chapter.83}{3 Implementation}{}% 16
-\BOOKMARK [1][]{section.84}{3.1 Practical Informations}{chapter.83}% 17
-\BOOKMARK [2][]{subsection.85}{3.1.1 Availability of the code}{section.84}% 18
-\BOOKMARK [2][]{subsection.86}{3.1.2 Environment}{section.84}% 19
-\BOOKMARK [2][]{subsection.88}{3.1.3 Experimental Conditions}{section.84}% 20
-\BOOKMARK [1][]{section.90}{3.2 Data Analysis}{chapter.83}% 21
-\BOOKMARK [2][]{subsection.92}{3.2.1 Tracer Concentration Data}{section.90}% 22
-\BOOKMARK [2][]{subsection.94}{3.2.2 Pressure Data}{section.90}% 23
-\BOOKMARK [1][]{section.97}{3.3 Preselection of the Data}{chapter.83}% 24
-\BOOKMARK [2][]{subsection.98}{3.3.1 Selection of a working subset of the data}{section.97}% 25
-\BOOKMARK [2][]{subsection.102}{3.3.2 Selection of a subset at human level}{section.97}% 26
-\BOOKMARK [2][]{subsection.107}{3.3.3 Combined Selection}{section.97}% 27
-\BOOKMARK [1][]{section.109}{3.4 Implementation of Covariance Matrix}{chapter.83}% 28
-\BOOKMARK [1][]{section.110}{3.5 Implementation of Gaussian Processes}{chapter.83}% 29
-\BOOKMARK [2][]{subsection.111}{3.5.1 Classical GPs}{section.110}% 30
-\BOOKMARK [2][]{subsection.113}{3.5.2 GPs Approximation with TSVD}{section.110}% 31
-\BOOKMARK [2][]{subsection.119}{3.5.3 Limitations of Other Approaches}{section.110}% 32
-\BOOKMARK [1][]{section.120}{3.6 Implementation of the Optimisation}{chapter.83}% 33
-\BOOKMARK [2][]{subsection.121}{3.6.1 Optimisation Algorithms}{section.120}% 34
-\BOOKMARK [2][]{subsection.126}{3.6.2 Comparison Tool: Distance Between Sets}{section.120}% 35
-\BOOKMARK [1][]{section.130}{3.7 Data Assimilation}{chapter.83}% 36
-\BOOKMARK [0][]{chapter.131}{4 Results and Analysis}{}% 37
-\BOOKMARK [1][]{section.132}{4.1 Covariance}{chapter.131}% 38
-\BOOKMARK [2][]{subsection.133}{4.1.1 Tracer Concentration Covariance}{section.132}% 39
-\BOOKMARK [2][]{subsection.139}{4.1.2 Pressure Covariance}{section.132}% 40
-\BOOKMARK [1][]{section.145}{4.2 Comparison Optimisation Algorithms}{chapter.131}% 41
-\BOOKMARK [2][]{subsection.146}{4.2.1 Conditions of the Experiment}{section.145}% 42
-\BOOKMARK [2][]{subsection.150}{4.2.2 Optimisation on Tracer Concentration}{section.145}% 43
-\BOOKMARK [2][]{subsection.159}{4.2.3 Optimisation on Pressure}{section.145}% 44
-\BOOKMARK [1][]{section.168}{4.3 Full Scale Optimisation Results}{chapter.131}% 45
-\BOOKMARK [2][]{subsection.169}{4.3.1 Optimisation on Tracer Concentration}{section.168}% 46
+\BOOKMARK [0][]{chapter.5}{2 Background}{}% 2
+\BOOKMARK [1][]{section.6}{2.1 The MAGIC Project}{chapter.5}% 3
+\BOOKMARK [1][]{section.7}{2.2 Gaussian Processes}{chapter.5}% 4
+\BOOKMARK [2][]{subsection.8}{2.2.1 Multivariate Gaussian Distribution}{section.7}% 5
+\BOOKMARK [2][]{subsection.10}{2.2.2 Prediction with Gaussian Processes}{section.7}% 6
+\BOOKMARK [2][]{subsection.14}{2.2.3 Scalable Gaussian Processes}{section.7}% 7
+\BOOKMARK [1][]{section.23}{2.3 Covariance Matrix}{chapter.5}% 8
+\BOOKMARK [2][]{subsection.24}{2.3.1 Properties of Covariance}{section.23}% 9
+\BOOKMARK [2][]{subsection.25}{2.3.2 Covariance Estimation}{section.23}% 10
+\BOOKMARK [2][]{subsection.40}{2.3.3 Kernel Functions}{section.23}% 11
+\BOOKMARK [1][]{section.44}{2.4 Sensor Position Optimisation}{chapter.5}% 12
+\BOOKMARK [2][]{subsection.45}{2.4.1 Placement Criterion}{section.44}% 13
+\BOOKMARK [2][]{subsection.60}{2.4.2 Approximation Algorithm}{section.44}% 14
+\BOOKMARK [2][]{subsection.70}{2.4.3 Improvements over the Algorithm}{section.44}% 15
+\BOOKMARK [0][]{chapter.82}{3 Implementation}{}% 16
+\BOOKMARK [1][]{section.83}{3.1 Practical Informations}{chapter.82}% 17
+\BOOKMARK [2][]{subsection.84}{3.1.1 Availability of the code}{section.83}% 18
+\BOOKMARK [2][]{subsection.85}{3.1.2 Environment}{section.83}% 19
+\BOOKMARK [2][]{subsection.87}{3.1.3 Experimental Conditions}{section.83}% 20
+\BOOKMARK [1][]{section.89}{3.2 Data Analysis}{chapter.82}% 21
+\BOOKMARK [2][]{subsection.91}{3.2.1 Tracer Concentration Data}{section.89}% 22
+\BOOKMARK [2][]{subsection.93}{3.2.2 Pressure Data}{section.89}% 23
+\BOOKMARK [1][]{section.96}{3.3 Preselection of the Data}{chapter.82}% 24
+\BOOKMARK [2][]{subsection.97}{3.3.1 Selection of a working subset of the data}{section.96}% 25
+\BOOKMARK [2][]{subsection.101}{3.3.2 Selection of a subset at human level}{section.96}% 26
+\BOOKMARK [2][]{subsection.106}{3.3.3 Combined Selection}{section.96}% 27
+\BOOKMARK [1][]{section.108}{3.4 Implementation of Covariance Matrix}{chapter.82}% 28
+\BOOKMARK [1][]{section.109}{3.5 Implementation of Gaussian Processes}{chapter.82}% 29
+\BOOKMARK [2][]{subsection.110}{3.5.1 Classical GPs}{section.109}% 30
+\BOOKMARK [2][]{subsection.112}{3.5.2 GPs Approximation with TSVD}{section.109}% 31
+\BOOKMARK [2][]{subsection.118}{3.5.3 Limitations of Other Approaches}{section.109}% 32
+\BOOKMARK [1][]{section.119}{3.6 Implementation of the Optimisation}{chapter.82}% 33
+\BOOKMARK [2][]{subsection.120}{3.6.1 Optimisation Algorithms}{section.119}% 34
+\BOOKMARK [2][]{subsection.125}{3.6.2 Comparison Tool: Distance Between Sets}{section.119}% 35
+\BOOKMARK [1][]{section.129}{3.7 Data Assimilation}{chapter.82}% 36
+\BOOKMARK [0][]{chapter.130}{4 Analysis and Results}{}% 37
+\BOOKMARK [1][]{section.131}{4.1 Covariance}{chapter.130}% 38
+\BOOKMARK [2][]{subsection.132}{4.1.1 Sample Covariance}{section.131}% 39
+\BOOKMARK [2][]{subsection.134}{4.1.2 Shrinkage Covariance}{section.131}% 40
+\BOOKMARK [1][]{section.137}{4.2 Comparison Optimisation Algorithms}{chapter.130}% 41
+\BOOKMARK [2][]{subsection.138}{4.2.1 Conditions of the Experiment}{section.137}% 42
+\BOOKMARK [2][]{subsection.141}{4.2.2 Greedy and Lazy Optimisation}{section.137}% 43
+\BOOKMARK [2][]{subsection.145}{4.2.3 Local Kernels Optimisation}{section.137}% 44
+\BOOKMARK [2][]{subsection.148}{4.2.4 Approximated Gaussian Processes}{section.137}% 45
+\BOOKMARK [1][]{section.150}{4.3 Full Scale Optimisation Results}{chapter.130}% 46
+\BOOKMARK [2][]{subsection.151}{4.3.1 Local Kernel Algorithm}{section.150}% 47
+\BOOKMARK [2][]{subsection.157}{4.3.2 Lazy Algorithm with TSVD}{section.150}% 48
+\BOOKMARK [1][]{section.162}{4.4 Application to Variational DA}{chapter.130}% 49
+\BOOKMARK [2][]{subsection.163}{4.4.1 Parameters of the Experiment}{section.162}% 50
+\BOOKMARK [2][]{subsection.164}{4.4.2 VarDA on Local Kernel Results}{section.162}% 51
+\BOOKMARK [2][]{subsection.169}{4.4.3 VarDA on Gaussian Approximation Results}{section.162}% 52
+\BOOKMARK [2][]{subsection.174}{4.4.4 Limitations of the Application}{section.162}% 53
+\BOOKMARK [0][]{chapter.175}{5 Conclusion and Future Works}{}% 54
+\BOOKMARK [0][]{appendix.176}{A Ethical and Professional Considerations}{}% 55
+\BOOKMARK [0][]{appendix.177}{B Description of the Code}{}% 56

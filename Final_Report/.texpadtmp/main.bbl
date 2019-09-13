@@ -1,12 +1,5 @@
 \begin{thebibliography}{}
 
-\bibitem[\protect\astroncite{noa}{2019}]{noauthor_shapely_2019}
- (2019).
-\newblock Shapely : {Manipulation} and analysis of geometric objects.
-  {Contribute} to {Toblerity}/{Shapely} development by creating an account on
-  {GitHub}.
-\newblock original-date: 2011-12-31T19:43:11Z.
-
 \bibitem[\protect\astroncite{Arcucci et~al.}{2019}]{arcucci_optimal_2019}
 Arcucci, R., Mottet, L., Pain, C., and Guo, Y.-K. (2019).
 \newblock Optimal reduced space for {Variational} {Data} {Assimilation}.
@@ -31,6 +24,12 @@ Chen, Y., Wiesel, A., Eldar, Y.~C., and Hero, A.~O. (2010).
 Cover, T.~M. and Thomas, J.~A. (1991).
 \newblock {\em Elements of information theory}.
 \newblock Wiley series in telecommunications. Wiley, New York.
+
+\bibitem[\protect\astroncite{Cressie}{1993}]{cressie_statistics_1993}
+Cressie, N. A.~C. (1993).
+\newblock {\em Statistics for spatial data}.
+\newblock Wiley series in probability and mathematical statistics. Wiley, New
+  York.
 
 \bibitem[\protect\astroncite{Deisenroth
   et~al.}{2018}]{deisenroth_mathematics_2018}
@@ -101,13 +100,6 @@ Paciorek, C.~J. and Schervish, M.~J. (2004).
 \newblock In Thrun, S., Saul, L.~K., and Sch{\"o}lkopf, B., editors, {\em
   Advances in {Neural} {Information} {Processing} {Systems} 16}, pages
   273--280. MIT Press.
-
-\bibitem[\protect\astroncite{Pourahmadi}{2011}]{pourahmadi_covariance_2011}
-Pourahmadi, M. (2011).
-\newblock Covariance {Estimation}: {The} {GLM} and {Regularization}
-  {Perspectives}.
-\newblock {\em Statistical Science}, 26(3):369--387.
-\newblock arXiv: 1202.1661.
 
 \bibitem[\protect\astroncite{Rasmussen and
   Williams}{2006}]{rasmussen_gaussian_2006}

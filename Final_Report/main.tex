@@ -8,8 +8,8 @@
 % e.g. \newcommand{\reportauthor}{Timothy Kimber}
 
 \newcommand{\reporttitle}{ Gaussian Processes for \\ Optimal Sensor Position \\[0.5cm] { \Large  MSc Project Report}}
-\newcommand{\reportauthor}{Adrian \textsc{Löwenstein} \\ \phantom{blank author} }
-\newcommand{\supervisor}{Rossella \textsc{Arcucci} \\ Miguel \textsc{Molina-Solana}}
+\newcommand{\reportauthor}{Adrian \textsc{Löwenstein}}  %\\ \phantom{blank author} 
+\newcommand{\supervisor}{Dr. Rossella \textsc{Arcucci} } % \\ Miguel \textsc{Molina-Solana}
 
 \newcommand{\degreetype}{Computing (Machine Learning)}
 
@@ -50,13 +50,17 @@
 %%%%%%%%%%% TABLE OF CONTENTS 
 \chapter*{Abstract}
 
-Gaussian processes (GP) have been widely used since the 1970s in the fields of geostatistics and meteorology. Current applications are in diverse fields including sensor placement
-In this project, we propose the employment of a GP model to calculate the optimal spatial positioning of sensors to study and collect air pollution data in big cities. We will then validate the results by means of a data assimilation software with the data at the proposed positions.
+Gaussian processes (GP) have been widely used since the 1970s in the fields of geostatistics and meteorology. Current applications are in diverse fields including sensor placement.
+In this project, we propose the employment of a GP model to calculate the optimal spatial positioning of sensors to study and collect air pollution data in big cities. We will then apply the results by means of a data assimilation with the data at the optimised positions.
 
 
-%\chapter*{Acknowledgment}
+\chapter*{Acknowledgment}
 
-%I would like to thank 
+I would like to thank \textit{Imperial College London} for the opportunity I was given to pursue my studies this prestigious university. \\
+
+I would like to thank my supervisor Dr. Rossella Arcucci  of the \textit{Data Science Institute}, for her help and wise counselling throughout the project. \\
+
+An finally, I would like to thank my girlfriend, and friends from Imperial College, who supported me during this project. \\
 
 
 
@@ -72,32 +76,29 @@ In this project, we propose the employment of a GP model to calculate the optima
 \fancyhead[LO,RE]{\slshape \leftmark}
 
 \pagebreak
-%%%%%%%%%%% TABLE OF TODO's
-
-\listoftodos
 
 
 
-%%%%%%%%%%% CHAPTER : INTRODUCTION
+%%%%%%%%%%% CHAPTER: INTRODUCTION
 \include{introduction}
  
-%%%%%%%%%%% CHAPTER : LITERATURE REVIEW
+%%%%%%%%%%% CHAPTER: LITERATURE REVIEW
 \include{literature_review}
 
 
-%% TEMP %%% CHAPTER : background
+%% TEMP %%% CHAPTER: background
 %\include{background}
 
 
 
 
-%%%%%%%%%%% CHAPTER : IMPLEMENTATION
+%%%%%%%%%%% CHAPTER: IMPLEMENTATION
 \include{implementation}
 
-%%%%%%%%%%% CHAPTER : RESULTS
+%%%%%%%%%%% CHAPTER: RESULTS
 \include{results}
 
-%% TEMP %%% CHAPTER : progress
+%% TEMP %%% CHAPTER: progress
 %\include{progress}
 
 
@@ -105,16 +106,18 @@ In this project, we propose the employment of a GP model to calculate the optima
 
 
 
-%%%%%%%%%%% CHAPTER : CONCLUSION
+%%%%%%%%%%% CHAPTER: CONCLUSION
 \include{conclusion}
 
 
 
 \appendix 
 
+\include{ethical}
+
+
 \include{code_read_me}
 
-\include{ethical}
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

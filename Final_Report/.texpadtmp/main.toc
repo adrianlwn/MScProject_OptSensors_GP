@@ -1,74 +1,79 @@
 \babel@toc {english}{}
-\contentsline {chapter}{\numberline {1}Introduction}{2}{chapter.4}
-\contentsline {chapter}{\numberline {2}Literature Review}{3}{chapter.7}
-\contentsline {section}{\numberline {2.1}The MAGIC Project}{3}{section.8}
-\contentsline {section}{\numberline {2.2}Gaussian Processes}{4}{section.9}
-\contentsline {subsection}{\numberline {2.2.1}Multivariate Gaussian Distribution}{4}{subsection.11}
-\contentsline {subsection}{\numberline {2.2.2}Prediction with Gaussian Processes}{4}{subsection.13}
-\contentsline {subsection}{\numberline {2.2.3}Scalable Gaussian Processes}{5}{subsection.17}
-\contentsline {paragraph}{Subset of Data}{5}{paragraph*.18}
-\contentsline {paragraph}{Sparse Kernel}{5}{paragraph*.19}
-\contentsline {paragraph}{Low Rank Approximation}{6}{paragraph*.20}
-\contentsline {paragraph}{Sparse Approximations}{6}{paragraph*.21}
-\contentsline {paragraph}{Remarks on the Approximation Methods}{7}{paragraph*.25}
-\contentsline {section}{\numberline {2.3}Covariance Matrix}{8}{section.26}
-\contentsline {subsection}{\numberline {2.3.1}Properties of Covariance}{8}{subsection.27}
-\contentsline {subsection}{\numberline {2.3.2}Covariance Estimation}{8}{subsection.28}
-\contentsline {subsubsection}{\numberline {2.3.2.1}Sample Covariance}{9}{subsubsection.29}
-\contentsline {subsubsection}{\numberline {2.3.2.2}Shrinkage Method}{9}{subsubsection.32}
-\contentsline {subsubsection}{\numberline {2.3.2.3}Oracle Approximating Shrinkage (OAS)}{10}{subsubsection.40}
-\contentsline {subsection}{\numberline {2.3.3}Kernel Functions}{10}{subsection.42}
-\contentsline {section}{\numberline {2.4}Sensor Position Optimisation}{11}{section.46}
-\contentsline {subsection}{\numberline {2.4.1}Placement Criterion}{11}{subsection.47}
-\contentsline {subsubsection}{\numberline {2.4.1.1}Entropy Criterion}{11}{subsubsection.48}
-\contentsline {subsubsection}{\numberline {2.4.1.2}Mutual Information Criterion}{12}{subsubsection.58}
-\contentsline {subsection}{\numberline {2.4.2}Approximation Algorithm}{13}{subsection.61}
-\contentsline {subsection}{\numberline {2.4.3}Improvements over the Algorithm}{14}{subsection.71}
-\contentsline {subsubsection}{\numberline {2.4.3.1}Lazy Procedure}{14}{subsubsection.72}
-\contentsline {subsubsection}{\numberline {2.4.3.2}Local Kernels}{15}{subsubsection.75}
-\contentsline {chapter}{\numberline {3}Implementation}{17}{chapter.83}
-\contentsline {section}{\numberline {3.1}Practical Informations}{17}{section.84}
-\contentsline {subsection}{\numberline {3.1.1}Availability of the code}{17}{subsection.85}
-\contentsline {subsection}{\numberline {3.1.2}Environment}{17}{subsection.86}
-\contentsline {subsection}{\numberline {3.1.3}Experimental Conditions}{18}{subsection.88}
-\contentsline {section}{\numberline {3.2}Data Analysis}{18}{section.90}
-\contentsline {subsection}{\numberline {3.2.1}Tracer Concentration Data}{18}{subsection.92}
-\contentsline {subsection}{\numberline {3.2.2}Pressure Data}{19}{subsection.94}
-\contentsline {section}{\numberline {3.3}Preselection of the Data}{20}{section.97}
-\contentsline {subsection}{\numberline {3.3.1}Selection of a working subset of the data}{20}{subsection.98}
-\contentsline {subsection}{\numberline {3.3.2}Selection of a subset at human level}{22}{subsection.102}
-\contentsline {subsection}{\numberline {3.3.3}Combined Selection}{24}{subsection.107}
-\contentsline {section}{\numberline {3.4}Implementation of Covariance Matrix}{24}{section.109}
-\contentsline {section}{\numberline {3.5}Implementation of Gaussian Processes}{25}{section.110}
-\contentsline {subsection}{\numberline {3.5.1}Classical GPs}{25}{subsection.111}
-\contentsline {subsection}{\numberline {3.5.2}GPs Approximation with TSVD}{25}{subsection.113}
-\contentsline {subsection}{\numberline {3.5.3}Limitations of Other Approaches}{26}{subsection.119}
-\contentsline {section}{\numberline {3.6}Implementation of the Optimisation}{27}{section.120}
-\contentsline {subsection}{\numberline {3.6.1}Optimisation Algorithms}{27}{subsection.121}
-\contentsline {paragraph}{Greedy Algorithm}{27}{paragraph*.122}
-\contentsline {paragraph}{Lazy Algorithm}{27}{paragraph*.124}
-\contentsline {paragraph}{Local Kernel Algorithm}{28}{paragraph*.125}
-\contentsline {subsection}{\numberline {3.6.2}Comparison Tool: Distance Between Sets}{28}{subsection.126}
-\contentsline {section}{\numberline {3.7}Data Assimilation}{29}{section.130}
-\contentsline {chapter}{\numberline {4}Results and Analysis}{30}{chapter.131}
-\contentsline {section}{\numberline {4.1}Covariance}{30}{section.132}
-\contentsline {subsection}{\numberline {4.1.1}Tracer Concentration Covariance}{30}{subsection.133}
-\contentsline {subsubsection}{\numberline {4.1.1.1}Sample Covariance}{30}{subsubsection.134}
-\contentsline {subsubsection}{\numberline {4.1.1.2}Shrinkage Covariance}{31}{subsubsection.136}
-\contentsline {subsection}{\numberline {4.1.2}Pressure Covariance}{32}{subsection.139}
-\contentsline {subsubsection}{\numberline {4.1.2.1}Sample Covariance}{32}{subsubsection.140}
-\contentsline {subsubsection}{\numberline {4.1.2.2}Shrinkage Covariance}{32}{subsubsection.142}
-\contentsline {section}{\numberline {4.2}Comparison Optimisation Algorithms}{33}{section.145}
-\contentsline {subsection}{\numberline {4.2.1}Conditions of the Experiment}{33}{subsection.146}
-\contentsline {subsection}{\numberline {4.2.2}Optimisation on Tracer Concentration}{35}{subsection.150}
-\contentsline {subsubsection}{\numberline {4.2.2.1}Greedy and Lazy Optimisation}{35}{subsubsection.151}
-\contentsline {subsubsection}{\numberline {4.2.2.2}Local Kernels Optimisation}{36}{subsubsection.154}
-\contentsline {subsubsection}{\numberline {4.2.2.3}Approximated Gaussian Processes}{37}{subsubsection.157}
-\contentsline {subsection}{\numberline {4.2.3}Optimisation on Pressure}{38}{subsection.159}
-\contentsline {subsubsection}{\numberline {4.2.3.1}Greedy and Lazy Optimisation}{38}{subsubsection.160}
-\contentsline {subsubsection}{\numberline {4.2.3.2}Local Kernels Optimisation}{38}{subsubsection.163}
-\contentsline {subsubsection}{\numberline {4.2.3.3}Approximated Gaussian Processes}{39}{subsubsection.166}
-\contentsline {section}{\numberline {4.3}Full Scale Optimisation Results}{40}{section.168}
-\contentsline {subsection}{\numberline {4.3.1}Optimisation on Tracer Concentration}{40}{subsection.169}
-\contentsline {subsubsection}{\numberline {4.3.1.1}Local Kernel Algorithm}{40}{subsubsection.170}
-\contentsline {paragraph}{Description}{41}{paragraph*.175}
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.4}
+\contentsline {chapter}{\numberline {2}Background}{3}{chapter.5}
+\contentsline {section}{\numberline {2.1}The MAGIC Project}{3}{section.6}
+\contentsline {section}{\numberline {2.2}Gaussian Processes}{4}{section.7}
+\contentsline {subsection}{\numberline {2.2.1}Multivariate Gaussian Distribution}{4}{subsection.8}
+\contentsline {subsection}{\numberline {2.2.2}Prediction with Gaussian Processes}{4}{subsection.10}
+\contentsline {subsection}{\numberline {2.2.3}Scalable Gaussian Processes}{5}{subsection.14}
+\contentsline {paragraph}{Subset of Data}{5}{paragraph*.15}
+\contentsline {paragraph}{Sparse Kernel}{6}{paragraph*.16}
+\contentsline {paragraph}{Low-Rank Approximation}{6}{paragraph*.17}
+\contentsline {paragraph}{Sparse Approximations}{6}{paragraph*.18}
+\contentsline {paragraph}{Remarks on the Approximation Methods}{8}{paragraph*.22}
+\contentsline {section}{\numberline {2.3}Covariance Matrix}{8}{section.23}
+\contentsline {subsection}{\numberline {2.3.1}Properties of Covariance}{8}{subsection.24}
+\contentsline {subsection}{\numberline {2.3.2}Covariance Estimation}{9}{subsection.25}
+\contentsline {subsubsection}{\numberline {2.3.2.1}Sample Covariance}{9}{subsubsection.26}
+\contentsline {subsubsection}{\numberline {2.3.2.2}Shrinkage Method}{9}{subsubsection.29}
+\contentsline {subsubsection}{\numberline {2.3.2.3}Ledoit-Wolf Shrinkage Estimator}{10}{subsubsection.32}
+\contentsline {subsubsection}{\numberline {2.3.2.4}Oracle Approximating Shrinkage (OAS)}{10}{subsubsection.38}
+\contentsline {subsection}{\numberline {2.3.3}Kernel Functions}{11}{subsection.40}
+\contentsline {section}{\numberline {2.4}Sensor Position Optimisation}{11}{section.44}
+\contentsline {subsection}{\numberline {2.4.1}Placement Criterion}{12}{subsection.45}
+\contentsline {subsubsection}{\numberline {2.4.1.1}Entropy Criterion}{12}{subsubsection.46}
+\contentsline {subsubsection}{\numberline {2.4.1.2}Mutual Information Criterion}{13}{subsubsection.56}
+\contentsline {subsection}{\numberline {2.4.2}Approximation Algorithm}{13}{subsection.60}
+\contentsline {subsection}{\numberline {2.4.3}Improvements over the Algorithm}{15}{subsection.70}
+\contentsline {subsubsection}{\numberline {2.4.3.1}Lazy Procedure}{15}{subsubsection.71}
+\contentsline {subsubsection}{\numberline {2.4.3.2}Local Kernels}{15}{subsubsection.74}
+\contentsline {chapter}{\numberline {3}Implementation}{18}{chapter.82}
+\contentsline {section}{\numberline {3.1}Practical Informations}{18}{section.83}
+\contentsline {subsection}{\numberline {3.1.1}Availability of the code}{18}{subsection.84}
+\contentsline {subsection}{\numberline {3.1.2}Environment}{18}{subsection.85}
+\contentsline {subsection}{\numberline {3.1.3}Experimental Conditions}{19}{subsection.87}
+\contentsline {section}{\numberline {3.2}Data Analysis}{19}{section.89}
+\contentsline {subsection}{\numberline {3.2.1}Tracer Concentration Data}{19}{subsection.91}
+\contentsline {subsection}{\numberline {3.2.2}Pressure Data}{20}{subsection.93}
+\contentsline {section}{\numberline {3.3}Preselection of the Data}{21}{section.96}
+\contentsline {subsection}{\numberline {3.3.1}Selection of a working subset of the data}{21}{subsection.97}
+\contentsline {subsection}{\numberline {3.3.2}Selection of a subset at human level}{23}{subsection.101}
+\contentsline {subsection}{\numberline {3.3.3}Combined Selection}{25}{subsection.106}
+\contentsline {section}{\numberline {3.4}Implementation of Covariance Matrix}{25}{section.108}
+\contentsline {section}{\numberline {3.5}Implementation of Gaussian Processes}{26}{section.109}
+\contentsline {subsection}{\numberline {3.5.1}Classical GPs}{26}{subsection.110}
+\contentsline {subsection}{\numberline {3.5.2}GPs Approximation with TSVD}{26}{subsection.112}
+\contentsline {subsection}{\numberline {3.5.3}Limitations of Other Approaches}{27}{subsection.118}
+\contentsline {section}{\numberline {3.6}Implementation of the Optimisation}{28}{section.119}
+\contentsline {subsection}{\numberline {3.6.1}Optimisation Algorithms}{28}{subsection.120}
+\contentsline {paragraph}{Greedy Algorithm}{28}{paragraph*.121}
+\contentsline {paragraph}{Lazy Algorithm}{28}{paragraph*.123}
+\contentsline {paragraph}{Local Kernel Algorithm}{29}{paragraph*.124}
+\contentsline {subsection}{\numberline {3.6.2}Comparison Tool: Distance Between Sets}{29}{subsection.125}
+\contentsline {section}{\numberline {3.7}Data Assimilation}{30}{section.129}
+\contentsline {chapter}{\numberline {4}Analysis and Results}{31}{chapter.130}
+\contentsline {section}{\numberline {4.1}Covariance}{31}{section.131}
+\contentsline {subsection}{\numberline {4.1.1}Sample Covariance}{31}{subsection.132}
+\contentsline {subsection}{\numberline {4.1.2}Shrinkage Covariance}{32}{subsection.134}
+\contentsline {section}{\numberline {4.2}Comparison Optimisation Algorithms}{33}{section.137}
+\contentsline {subsection}{\numberline {4.2.1}Conditions of the Experiment}{33}{subsection.138}
+\contentsline {subsection}{\numberline {4.2.2}Greedy and Lazy Optimisation}{34}{subsection.141}
+\contentsline {subsection}{\numberline {4.2.3}Local Kernels Optimisation}{36}{subsection.145}
+\contentsline {subsection}{\numberline {4.2.4}Approximated Gaussian Processes}{37}{subsection.148}
+\contentsline {section}{\numberline {4.3}Full Scale Optimisation Results}{38}{section.150}
+\contentsline {subsection}{\numberline {4.3.1}Local Kernel Algorithm}{38}{subsection.151}
+\contentsline {paragraph}{Description}{40}{paragraph*.155}
+\contentsline {subsection}{\numberline {4.3.2}Lazy Algorithm with TSVD}{40}{subsection.157}
+\contentsline {paragraph}{Description}{40}{paragraph*.158}
+\contentsline {section}{\numberline {4.4}Application to Variational DA}{41}{section.162}
+\contentsline {subsection}{\numberline {4.4.1}Parameters of the Experiment}{42}{subsection.163}
+\contentsline {subsection}{\numberline {4.4.2}VarDA on Local Kernel Results}{42}{subsection.164}
+\contentsline {paragraph}{Comparison to Random}{42}{paragraph*.166}
+\contentsline {paragraph}{Analysis}{43}{paragraph*.168}
+\contentsline {subsection}{\numberline {4.4.3}VarDA on Gaussian Approximation Results}{43}{subsection.169}
+\contentsline {paragraph}{Comparison to Random}{43}{paragraph*.171}
+\contentsline {paragraph}{Analysis}{44}{paragraph*.173}
+\contentsline {subsection}{\numberline {4.4.4}Limitations of the Application}{44}{subsection.174}
+\contentsline {chapter}{\numberline {5}Conclusion and Future Works}{45}{chapter.175}
+\contentsline {chapter}{\numberline {A}Ethical and Professional Considerations}{47}{appendix.176}
+\contentsline {chapter}{\numberline {B}Description of the Code}{48}{appendix.177}
